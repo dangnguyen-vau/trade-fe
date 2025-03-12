@@ -1,0 +1,33 @@
+{
+  "backtest_result": {
+    "strategy": {
+      "SampleStrategy": {
+        "trades": [
+          {
+            "pair": "BTC/USDT",
+            "profit_ratio": 0.02,
+            "profit_abs": 100,
+            "open_date": "2024-01-01T00:00:00Z",
+            "close_date": "2024-01-01T04:00:00Z"
+          },
+          {
+            "pair": "ETH/USDT",
+            "profit_ratio": -0.01,
+            "profit_abs": -50,
+            "open_date": "2024-01-01T06:00:00Z",
+            "close_date": "2024-01-01T10:00:00Z"
+          }
+        ],
+        "max_drawdown_abs": -200,
+        "duration_avg": "4h"
+      }
+    },
+    "metadata": {
+      "SampleStrategy": {
+        "timeframe": "4h",
+        "backtest_start_ts": 1704067200,
+        "backtest_end_ts": 1704153600
+      }
+    }
+  }
+} 

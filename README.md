@@ -68,3 +68,149 @@ This section has moved here: [https://facebook.github.io/create-react-app/docs/d
 ### `npm run build` fails to minify
 
 This section has moved here: [https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify](https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify)
+
+# Trading Bot Dashboard
+
+## Đề xuất tái cấu trúc thư mục
+
+Dựa trên phân tích dự án hiện tại, tôi đề xuất cấu trúc thư mục sau để giúp dự án có tổ chức tốt hơn, dễ bảo trì và mở rộng:
+
+```
+trade-fe/
+├── public/                  # Tài nguyên tĩnh
+│   ├── index.html
+│   ├── favicon.ico
+│   └── data/                # Dữ liệu JSON cho API
+│
+├── src/
+│   ├── assets/              # Tài nguyên (hình ảnh, fonts, logo...)
+│   │   ├── images/
+│   │   └── fonts/
+│   │
+│   ├── components/          # Components có thể tái sử dụng
+│   │   ├── common/          # Components dùng chung
+│   │   │   ├── Button/
+│   │   │   │   ├── Button.js
+│   │   │   │   ├── Button.css
+│   │   │   │   └── index.js
+│   │   │   ├── Card/
+│   │   │   └── ...
+│   │   │
+│   │   ├── layout/          # Components định nghĩa cấu trúc trang
+│   │   │   ├── TopBar/
+│   │   │   │   ├── TopBar.js
+│   │   │   │   ├── TopBar.css
+│   │   │   │   └── index.js
+│   │   │   └── ...
+│   │   │
+│   │   └── features/        # Components cụ thể cho từng tính năng
+│   │       ├── BotStrategy/
+│   │       │   ├── MultiStrategyBacktestResults/
+│   │       │   │   ├── MultiStrategyBacktestResults.js
+│   │       │   │   ├── MultiStrategyBacktestResults.css
+│   │       │   │   └── index.js
+│   │       │   └── ...
+│   │       │
+│   │       ├── Dashboard/
+│   │       │   ├── ProfitChart/
+│   │       │   ├── BotCard/
+│   │       │   ├── StatsSummary/
+│   │       │   └── ...
+│   │       └── ...
+│   │
+│   ├── hooks/               # Custom React hooks
+│   │   ├── useBotsData.js
+│   │   └── ...
+│   │
+│   ├── services/            # Dịch vụ API, kết nối backend
+│   │   ├── api.js
+│   │   └── ...
+│   │
+│   ├── utils/               # Hàm tiện ích
+│   │   ├── dateFormatter.js
+│   │   ├── calculators.js
+│   │   └── ...
+│   │
+│   ├── constants/           # Các hằng số và cấu hình
+│   │   ├── colors.js
+│   │   ├── config.js
+│   │   └── ...
+│   │
+│   ├── contexts/            # React contexts
+│   │   ├── BotContext.js
+│   │   └── ...
+│   │
+│   ├── pages/               # Các trang chính
+│   │   ├── Dashboard/
+│   │   │   ├── Dashboard.js
+│   │   │   ├── Dashboard.css
+│   │   │   └── index.js
+│   │   ├── BotDetails/
+│   │   ├── StrategyAnalysis/
+│   │   └── ...
+│   │
+│   ├── mocks/               # Dữ liệu mẫu/giả
+│   │   ├── botsData.js
+│   │   └── ...
+│   │
+│   ├── types/               # Type definitions (nếu dùng TypeScript)
+│   │   ├── bot.types.js
+│   │   └── ...
+│   │
+│   ├── styles/              # Global styles
+│   │   ├── global.css
+│   │   ├── variables.css
+│   │   └── ...
+│   │
+│   ├── App.js               # Component gốc của ứng dụng
+│   ├── index.js             # Điểm khởi đầu
+│   └── routes.js            # Cấu hình định tuyến
+│
+├── server/                  # Backend code
+│   ├── controllers/         # Xử lý logic
+│   ├── routes/              # Định nghĩa API routes
+│   ├── middleware/          # Middleware Express
+│   └── server.js            # Entry point của server
+│
+├── scripts/                 # Scripts tiện ích
+│   ├── generate_bots_data.py
+│   └── ...
+│
+├── .env                     # Biến môi trường
+├── .gitignore
+├── package.json
+└── README.md
+```
+
+## Giải thích cấu trúc thư mục mới
+
+### 1. Tách biệt Backend và Frontend
+- Di chuyển `server.js` vào thư mục `server/` và tổ chức thành các phần nhỏ theo mô hình MVC.
+
+### 2. Tổ chức Components
+- **common**: Các components có thể sử dụng lại ở nhiều nơi (Button, Card, Input...)
+- **layout**: Components định nghĩa bố cục (TopBar, Sidebar...)
+- **features**: Components cụ thể cho từng tính năng/module của ứng dụng.
+
+### 3. Chia components theo mô hình Atomic Design
+- Mỗi component nên có cấu trúc riêng với file JS, CSS và file index.js để export.
+
+### 4. Tách logic nghiệp vụ
+- Sử dụng hooks và services để tách logic khỏi components.
+- Tạo context để quản lý state ở mức ứng dụng.
+
+### 5. Tổ chức các trang (Pages)
+- Mỗi trang là một container kết hợp nhiều components để tạo thành UI hoàn chỉnh.
+
+### 6. Utils và Constants
+- Tách các hàm tiện ích và hằng số ra thư mục riêng để dễ quản lý.
+
+### 7. Styles
+- Thư mục styles chứa các style chung cho toàn ứng dụng.
+
+## Lợi ích của cấu trúc mới
+1. **Dễ mở rộng**: Dễ dàng thêm tính năng mới mà không ảnh hưởng tới code hiện tại.
+2. **Tái sử dụng**: Tăng khả năng tái sử dụng components.
+3. **Dễ bảo trì**: Mỗi phần có nhiệm vụ rõ ràng, dễ kiểm soát.
+4. **Dễ hiểu cho người mới**: Cấu trúc mạch lạc, dễ nắm bắt.
+5. **Phân chia rõ ràng giữa server và client**: Backend code được tách biệt.

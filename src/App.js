@@ -7,6 +7,7 @@ import StatsSummary from './components/StatsSummary';
 import WeeklyStatsSummary from './components/WeeklyStatsSummary';
 import QuickOverview from './components/QuickOverview';
 import { botsData } from './mocks/botsData';
+import MultiStrategyBacktestResults from './components/BotStrategy/MultiStrategyBacktestResults';
 
 function App() {
   const [hoveredBot, setHoveredBot] = useState(null);
@@ -14,14 +15,6 @@ function App() {
   const [selectedMonthData, setSelectedMonthData] = useState(null);
   const [selectedDayData, setSelectedDayData] = useState(null);
   const [selectedWeekData, setSelectedWeekData] = useState(null);
-
-  // Format date for display
-  const formattedDate = useMemo(() => selectedDate.toLocaleDateString('vi-VN', {
-    weekday: 'long',
-    year: 'numeric',
-    month: 'long',
-    day: 'numeric'
-  }), [selectedDate]);
 
   // Handle date navigation
   const changeDate = useCallback((days) => {
@@ -38,13 +31,13 @@ function App() {
   }, []);
 
   const selectedDateIndex = useMemo(() => getDateIndex(selectedDate), [getDateIndex, selectedDate]);
-  
+
   const yesterdayDate = useMemo(() => {
     const date = new Date(selectedDate);
     date.setDate(selectedDate.getDate() - 1);
     return date;
   }, [selectedDate]);
-  
+
   const previousDateIndex = useMemo(() => getDateIndex(yesterdayDate), [getDateIndex, yesterdayDate]);
 
   // Get selected date and previous date stats
@@ -63,22 +56,22 @@ function App() {
   })), [previousDateIndex]);
 
   // Calculate metrics for selected date
-  const selectedNetProfit = useMemo(() => 
+  const selectedNetProfit = useMemo(() =>
     selectedDateStats.reduce((sum, bot) => sum + bot.performance, 0).toFixed(1)
-  , [selectedDateStats]);
-  
-  const previousNetProfit = useMemo(() => 
+    , [selectedDateStats]);
+
+  const previousNetProfit = useMemo(() =>
     previousDateStats.reduce((sum, bot) => sum + bot.performance, 0).toFixed(1)
-  , [previousDateStats]);
-  
-  const netProfitChange = useMemo(() => 
+    , [previousDateStats]);
+
+  const netProfitChange = useMemo(() =>
     (selectedNetProfit - previousNetProfit).toFixed(1)
-  , [selectedNetProfit, previousNetProfit]);
+    , [selectedNetProfit, previousNetProfit]);
 
   // Calculate today's net profit amount
-  const todayNetProfitAmount = useMemo(() => 
+  const todayNetProfitAmount = useMemo(() =>
     selectedDateStats.reduce((sum, bot) => sum + bot.net_profit, 0)
-  , [selectedDateStats]);
+    , [selectedDateStats]);
 
   // Find top and bottom performers
   const { topBot, bottomBot } = useMemo(() => {
@@ -108,24 +101,19 @@ function App() {
   }, [selectedDateStats]);
 
   // Calculate profitable bots
-  const profitableBotsToday = useMemo(() => 
+  const profitableBotsToday = useMemo(() =>
     selectedDateStats.filter(bot => bot.performance > 0).length
-  , [selectedDateStats]);
-  
-  const profitableBotsYesterday = useMemo(() => 
+    , [selectedDateStats]);
+
+  const profitableBotsYesterday = useMemo(() =>
     previousDateStats.filter(bot => bot.performance > 0).length
-  , [previousDateStats]);
-  
-  const profitableBotsChange = useMemo(() => 
+    , [previousDateStats]);
+
+  const profitableBotsChange = useMemo(() =>
     profitableBotsToday - profitableBotsYesterday
-  , [profitableBotsToday, profitableBotsYesterday]);
+    , [profitableBotsToday, profitableBotsYesterday]);
 
   const totalBots = useMemo(() => selectedDateStats.length, [selectedDateStats]);
-
-  // Calculate trading volume (total balance)
-  const tradingVolume = useMemo(() => 
-    selectedDateStats.reduce((sum, bot) => sum + bot.balance, 0)
-  , [selectedDateStats]);
 
   // Get current balance for each bot (from latest day)
   const getCurrentBalance = useCallback((botName) => {
@@ -148,16 +136,16 @@ function App() {
   const weeklyData = useMemo(() => Array.from({ length: 7 }).map((_, index) => {
     const currentDate = new Date(selectedDate);
     currentDate.setDate(selectedDate.getDate() - index);
-    
+
     return {
       date: currentDate.toISOString().split('T')[0],
       bots: botsData.map(bot => {
-        const dailyStat = bot.daily_stats.find(stat => 
+        const dailyStat = bot.daily_stats.find(stat =>
           new Date(stat.date).toISOString().split('T')[0] === currentDate.toISOString().split('T')[0]
         );
         return {
           id: bot.name,
-      name: bot.name,
+          name: bot.name,
           performance: dailyStat ? dailyStat.profit_percent : 0,
           winRate: dailyStat ? `${dailyStat.winrate}%` : 'N/A',
           balance: getCurrentBalance(bot.name),
@@ -171,7 +159,7 @@ function App() {
   const weeklyBotsData = useMemo(() => botsData.map(bot => {
     const weeklyStats = weeklyData.map(day => {
       const botStat = day.bots.find(b => b.name === bot.name);
-      const dailyStat = bot.daily_stats.find(stat => 
+      const dailyStat = bot.daily_stats.find(stat =>
         new Date(stat.date).toISOString().split('T')[0] === day.date
       );
       return {
@@ -199,42 +187,36 @@ function App() {
   // Calculate weekly summary metrics
   const weeklyNetProfit = useMemo(() => weeklyBotsData.reduce((sum, bot) => sum + bot.netProfit, 0), [weeklyBotsData]);
 
-  const topWeeklyPerformer = useMemo(() => 
+  const topWeeklyPerformer = useMemo(() =>
     weeklyBotsData.reduce((best, current) =>
-    parseFloat(current.performance) > parseFloat(best.performance) ? current : best
+      parseFloat(current.performance) > parseFloat(best.performance) ? current : best
     )
-  , [weeklyBotsData]);
-  const bottomWeeklyPerformer = useMemo(() => 
+    , [weeklyBotsData]);
+  const bottomWeeklyPerformer = useMemo(() =>
     weeklyBotsData.reduce((worst, current) =>
-    parseFloat(current.performance) < parseFloat(worst.performance) ? current : worst
+      parseFloat(current.performance) < parseFloat(worst.performance) ? current : worst
     )
-  , [weeklyBotsData]);
+    , [weeklyBotsData]);
 
-  // Calculate average profitable bots per day
-  const profitableBotsPerDay = useMemo(() => 
-    weeklyData.map(day =>
-    day.bots.filter(bot => bot.performance > 0).length
-    )
-  , [weeklyData]);
-  const avgProfitableBotsPerDay = useMemo(() => 
+  const avgProfitableBotsPerDay = useMemo(() =>
     weeklyBotsData.filter(bot => parseFloat(bot.performance) > 0).length
-  , [weeklyBotsData]);
+    , [weeklyBotsData]);
 
   // Calculate weekly total profit percent
-  const weeklyTotalProfitPercent = useMemo(() => 
-    weeklyBotsData.reduce((sum, bot) => 
+  const weeklyTotalProfitPercent = useMemo(() =>
+    weeklyBotsData.reduce((sum, bot) =>
       sum + parseFloat(bot.performance), 0).toFixed(2)
-  , [weeklyBotsData]);
+    , [weeklyBotsData]);
 
   // Prepare monthly data
   const monthlyData = useMemo(() => Array.from({ length: 30 }).map((_, index) => {
     const currentDate = new Date(selectedDate);
     currentDate.setDate(selectedDate.getDate() - index);
-    
+
     return {
       date: currentDate.toISOString().split('T')[0],
       bots: botsData.map(bot => {
-        const dailyStat = bot.daily_stats.find(stat => 
+        const dailyStat = bot.daily_stats.find(stat =>
           new Date(stat.date).toISOString().split('T')[0] === currentDate.toISOString().split('T')[0]
         );
         return {
@@ -274,43 +256,13 @@ function App() {
     };
   }), [monthlyData, getCurrentBalance]);
 
-  // Calculate monthly summary metrics
-  const monthlyNetProfit = useMemo(() => monthlyBotsData.reduce((sum, bot) => sum + bot.netProfit, 0), [monthlyBotsData]);
-
-  const topMonthlyPerformer = useMemo(() => 
-    monthlyBotsData.reduce((best, current) =>
-    parseFloat(current.performance) > parseFloat(best.performance) ? current : best
-    )
-  , [monthlyBotsData]);
-  const bottomMonthlyPerformer = useMemo(() => 
-    monthlyBotsData.reduce((worst, current) =>
-    parseFloat(current.performance) < parseFloat(worst.performance) ? current : worst
-    )
-  , [monthlyBotsData]);
-
-  // Calculate average profitable bots per day for the month
-  const profitableBotsPerDayMonthly = useMemo(() => 
-    monthlyData.map(day =>
-    day.bots.filter(bot => bot.performance > 0).length
-    )
-  , [monthlyData]);
-  const avgProfitableBotsPerDayMonthly = useMemo(() => 
-    monthlyBotsData.filter(bot => parseFloat(bot.performance) > 0).length
-  , [monthlyBotsData]);
-
-  // Calculate monthly total profit percent
-  const monthlyTotalProfitPercent = useMemo(() => 
-    monthlyBotsData.reduce((sum, bot) => 
-      sum + parseFloat(bot.performance), 0).toFixed(2)
-  , [monthlyBotsData]);
-
   // Prepare 4-week data
   const fourWeekData = useMemo(() => Array.from({ length: 4 }).map((_, weekIndex) => {
     const endDate = new Date(selectedDate);
     endDate.setDate(selectedDate.getDate() - (weekIndex * 7));
     const startDate = new Date(endDate);
     startDate.setDate(endDate.getDate() - 6);
-    
+
     // Get all days in this week
     const weekDays = Array.from({ length: 7 }).map((_, dayIndex) => {
       const currentDate = new Date(endDate);
@@ -321,7 +273,7 @@ function App() {
     // Calculate total profit for all bots in this week
     const weeklyTotalProfit = weekDays.reduce((sum, date) => {
       const dayStats = botsData.map(bot => {
-        const dailyStat = bot.daily_stats.find(stat => 
+        const dailyStat = bot.daily_stats.find(stat =>
           new Date(stat.date).toISOString().split('T')[0] === date
         );
         return dailyStat ? dailyStat.profit_percent : 0;
@@ -332,7 +284,7 @@ function App() {
     // Calculate bot performances for this week
     const botPerformances = botsData.map(bot => {
       const weeklyStats = weekDays.map(date => {
-        const dailyStat = bot.daily_stats.find(stat => 
+        const dailyStat = bot.daily_stats.find(stat =>
           new Date(stat.date).toISOString().split('T')[0] === date
         );
         return {
@@ -374,7 +326,7 @@ function App() {
     const startDate = new Date(endDate);
     startDate.setDate(1); // First day of month
     endDate.setDate(0); // Last day of previous month
-    
+
     // Get all days in this month
     const monthDays = Array.from({ length: endDate.getDate() }).map((_, dayIndex) => {
       const currentDate = new Date(startDate);
@@ -385,7 +337,7 @@ function App() {
     // Calculate total profit for all bots in this month
     const monthlyTotalProfit = monthDays.reduce((sum, date) => {
       const dayStats = botsData.map(bot => {
-        const dailyStat = bot.daily_stats.find(stat => 
+        const dailyStat = bot.daily_stats.find(stat =>
           new Date(stat.date).toISOString().split('T')[0] === date
         );
         return dailyStat ? dailyStat.profit_percent : 0;
@@ -396,7 +348,7 @@ function App() {
     // Calculate bot performances for this month
     const botPerformances = botsData.map(bot => {
       const monthlyStats = monthDays.map(date => {
-        const dailyStat = bot.daily_stats.find(stat => 
+        const dailyStat = bot.daily_stats.find(stat =>
           new Date(stat.date).toISOString().split('T')[0] === date
         );
         return {
@@ -521,7 +473,7 @@ function App() {
                 <h1>Weekly Profit Analysis</h1>
                 <div className="subtitle-with-controls">
                   <div className="subtitle">
-                  Profit Overview  •
+                    Profit Overview  •
                     <div className="date-controls">
                       <button
                         className="date-nav-btn"
@@ -532,7 +484,7 @@ function App() {
                         ←
                       </button>
                       <span>
-                        {new Date(weeklyData[6].date).toLocaleDateString('en-US', { 
+                        {new Date(weeklyData[6].date).toLocaleDateString('en-US', {
                           month: 'short',
                           day: 'numeric'
                         })} - {new Date(weeklyData[0].date).toLocaleDateString('en-US', {
@@ -606,7 +558,7 @@ function App() {
                         </button>
                       )}
                       <span>
-                        {selectedMonthData 
+                        {selectedMonthData
                           ? `${new Date(selectedMonthData.monthStart).toLocaleDateString('en-US', { month: 'long', year: 'numeric' })}`
                           : `${new Date(twelveMonthData[0].monthStart).toLocaleDateString('en-US', { month: 'long', year: 'numeric' })}`
                         }
@@ -616,25 +568,25 @@ function App() {
                 </div>
               </div>
               <WeeklyStatsSummary
-                weeklyNetProfit={selectedMonthData ? 
-                  selectedMonthData.botPerformances.reduce((sum, bot) => sum + bot.netProfit, 0) : 
+                weeklyNetProfit={selectedMonthData ?
+                  selectedMonthData.botPerformances.reduce((sum, bot) => sum + bot.netProfit, 0) :
                   twelveMonthData[0].botPerformances.reduce((sum, bot) => sum + bot.netProfit, 0)}
-                totalProfitPercent={selectedMonthData ? 
-                  selectedMonthData.botPerformances.reduce((sum, bot) => sum + parseFloat(bot.performance), 0).toFixed(2) : 
+                totalProfitPercent={selectedMonthData ?
+                  selectedMonthData.botPerformances.reduce((sum, bot) => sum + parseFloat(bot.performance), 0).toFixed(2) :
                   twelveMonthData[0].botPerformances.reduce((sum, bot) => sum + parseFloat(bot.performance), 0).toFixed(2)}
-                topPerformer={selectedMonthData ? 
+                topPerformer={selectedMonthData ?
                   selectedMonthData.botPerformances.reduce((best, current) => parseFloat(current.performance) > parseFloat(best.performance) ? current : best).name :
                   twelveMonthData[0].botPerformances.reduce((best, current) => parseFloat(current.performance) > parseFloat(best.performance) ? current : best).name}
-                topPerformanceValue={selectedMonthData ? 
+                topPerformanceValue={selectedMonthData ?
                   selectedMonthData.botPerformances.reduce((best, current) => parseFloat(current.performance) > parseFloat(best.performance) ? current : best).performance :
                   twelveMonthData[0].botPerformances.reduce((best, current) => parseFloat(current.performance) > parseFloat(best.performance) ? current : best).performance}
-                bottomPerformer={selectedMonthData ? 
+                bottomPerformer={selectedMonthData ?
                   selectedMonthData.botPerformances.reduce((worst, current) => parseFloat(current.performance) < parseFloat(worst.performance) ? current : worst).name :
                   twelveMonthData[0].botPerformances.reduce((worst, current) => parseFloat(current.performance) < parseFloat(worst.performance) ? current : worst).name}
-                bottomPerformanceValue={selectedMonthData ? 
+                bottomPerformanceValue={selectedMonthData ?
                   selectedMonthData.botPerformances.reduce((worst, current) => parseFloat(current.performance) < parseFloat(worst.performance) ? current : worst).performance :
                   twelveMonthData[0].botPerformances.reduce((worst, current) => parseFloat(current.performance) < parseFloat(worst.performance) ? current : worst).performance}
-                profitableBots={selectedMonthData ? 
+                profitableBots={selectedMonthData ?
                   selectedMonthData.botPerformances.filter(bot => bot.performance > 0).length :
                   twelveMonthData[0].botPerformances.filter(bot => bot.performance > 0).length}
                 totalBots={botsData.length}
@@ -663,6 +615,9 @@ function App() {
                 ))}
               </div>
             </div>
+          </div>
+          <div className="dashboard-section">
+            < MultiStrategyBacktestResults />
           </div>
         </div>
       </div>
