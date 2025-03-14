@@ -1,70 +1,169 @@
-# Getting Started with Create React App
+# Trade-FE - Ứng dụng Giám sát Bot Giao dịch
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+## Tổng quan ứng dụng
 
-## Available Scripts
+Trade-FE là ứng dụng frontend giám sát hiệu suất các bot giao dịch tự động. Ứng dụng hiển thị dữ liệu giao dịch, thống kê lợi nhuận, và đánh giá hiệu suất theo nhiều khung thời gian (ngày, tuần, tháng) giúp người dùng theo dõi và phân tích hiệu quả đầu tư.
 
-In the project directory, you can run:
+## Luồng hoạt động của ứng dụng
 
-### `npm start`
+### 1. Luồng dữ liệu
 
-Runs the app in the development mode.\
-Open [http://localhost:3000](http://localhost:3000) to view it in your browser.
+```
+API Backend → Dữ liệu thô → Biến đổi dữ liệu → Hiển thị giao diện → Tương tác người dùng
+```
 
-The page will reload when you make changes.\
-You may also see any lint errors in the console.
+- **Thu thập dữ liệu**: Ứng dụng gọi các API để lấy dữ liệu về giao dịch, số dư tài khoản, lợi nhuận
+- **Biến đổi dữ liệu**: Dữ liệu thô được xử lý thông qua các hàm trong `dataTransform.js` để tính toán thống kê theo ngày/tuần/tháng
+- **Hiển thị dữ liệu**: Dữ liệu đã xử lý được truyền đến các component để hiển thị trên dashboard
+- **Tương tác**: Người dùng có thể lọc, sắp xếp và phân tích dữ liệu theo nhiều cách khác nhau
 
-### `npm test`
+### 2. Luồng tương tác người dùng
 
-Launches the test runner in the interactive watch mode.\
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
+- **Dashboard chính**: Hiển thị tổng quan hiệu suất của tất cả các bot
+- **Xem chi tiết theo thời gian**: Người dùng có thể chọn xem thống kê theo ngày, tuần, hoặc tháng
+- **Chi tiết về bot**: Khi nhấp vào một bot cụ thể, người dùng sẽ thấy thông tin chi tiết
+- **Xem tất cả lệnh**: Người dùng có thể xem toàn bộ lệnh giao dịch, lọc theo bot, sắp xếp theo thời gian hoặc lợi nhuận
+- **Backtest nhiều chiến lược**: Phân tích hiệu suất nhiều chiến lược khác nhau
 
-### `npm run build`
+### 3. Sơ đồ luồng dữ liệu
 
-Builds the app for production to the `build` folder.\
-It correctly bundles React in production mode and optimizes the build for the best performance.
+```
+┌─────────────┐    ┌─────────────┐    ┌─────────────┐
+│  API Server │───▶│   Backend   │───▶│   Frontend  │
+└─────────────┘    └─────────────┘    └─────────────┘
+       │                 │                   │
+       ▼                 ▼                   ▼
+┌─────────────┐    ┌─────────────┐    ┌─────────────┐
+│  Raw Trade  │    │  JSON Data  │    │    React    │
+│    Data     │    │  (DataBot)  │    │ Components  │
+└─────────────┘    └─────────────┘    └─────────────┘
+```
 
-The build is minified and the filenames include the hashes.\
-Your app is ready to be deployed!
+**Giải thích sơ đồ:**
+- **API Server**: Cung cấp dữ liệu giao dịch thô từ các bot
+- **Backend**: Xử lý dữ liệu thô, tính toán các chỉ số hiệu suất
+- **Frontend**: Hiển thị và tương tác với người dùng
+- **Raw Trade Data**: Dữ liệu giao dịch thô (giá mở/đóng, thời gian, volume...)
+- **JSON Data (DataBot)**: Dữ liệu đã được xử lý, định dạng sẵn cho frontend
+- **React Components**: Các thành phần giao diện hiển thị dữ liệu
 
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
+## Cấu trúc thư mục
 
-### `npm run eject`
+```
+frontend/
+├── public/                 # Tài nguyên tĩnh
+├── src/
+│   ├── components/         # Các thành phần giao diện
+│   │   ├── common/         # Component dùng chung (Modal, Button, ...)
+│   │   ├── layout/         # Component bố cục (TopBar, QuickOverview)
+│   │   ├── features/       # Component theo tính năng
+│   │   │   ├── Bot/        # Các component liên quan đến Bot (BotCard, BotDetail)
+│   │   │   ├── Stats/      # Các component thống kê (DailyStatsSummary, WeeklyStatsSummary)
+│   │   │   ├── Trades/     # Các component giao dịch (AllTradesDetail)
+│   │   │   └── Strategy/   # Các component chiến lược (MultiStrategyBacktestResults)
+│   │   └── ui/             # Các component giao diện chung (ProfitChart)
+│   ├── constants/          # Các hằng số và cấu hình
+│   │   └── colors.js       # Định nghĩa màu sắc
+│   ├── services/           # Xử lý logic nghiệp vụ
+│   │   ├── api.js          # Gọi API từ backend
+│   │   └── dataTransform.js # Xử lý và biến đổi dữ liệu
+│   ├── App.js              # Component chính của ứng dụng
+│   ├── App.css             # CSS cho App component
+│   ├── index.js            # Điểm khởi đầu của ứng dụng
+│   └── index.css           # CSS toàn cục
+└── package.json            # Cấu hình npm và dependencies
+```
 
-**Note: this is a one-way operation. Once you `eject`, you can't go back!**
+## Chi tiết các thành phần
 
-If you aren't satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
+### 1. Dashboard chính (App.js)
 
-Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you're on your own.
+Đây là thành phần chính của ứng dụng, chứa:
+- **TopBar**: Thanh điều hướng trên cùng
+- **Các panel thống kê**: Hiển thị số liệu theo ngày, tuần, tháng
+- **QuickOverview**: Tóm tắt nhanh về hiệu suất tổng thể
+- **Các modal**: Hiển thị chi tiết bot và tất cả lệnh giao dịch
 
-You don't have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn't feel obligated to use this feature. However we understand that this tool wouldn't be useful if you couldn't customize it when you are ready for it.
+### 2. Hiển thị dữ liệu hiệu suất
 
-## Learn More
+#### ProfitChart
+Component biểu đồ linh hoạt hiển thị lợi nhuận theo nhiều cách:
+- **Daily view**: Biểu đồ lợi nhuận 7 ngày gần nhất, khi click vào 1 ngày sẽ hiện chi tiết từng bot
+- **Weekly view**: Biểu đồ 4 tuần gần nhất, khi click vào 1 tuần sẽ hiện chi tiết từng bot
+- **Monthly view**: Biểu đồ 12 tháng gần nhất, khi click vào 1 tháng sẽ hiện chi tiết từng bot
 
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
+#### BotCard
+Hiển thị thông tin tóm tắt về một bot cụ thể:
+- Tên bot
+- Hiệu suất (lợi nhuận %)
+- Tỷ lệ thắng (win rate)
+- Số dư hiện tại
+- Lợi nhuận ròng
 
-To learn React, check out the [React documentation](https://reactjs.org/).
+### 3. Chi tiết giao dịch
 
-### Code Splitting
+#### BotDetail
+Hiển thị thông tin chi tiết về một bot khi người dùng nhấp vào bot đó:
+- Thống kê tổng quan (tỷ lệ thắng, lợi nhuận, số lệnh)
+- Bảng các lệnh giao dịch gần đây
+- Biểu đồ hiệu suất
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/code-splitting](https://facebook.github.io/create-react-app/docs/code-splitting)
+#### AllTradesDetail
+Hiển thị tất cả lệnh giao dịch của mọi bot với khả năng:
+- Lọc theo bot cụ thể
+- Sắp xếp theo ngày, lợi nhuận, hoặc bot
+- Xem thống kê tổng hợp (tổng lợi nhuận, win rate, số lệnh)
 
-### Analyzing the Bundle Size
+### 4. Phân tích chiến lược
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size](https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size)
+#### MultiStrategyBacktestResults
+Hiển thị kết quả backtest nhiều chiến lược:
+- Biểu đồ lợi nhuận tích lũy
+- So sánh hiệu suất giữa các chiến lược
+- Thống kê chi tiết theo từng khung thời gian
+- Nút "Xem tất cả lệnh giao dịch" để mở modal xem chi tiết
 
-### Making a Progressive Web App
+## Xử lý dữ liệu
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app](https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app)
+### dataTransform.js
 
-### Advanced Configuration
+File này chứa các hàm xử lý dữ liệu quan trọng:
+- **transformTradeData**: Chuyển đổi dữ liệu thô từ API thành cấu trúc dễ sử dụng
+- **getDailyStats**: Tính toán thống kê theo ngày
+- **getWeeklyStats**: Tính toán thống kê theo tuần
+- **getMonthlyStats**: Tính toán thống kê theo tháng
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/advanced-configuration](https://facebook.github.io/create-react-app/docs/advanced-configuration)
+### api.js
 
-### Deployment
+File này chứa các hàm gọi API:
+- **fetchTradesData**: Lấy dữ liệu về các lệnh giao dịch
+- **fetchBalanceData**: Lấy dữ liệu về số dư tài khoản
+- **fetchProfitData**: Lấy dữ liệu về lợi nhuận
+- **fetchDailyData, fetchWeeklyData, fetchMonthlyData**: Lấy dữ liệu thống kê theo khung thời gian
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/deployment](https://facebook.github.io/create-react-app/docs/deployment)
+## Hệ thống màu sắc và thiết kế
 
-### `npm run build` fails to minify
+Ứng dụng sử dụng file `colors.js` để quản lý hệ thống màu sắc:
+- **COLORS**: Màu sắc chung cho toàn bộ ứng dụng (nền, text, border, status)
+- **BOT_COLORS**: Màu sắc cho các bot khác nhau
+- **Hàm helper**: `getBackgroundColor` và `getHoverColor` để tạo hiệu ứng và màu nền
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify](https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify)
+## Hướng dẫn sử dụng
+
+### Xem thống kê theo thời gian
+1. Trên trang chính, bạn có thể chuyển giữa các tab: Daily, Weekly, Monthly
+2. Sử dụng nút điều hướng ngày (← →) để thay đổi khoảng thời gian
+3. Nhấp vào các cột trong biểu đồ để xem chi tiết
+
+### Xem chi tiết về bot
+1. Nhấp vào bất kỳ bot nào trong danh sách để mở modal chi tiết
+2. Modal hiển thị thông tin chi tiết và lịch sử giao dịch của bot đó
+
+### Xem tất cả lệnh giao dịch
+1. Nhấp vào nút "Xem tất cả lệnh" trong phần Thống kê hiệu suất tổng thể
+2. Modal hiển thị tất cả các lệnh với tùy chọn lọc và sắp xếp
+3. Sử dụng dropdown để lọc theo bot
+
+## Kết luận
+
+Trade-FE là ứng dụng frontend hiện đại giúp người dùng theo dõi và phân tích hiệu suất các bot giao dịch tự động. Với thiết kế trực quan và tính năng phong phú, ứng dụng cung cấp công cụ mạnh mẽ để đánh giá hiệu quả đầu tư theo nhiều khung thời gian khác nhau.

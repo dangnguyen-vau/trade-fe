@@ -1,0 +1,31 @@
+{
+  "currencies": [
+    {
+      "currency": "USDT",
+      "free": 50.723015218,
+      "balance": 50.723015218,
+      "used": 0,
+      "bot_owned": 42.83205157142858,
+      "est_stake": 50.723015218,
+      "est_stake_bot": 42.83205157142858,
+      "stake": "USDT",
+      "side": "long",
+      "is_position": false,
+      "position": 0,
+      "is_bot_managed": true
+    }
+  ],
+  "total": 50.723015218,
+  "total_bot": 42.83205157142858,
+  "symbol": "USD",
+  "value": 50.71084169434768,
+  "value_bot": 42.82177187905143,
+  "stake": "USDT",
+  "note": "",
+  "starting_capital": 50,
+  "starting_capital_ratio": -0.14335896857142838,
+  "starting_capital_pct": -14.34,
+  "starting_capital_fiat": 49.988,
+  "starting_capital_fiat_ratio": -0.1433589685714285,
+  "starting_capital_fiat_pct": -14.34
+}
