@@ -23,7 +23,6 @@ API Backend → Dữ liệu thô → Biến đổi dữ liệu → Hiển thị 
 - **Xem chi tiết theo thời gian**: Người dùng có thể chọn xem thống kê theo ngày, tuần, hoặc tháng
 - **Chi tiết về bot**: Khi nhấp vào một bot cụ thể, người dùng sẽ thấy thông tin chi tiết
 - **Xem tất cả lệnh**: Người dùng có thể xem toàn bộ lệnh giao dịch, lọc theo bot, sắp xếp theo thời gian hoặc lợi nhuận
-- **Backtest nhiều chiến lược**: Phân tích hiệu suất nhiều chiến lược khác nhau
 
 ### 3. Sơ đồ luồng dữ liệu
 
@@ -41,8 +40,8 @@ API Backend → Dữ liệu thô → Biến đổi dữ liệu → Hiển thị 
 
 **Giải thích sơ đồ:**
 - **API Server**: Cung cấp dữ liệu giao dịch thô từ các bot
-- **Backend**: Xử lý dữ liệu thô, tính toán các chỉ số hiệu suất
-- **Frontend**: Hiển thị và tương tác với người dùng
+- **Backend**: Lấy dữ liệu thô về
+- **Frontend**: Xử lý dữ liệu thô và hiển thị cho người dùng tương tác
 - **Raw Trade Data**: Dữ liệu giao dịch thô (giá mở/đóng, thời gian, volume...)
 - **JSON Data (DataBot)**: Dữ liệu đã được xử lý, định dạng sẵn cho frontend
 - **React Components**: Các thành phần giao diện hiển thị dữ liệu
@@ -95,9 +94,8 @@ Component biểu đồ linh hoạt hiển thị lợi nhuận theo nhiều cách
 #### BotCard
 Hiển thị thông tin tóm tắt về một bot cụ thể:
 - Tên bot
-- Hiệu suất (lợi nhuận %)
+- Số lệnh trade
 - Tỷ lệ thắng (win rate)
-- Số dư hiện tại
 - Lợi nhuận ròng
 
 ### 3. Chi tiết giao dịch
@@ -105,8 +103,7 @@ Hiển thị thông tin tóm tắt về một bot cụ thể:
 #### BotDetail
 Hiển thị thông tin chi tiết về một bot khi người dùng nhấp vào bot đó:
 - Thống kê tổng quan (tỷ lệ thắng, lợi nhuận, số lệnh)
-- Bảng các lệnh giao dịch gần đây
-- Biểu đồ hiệu suất
+- Bảng các lệnh giao dịch gần đây gồm các thông tin chi tiết(Cặp, Loại, Ngày mở, Ngày đóng, Lợi nhuận (%), Lợi nhuận (USDT), Lý do đóng)
 
 #### AllTradesDetail
 Hiển thị tất cả lệnh giao dịch của mọi bot với khả năng:
