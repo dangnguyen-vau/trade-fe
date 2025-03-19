@@ -1,0 +1,328 @@
+.bot-detail-container {
+  background-color: rgba(50, 75, 120, 0.75);
+  backdrop-filter: blur(16px);
+  border-radius: 16px;
+  box-shadow: 0 10px 30px rgba(5, 15, 40, 0.25);
+  padding: 25px;
+  margin-bottom: 30px;
+  border: 1px solid rgba(255, 255, 255, 0.15);
+  position: relative;
+  overflow: hidden;
+}
+
+.bot-detail-container::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: linear-gradient(135deg, rgba(255, 255, 255, 0.15) 0%, rgba(255, 255, 255, 0.08) 10%, rgba(255, 255, 255, 0) 80%);
+  pointer-events: none;
+  z-index: 1;
+}
+
+.bot-detail-header {
+  display: flex;
+  flex-direction: column;
+  margin-bottom: 25px;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+  padding-bottom: 20px;
+  position: relative;
+  z-index: 2;
+}
+
+.bot-detail-header h2 {
+  margin: 0 0 20px 0;
+  color: #f0f0f0;
+  font-size: 1.8rem;
+  text-shadow: 0 2px 10px rgba(0, 0, 0, 0.5);
+  letter-spacing: 0.5px;
+}
+
+.bot-detail-stats {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 25px;
+}
+
+.stat-item {
+  display: flex;
+  flex-direction: column;
+  background-color: rgba(35, 55, 90, 0.3);
+  padding: 15px;
+  border-radius: 10px;
+  min-width: 150px;
+  border: 1px solid rgba(255, 255, 255, 0.08);
+}
+
+.stat-label {
+  font-size: 0.85rem;
+  color: rgba(255, 255, 255, 0.6);
+  margin-bottom: 8px;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+}
+
+.stat-value {
+  font-size: 1.3rem;
+  font-weight: 700;
+  color: #f0f0f0;
+}
+
+.trades-section {
+  width: 100%;
+  position: relative;
+  z-index: 2;
+}
+
+.trades-section h3 {
+  margin-top: 0;
+  margin-bottom: 20px;
+  color: #f0f0f0;
+  font-size: 1.5rem;
+  letter-spacing: 0.5px;
+  text-shadow: 0 2px 8px rgba(0, 0, 0, 0.4);
+  position: relative;
+  display: inline-block;
+}
+
+.trades-section h3::after {
+  content: '';
+  position: absolute;
+  bottom: -8px;
+  left: 0;
+  width: 40px;
+  height: 3px;
+  background: linear-gradient(90deg, #3b82f6, transparent);
+  border-radius: 3px;
+}
+
+.trades-table {
+  width: 100%;
+  border-collapse: separate;
+  border-spacing: 0;
+  margin-bottom: 20px;
+  border-radius: 12px;
+  overflow: hidden;
+}
+
+.trades-table th, 
+.trades-table td {
+  padding: 12px 15px;
+  text-align: left;
+}
+
+.trades-table th {
+  background-color: rgba(35, 55, 90, 0.6);
+  font-weight: 600;
+  color: rgba(255, 255, 255, 0.9);
+  text-transform: uppercase;
+  font-size: 0.85rem;
+  letter-spacing: 1px;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+.trades-table tr {
+  transition: background-color 0.2s ease;
+}
+
+.trades-table tbody tr:hover {
+  background-color: rgba(255, 255, 255, 0.05);
+}
+
+.positive-trade {
+  background-color: rgba(37, 206, 164, 0.1);
+}
+
+.negative-trade {
+  background-color: rgba(255, 77, 77, 0.1);
+}
+
+.positive {
+  color: #2ecea4;
+  text-shadow: 0 0 8px rgba(37, 206, 164, 0.3);
+}
+
+.negative {
+  color: #ff4d4d;
+  text-shadow: 0 0 8px rgba(255, 77, 77, 0.3);
+}
+
+.show-more-btn {
+  background-color: rgba(79, 143, 252, 0.15);
+  border: 1px solid rgba(79, 143, 252, 0.3);
+  border-radius: 8px;
+  padding: 10px 20px;
+  cursor: pointer;
+  color: #4f8ffc;
+  font-size: 0.95rem;
+  font-weight: 600;
+  transition: all 0.2s ease;
+  display: block;
+  margin: 0 auto;
+  text-shadow: 0 0 8px rgba(79, 143, 252, 0.3);
+}
+
+.show-more-btn:hover {
+  background-color: rgba(79, 143, 252, 0.25);
+  transform: translateY(-2px);
+  box-shadow: 0 4px 12px rgba(79, 143, 252, 0.2);
+}
+
+@media (max-width: 768px) {
+  .bot-detail-stats {
+    flex-direction: column;
+    gap: 15px;
+  }
+  
+  .trades-table {
+    font-size: 0.9rem;
+  }
+  
+  .trades-table th, 
+  .trades-table td {
+    padding: 10px 8px;
+  }
+}
+
+/* Thêm CSS mới cho phần filter và sắp xếp */
+.filter-controls {
+  display: flex;
+  justify-content: flex-end;
+  margin-bottom: 15px;
+  flex-wrap: wrap;
+  gap: 15px;
+}
+
+.filter-group {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.filter-group label {
+  font-size: 0.9rem;
+  font-weight: 500;
+  color: #e0e0e0;
+}
+
+.filter-select {
+  background-color: #2a2d31;
+  border: 1px solid #3c4043;
+  color: #e0e0e0;
+  border-radius: 4px;
+  padding: 6px 10px;
+  font-size: 0.9rem;
+  outline: none;
+  cursor: pointer;
+}
+
+.filter-select:hover, .filter-select:focus {
+  border-color: #4285f4;
+}
+
+.sortable-column {
+  cursor: pointer;
+  position: relative;
+}
+
+.sortable-column:hover {
+  background-color: rgba(255, 255, 255, 0.05);
+}
+
+.trades-table th {
+  position: sticky;
+  top: 0;
+  background-color: #212121;
+  z-index: 5;
+}
+
+/* Cải thiện hiển thị cho nút hiện thêm */
+.show-more-btn {
+  background-color: #3a3f44;
+  color: #e0e0e0;
+  border: none;
+  border-radius: 4px;
+  padding: 8px 16px;
+  margin-top: 15px;
+  font-size: 0.9rem;
+  cursor: pointer;
+  transition: background-color 0.2s;
+  display: block;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+.show-more-btn:hover {
+  background-color: #4285f4;
+  color: white;
+}
+
+/* Cải thiện hiển thị cho bảng */
+.trades-table {
+  width: 100%;
+  border-collapse: collapse;
+  margin-top: 15px;
+  overflow: auto;
+  max-height: 60vh;
+}
+
+.trades-table th,
+.trades-table td {
+  padding: 10px;
+  text-align: left;
+  border-bottom: 1px solid #3c4043;
+}
+
+.trades-table thead tr {
+  background-color: #292a2d;
+}
+
+.trades-table tbody tr:hover {
+  background-color: rgba(255, 255, 255, 0.05);
+}
+
+.positive-trade {
+  background-color: rgba(46, 204, 113, 0.05);
+}
+
+.negative-trade {
+  background-color: rgba(231, 76, 60, 0.05);
+}
+
+.positive {
+  color: #2ecc71;
+}
+
+.negative {
+  color: #e74c3c;
+}
+
+/* Nút xem tất cả lệnh */
+.view-all-trades-btn {
+  background-color: #4285f4;
+  color: white;
+  border: none;
+  border-radius: 4px;
+  padding: 8px 16px;
+  font-size: 0.9rem;
+  cursor: pointer;
+  transition: all 0.2s;
+  display: flex;
+  align-items: center;
+  gap: 5px;
+  margin-top: 10px;
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
+}
+
+.view-all-trades-btn:hover {
+  background-color: #3367d6;
+  transform: translateY(-2px);
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3);
+}
+
+.view-all-trades-btn:active {
+  transform: translateY(0);
+  box-shadow: 0 2px 3px rgba(0, 0, 0, 0.2);
+} 

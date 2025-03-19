@@ -955,3 +955,18 @@
   font-size: 3rem;
   margin-bottom: 1rem;
 }
+
+/* Thêm CSS cho stats-container */
+.stats-container {
+  display: flex;
+  flex-direction: column;
+}
+
+/* Thêm CSS cho font awesome icon nếu chưa có */
+.fa {
+  font-family: 'FontAwesome', sans-serif;
+}
+
+.fa-list-ul:before {
+  content: "\f0ca";
+}

@@ -7,7 +7,7 @@ const { getWeeklyData } = require('./src/services/TimeOver/weeklyService');
 const { getTradesData } = require('./src/services/tradeService');
 
 
-const PORT = process.env.PORT || 3000;
+const PORT = process.env.PORT || 3080;
 
 // Khởi động server
 app.listen(PORT, async () => {

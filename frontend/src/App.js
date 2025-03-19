@@ -1,13 +1,15 @@
 import React, { useState, useMemo, useCallback, useEffect } from 'react';
 import './App.css';
-import TopBar from './components/TopBar';
-import ProfitChart from './components/ProfitChart';
-import BotCard from './components/BotCard';
-import StatsSummary from './components/StatsSummary';
-import WeeklyStatsSummary from './components/WeeklyStatsSummary';
-import QuickOverview from './components/QuickOverview';
-import BotDetail from './components/BotDetail';
-import MultiStrategyBacktestResults from './components/BotStrategy/MultiStrategyBacktestResults';
+import TopBar from './components/layout/TopBar';
+import ProfitChart from './components/ui/ProfitChart';
+import BotCard from './components/bot/BotCard';
+import DailyStatsSummary from './components/stats/DailyStatsSummary';
+import WeeklyStatsSummary from './components/stats/WeeklyStatsSummary';
+import QuickOverview from './components/layout/QuickOverview';
+import BotDetail from './components/bot/BotDetail';
+import AllTradesDetail from './components/trades/AllTradesDetail';
+import Modal from './components/ui/Modal';
+import MultiStrategyBacktestResults from './components/strategy/MultiStrategyBacktestResults';
 import { 
   fetchTradesData, 
   fetchBalanceData, 
@@ -34,6 +36,8 @@ function App() {
   const [selectedMonthData, setSelectedMonthData] = useState(null);
   const [selectedDayData, setSelectedDayData] = useState(null);
   const [selectedWeekData, setSelectedWeekData] = useState(null);
+  const [isModalOpen, setIsModalOpen] = useState(false);
+  const [isAllTradesModalOpen, setIsAllTradesModalOpen] = useState(false);
 
   // Load data from API
   useEffect(() => {
@@ -77,8 +81,25 @@ function App() {
 
   // Xử lý khi click vào bot
   const handleBotClick = useCallback((bot) => {
-    setSelectedBot(bot.name === selectedBot ? null : bot.name);
-  }, [selectedBot]);
+    setSelectedBot(bot.name);
+    setIsModalOpen(true);
+  }, []);
+
+  const handleCloseModal = useCallback(() => {
+    setIsModalOpen(false);
+    // Đặt timeout để tránh hiệu ứng nhấp nháy khi đóng modal
+    setTimeout(() => setSelectedBot(null), 300);
+  }, []);
+
+  // Mở modal xem tất cả lệnh
+  const handleOpenAllTradesModal = useCallback(() => {
+    setIsAllTradesModalOpen(true);
+  }, []);
+
+  // Đóng modal xem tất cả lệnh
+  const handleCloseAllTradesModal = useCallback(() => {
+    setIsAllTradesModalOpen(false);
+  }, []);
 
   // Handle date navigation
   const changeDate = useCallback((days) => {
@@ -319,12 +340,6 @@ function App() {
             <p>Track • Analyze • Optimize</p>
           </div>
           
-          {selectedBotData && tradesData && (
-            <div className="dashboard-section">
-              <BotDetail bot={selectedBotData} trades={tradesData.trades} />
-            </div>
-          )}
-          
           <div className="dashboard-section">
             <div className="header-section">
               <div>
@@ -357,18 +372,21 @@ function App() {
                   </div>
                 </div>
               </div>
-              <StatsSummary
-                todayNetProfit={selectedNetProfit}
-                todayNetProfitChange={netProfitChange}
-                todayNetProfitAmount={todayNetProfitAmount}
-                topPerformer={topBot?.name}
-                topPerformanceValue={topBot?.performance?.toFixed(2)}
-                bottomPerformer={bottomBot?.name}
-                bottomPerformanceValue={bottomBot?.performance?.toFixed(2)}
-                profitableBots={profitableBotsToday}
-                totalBots={totalBots}
-                profitableBotsChange={profitableBotsChange}
-              />
+              <div className="stats-container">
+                <DailyStatsSummary
+                  todayNetProfit={selectedNetProfit}
+                  todayNetProfitChange={netProfitChange}
+                  todayNetProfitAmount={todayNetProfitAmount}
+                  topPerformer={topBot?.name}
+                  topPerformanceValue={topBot?.performance?.toFixed(2)}
+                  bottomPerformer={bottomBot?.name}
+                  bottomPerformanceValue={bottomBot?.performance?.toFixed(2)}
+                  profitableBots={profitableBotsToday}
+                  totalBots={totalBots}
+                  profitableBotsChange={profitableBotsChange}
+                />
+                
+              </div>
             </div>
             <div className="dashboard-container">
               <div className="chart-section">
@@ -572,6 +590,26 @@ function App() {
         </div>
       </div>
       <QuickOverview botsData={botsData} />
+      
+      {selectedBotData && tradesData && (
+        <Modal 
+          isOpen={isModalOpen} 
+          onClose={handleCloseModal}
+          title={`Chi tiết Bot: ${selectedBotData.name}`}
+        >
+          <BotDetail bot={selectedBotData} trades={tradesData.trades} />
+        </Modal>
+      )}
+
+      {tradesData && (
+        <Modal 
+          isOpen={isAllTradesModalOpen} 
+          onClose={handleCloseAllTradesModal}
+          title="Thống kê tất cả lệnh giao dịch"
+        >
+          <AllTradesDetail trades={tradesData.trades} />
+        </Modal>
+      )}
     </div>
   );
 }

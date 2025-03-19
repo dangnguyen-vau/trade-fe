@@ -76,110 +76,36 @@ This section has moved here: [https://facebook.github.io/create-react-app/docs/t
 Dựa trên phân tích dự án hiện tại, tôi đề xuất cấu trúc thư mục sau để giúp dự án có tổ chức tốt hơn, dễ bảo trì và mở rộng:
 
 ```
-trade-fe/
-├── public/                  # Tài nguyên tĩnh
-│   ├── index.html
-│   ├── favicon.ico
-│   └── data/                # Dữ liệu JSON cho API
+components/
+├── ui/                  # Các component UI cơ bản (thay cho common)
+│   ├── Modal.js         # Modal dialog
+│   ├── Modal.css
+│   ├── ProfitChart.js   # Chart component
+│   └── chart-utils.js   # (nếu có)
 │
-├── src/
-│   ├── assets/              # Tài nguyên (hình ảnh, fonts, logo...)
-│   │   ├── images/
-│   │   └── fonts/
-│   │
-│   ├── components/          # Components có thể tái sử dụng
-│   │   ├── common/          # Components dùng chung
-│   │   │   ├── Button/
-│   │   │   │   ├── Button.js
-│   │   │   │   ├── Button.css
-│   │   │   │   └── index.js
-│   │   │   ├── Card/
-│   │   │   └── ...
-│   │   │
-│   │   ├── layout/          # Components định nghĩa cấu trúc trang
-│   │   │   ├── TopBar/
-│   │   │   │   ├── TopBar.js
-│   │   │   │   ├── TopBar.css
-│   │   │   │   └── index.js
-│   │   │   └── ...
-│   │   │
-│   │   └── features/        # Components cụ thể cho từng tính năng
-│   │       ├── BotStrategy/
-│   │       │   ├── MultiStrategyBacktestResults/
-│   │       │   │   ├── MultiStrategyBacktestResults.js
-│   │       │   │   ├── MultiStrategyBacktestResults.css
-│   │       │   │   └── index.js
-│   │       │   └── ...
-│   │       │
-│   │       ├── Dashboard/
-│   │       │   ├── ProfitChart/
-│   │       │   ├── BotCard/
-│   │       │   ├── StatsSummary/
-│   │       │   └── ...
-│   │       └── ...
-│   │
-│   ├── hooks/               # Custom React hooks
-│   │   ├── useBotsData.js
-│   │   └── ...
-│   │
-│   ├── services/            # Dịch vụ API, kết nối backend
-│   │   ├── api.js
-│   │   └── ...
-│   │
-│   ├── utils/               # Hàm tiện ích
-│   │   ├── dateFormatter.js
-│   │   ├── calculators.js
-│   │   └── ...
-│   │
-│   ├── constants/           # Các hằng số và cấu hình
-│   │   ├── colors.js
-│   │   ├── config.js
-│   │   └── ...
-│   │
-│   ├── contexts/            # React contexts
-│   │   ├── BotContext.js
-│   │   └── ...
-│   │
-│   ├── pages/               # Các trang chính
-│   │   ├── Dashboard/
-│   │   │   ├── Dashboard.js
-│   │   │   ├── Dashboard.css
-│   │   │   └── index.js
-│   │   ├── BotDetails/
-│   │   ├── StrategyAnalysis/
-│   │   └── ...
-│   │
-│   ├── mocks/               # Dữ liệu mẫu/giả
-│   │   ├── botsData.js
-│   │   └── ...
-│   │
-│   ├── types/               # Type definitions (nếu dùng TypeScript)
-│   │   ├── bot.types.js
-│   │   └── ...
-│   │
-│   ├── styles/              # Global styles
-│   │   ├── global.css
-│   │   ├── variables.css
-│   │   └── ...
-│   │
-│   ├── App.js               # Component gốc của ứng dụng
-│   ├── index.js             # Điểm khởi đầu
-│   └── routes.js            # Cấu hình định tuyến
+├── layout/              # Components tạo bố cục trang
+│   ├── TopBar.js        # Navigation bar
+│   ├── TopBar.css
+│   ├── QuickOverview.js # Sidebar overview
+│   └── QuickOverview.css
 │
-├── server/                  # Backend code
-│   ├── controllers/         # Xử lý logic
-│   ├── routes/              # Định nghĩa API routes
-│   ├── middleware/          # Middleware Express
-│   └── server.js            # Entry point của server
+├── bot/                 # Components liên quan đến bot
+│   ├── BotCard.js       # Card hiển thị bot
+│   ├── BotCard.css
+│   ├── BotDetail.js     # Chi tiết bot
+│   └── BotDetail.css
 │
-├── scripts/                 # Scripts tiện ích
-│   ├── generate_bots_data.py
-│   └── ...
+├── stats/               # Components liên quan đến thống kê
+│   ├── DailyStatsSummary.js  # Tóm tắt thống kê theo ngày
+│   └── WeeklyStatsSummary.js # Thống kê theo tuần
 │
-├── .env                     # Biến môi trường
-├── .gitignore
-├── package.json
-└── README.md
+├── trades/              # Components liên quan đến giao dịch
+│   └── AllTradesDetail.js # Chi tiết giao dịch
+│
+└── strategy/            # Components liên quan đến chiến lược
+    ├── MultiStrategyBacktestResults.js
+    └── MultiStrategyBacktestResults.css
+
 ```
 
 ## Giải thích cấu trúc thư mục mới

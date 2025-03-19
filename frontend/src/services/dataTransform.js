@@ -1,6 +1,24 @@
 // Hàm chuyển đổi dữ liệu từ API thành định dạng cho frontend
 export const transformTradeData = (tradesData, balanceData, profitData, dailyData, weeklyData, monthlyData) => {
-    if (!tradesData || !balanceData || !profitData || !dailyData || !weeklyData || !monthlyData) {
+    // Kiểm tra toàn diện dữ liệu đầu vào
+    if (!tradesData || !tradesData.trades || !Array.isArray(tradesData.trades) || tradesData.trades.length === 0) {
+        console.warn('Thiếu dữ liệu giao dịch hoặc định dạng không hợp lệ');
+        return [];
+    }
+    
+    if (!balanceData || typeof balanceData !== 'object') {
+        console.warn('Thiếu dữ liệu balance hoặc định dạng không hợp lệ');
+        return [];
+    }
+    
+    if (!profitData || typeof profitData !== 'object' || !profitData.first_trade_date || !profitData.latest_trade_date) {
+        console.warn('Thiếu dữ liệu profit hoặc định dạng không hợp lệ');
+        return [];
+    }
+    
+    // Kiểm tra thêm các dữ liệu khác
+    if (!dailyData || !weeklyData || !monthlyData) {
+        console.warn('Thiếu dữ liệu thống kê theo thời gian');
         return [];
     }
 
@@ -9,7 +27,7 @@ export const transformTradeData = (tradesData, balanceData, profitData, dailyDat
 
     // Tạo cấu trúc dữ liệu bot
     const botsData = botNames.map(botName => {
-        // Lọc các giao dịch của bot này
+        // Tất cả giao dịch của 1 bot
         const botTrades = tradesData.trades.filter(trade => trade.strategy === botName);
 
         // Tính tổng lợi nhuận và số giao dịch thắng/thua
@@ -35,15 +53,27 @@ export const transformTradeData = (tradesData, balanceData, profitData, dailyDat
         const daily_stats = allDates.map(date => {
             const dateStr = date.toISOString().split('T')[0];
 
-            // Tìm tất cả giao dịch hoàn thành trong ngày này của bot cụ thể
+            // Lấy toàn bộ giao dịch của bot trong ngày đang lặp đến
             const tradesOnDate = botTrades.filter(trade => {
+                if (!trade.close_date) return false; // Nếu ngày lặp đến chưa đóng thì return
+                
+                // Chuyển thời gian đóng lệnh sang string
                 const tradeDate = new Date(trade.close_date).toISOString().split('T')[0];
+
+                // Điều kiện lọc ra cách lệnh là bằng với ngày đang lọc trên allDates.map(date)
                 return tradeDate === dateStr;
             });
 
             // Tính tổng lợi nhuận trong ngày
-            const total_dailyProfit = tradesOnDate.reduce((sum, trade) => sum + trade.profit_abs, 0);
-            const total_dailyProfitPercent = tradesOnDate.reduce((sum, trade) => sum + trade.profit_pct, 0);
+            const total_dailyProfit = tradesOnDate.reduce((sum, trade) => sum + trade.realized_profit, 0);
+            
+            // Tính tổng số vốn bỏ ra trong ngày
+            const totalStake = tradesOnDate.reduce((sum, trade) => sum + trade.stake_amount, 0);
+            
+            // Tính tỷ lệ lợi nhuận dựa trên số vốn bỏ ra
+            const total_dailyProfitPercent = totalStake > 0 
+                ? (total_dailyProfit / totalStake) * 100 
+                : 0;
 
             // Tính win rate trong ngày
             const dailyWinningTrades = tradesOnDate.filter(trade => trade.profit_pct > 0).length;
@@ -60,17 +90,29 @@ export const transformTradeData = (tradesData, balanceData, profitData, dailyDat
         });
 
         // Tạo weekly_stats từ daily_stats bằng cách gộp dữ liệu theo tuần
-        const weekly_stats = weeklyData.data.map(week => {
+        const weekly_stats = weeklyData && weeklyData.data ? weeklyData.data.map(week => {
             // Lấy ngày bắt đầu và kết thúc của tuần
             const weekDate = new Date(week.date);
             const weekStart = new Date(weekDate);
             const weekEnd = new Date(weekDate);
             weekEnd.setDate(weekEnd.getDate() + 6); // Thêm 6 ngày để có tuần đầy đủ
 
+            // Chuẩn hóa ngày bắt đầu và kết thúc để chỉ xét phần ngày (không quan tâm đến giờ)
+            weekStart.setHours(0, 0, 0, 0);
+            weekEnd.setHours(23, 59, 59, 999);
+
             // Lọc các giao dịch của bot hiện tại trong tuần này
             const tradesInWeek = botTrades.filter(trade => {
-                const tradeDate = new Date(trade.close_date.replace(" ", "T"));
-                return tradeDate >= weekStart && tradeDate <= weekEnd;
+                if (!trade.close_date) return false;
+                
+                // Chuyển chuỗi ngày thành đối tượng Date một cách an toàn
+                const tradeDate = new Date(trade.close_date.replace(" ", "T") + "Z");
+                
+                // Chuẩn hóa ngày giao dịch để chỉ xét phần ngày
+                const tradeDateOnly = new Date(tradeDate);
+                tradeDateOnly.setHours(0, 0, 0, 0);
+                
+                return tradeDateOnly >= weekStart && tradeDateOnly <= weekEnd;
             });
 
             // Tính toán lợi nhuận thực tế của bot trong tuần
@@ -80,7 +122,7 @@ export const transformTradeData = (tradesData, balanceData, profitData, dailyDat
             const stakeAmount = tradesInWeek.reduce((sum, trade) => sum + trade.stake_amount, 0);
 
             // Tính tỷ lệ lợi nhuận dựa trên số giao dịch thực tế
-            const profitPercent = tradesInWeek.length > 0
+            const profitPercent = stakeAmount > 0
                 ? (weeklyProfit / stakeAmount) * 100
                 : 0;
 
@@ -98,9 +140,10 @@ export const transformTradeData = (tradesData, balanceData, profitData, dailyDat
                 win_count: winningTrades,
                 winrate: weeklyWinRate,
             };
-        });
+        }) : [];
+        
         // Tạo monthly_stats từ daily_stats bằng cách gộp dữ liệu theo tháng
-        const monthly_stats = monthlyData.data.map(month => {
+        const monthly_stats = monthlyData && monthlyData.data ? monthlyData.data.map(month => {
             // Lấy ngày bắt đầu và kết thúc của tháng
             const monthDate = new Date(month.date);
             const monthStart = new Date(monthDate);
@@ -108,8 +151,16 @@ export const transformTradeData = (tradesData, balanceData, profitData, dailyDat
 
             // Lọc các giao dịch của bot hiện tại trong tháng này
             const tradesInMonth = botTrades.filter(trade => {
-                const tradeDate = new Date(trade.close_date.replace(" ", "T"));
-                return tradeDate >= monthStart && tradeDate <= monthEnd;
+                if (!trade.close_date) return false;
+                
+                // Chuyển chuỗi ngày thành đối tượng Date một cách an toàn
+                const tradeDate = new Date(trade.close_date.replace(" ", "T") + "Z");
+                
+                // Chuẩn hóa ngày giao dịch để so sánh chỉ phần ngày
+                const tradeDateOnly = new Date(tradeDate);
+                tradeDateOnly.setHours(0, 0, 0, 0);
+                
+                return tradeDateOnly >= monthStart && tradeDateOnly <= monthEnd;
             });
 
             // Tính toán lợi nhuận thực tế của bot trong tháng
@@ -119,7 +170,7 @@ export const transformTradeData = (tradesData, balanceData, profitData, dailyDat
             const stakeAmount = tradesInMonth.reduce((sum, trade) => sum + trade.stake_amount, 0);
 
             // Tính tỷ lệ lợi nhuận dựa trên số giao dịch thực tế
-            const profitPercent = tradesInMonth.length > 0
+            const profitPercent = stakeAmount > 0
                 ? (monthlyProfit / stakeAmount) * 100
                 : 0;
 
@@ -137,7 +188,7 @@ export const transformTradeData = (tradesData, balanceData, profitData, dailyDat
                 win_count: winningTrades,
                 winrate: monthlyWinRate,
             };
-        });
+        }) : [];
 
         const currentBalance = {
             balance_starting: balanceData.starting_capital || 0,

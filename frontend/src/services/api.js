@@ -1,6 +1,6 @@
 import axios from 'axios';
 
-const BASE_URL = 'http://localhost:3000'; // URL của backend
+const BASE_URL = 'http://localhost:3080'; // URL của backend
 
 export const fetchTradesData = async () => {
   try {

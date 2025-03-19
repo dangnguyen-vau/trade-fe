@@ -10,7 +10,7 @@ async function getProfitData(params) {
         // Gọi api chứa accesstoekn
         const result = await axios({
             method: 'GET',
-            url: 'http://103.216.117.117:83/api/v1/profit',
+            url: 'http://103.216.117.117:82/api/v1/profit',
             headers: {
                 "Authorization": `Bearer ${token}`
             }
