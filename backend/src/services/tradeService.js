@@ -1,56 +1,117 @@
-const { getAccessToken } = require('../services');
+const { getAccessToken, getAllBotConfigs } = require('../services');
 const axios = require('axios');
-const fs = require('fs');
 const path = require('path');
+const { 
+  createBotDirectoryStructure, 
+  createConsolidatedDirectoryStructure, 
+  saveJsonToFile, 
+  readJsonFromFile 
+} = require('../utils/fileUtils');
 
-async function getTradesData(params) {
-    const token = await getAccessToken();
-
+/**
+ * Lấy dữ liệu giao dịch từ một bot cụ thể
+ * @param {string} botId - ID của bot
+ * @returns {Promise<Object>} Dữ liệu giao dịch của bot
+ */
+async function getBotTradeData(botId) {
     try {
-        // Gọi api chứa accesstoekn
+        const token = await getAccessToken(botId);
+        const botConfig = getAllBotConfigs().find(config => config.id === botId);
+        
+        // Gọi API và lấy dữ liệu giao dịch
         const result = await axios({
             method: 'GET',
-            url: 'http://103.216.117.117:82/api/v1/trades?limit=500&offset=0',
+            url: `http://${botConfig.host}:${botConfig.port}/api/v1/trades`,
             headers: {
                 "Authorization": `Bearer ${token}`
             }
         });
 
-        // Tạo folder DataBot nếu chưa tồn tại
-        const dirPath = path.join(__dirname, '..', 'DataBot');
-        if (!fs.existsSync(dirPath)) {
-            fs.mkdirSync(dirPath, { recursive: true });
-        }
+        // Tạo cấu trúc thư mục cho bot
+        const { botDir } = createBotDirectoryStructure(botId);
+        
+        // Thêm trường botId vào mỗi giao dịch để dễ phân biệt
+        const tradesWithBotId = {
+            ...result.data,
+            trades: result.data.trades.map(trade => ({
+                ...trade,
+                botId: botId
+            }))
+        };
 
-        // Lưu dữ liệu vào file trades.json
-        const filePath = path.join(dirPath, 'trades.json');
-        fs.writeFileSync(filePath, JSON.stringify(result.data, null, 2), 'utf8');
+        // Lưu dữ liệu vào file trades.json cho bot cụ thể
+        const filePath = path.join(botDir, 'trades.json');
+        saveJsonToFile(filePath, tradesWithBotId);
 
-        console.log(`Dữ liệu đã được lưu vào ${filePath}`);
-
-        return result.data;
+        return tradesWithBotId;
     } catch (error) {
-        console.error('Lỗi khi lấy dữ liệu trades:', error.message);
+        console.error(`Lỗi khi lấy dữ liệu trades cho bot ${botId}:`, error.message);
         throw error;
     }
 }
 
-// Hàm lấy dữ liệu từ file local
-function getLocalTradesData() {
+/**
+ * Tổng hợp dữ liệu giao dịch từ tất cả các bot
+ * @returns {Promise<Object>} Dữ liệu giao dịch tổng hợp
+ */
+async function getAllTradesData() {
     try {
-        const filePath = path.join(__dirname, '..', 'DataBot', 'trades.json');
-        if (fs.existsSync(filePath)) {
-            const data = fs.readFileSync(filePath, 'utf8');
-            return JSON.parse(data);
-        }
-        return null;
+        const botConfigs = getAllBotConfigs();
+        const allTradesPromises = botConfigs.map(config => getBotTradeData(config.id));
+        
+        // Chờ tất cả các promise hoàn thành
+        const allTradesResults = await Promise.all(allTradesPromises);
+        
+        // Tổng hợp tất cả các giao dịch vào một danh sách
+        const consolidatedTrades = {
+            trades: allTradesResults.flatMap(result => result.trades || []),
+            trade_count: allTradesResults.reduce((sum, result) => sum + (result.trades_count || 0), 0)
+        };
+        
+        // Tạo cấu trúc thư mục cho dữ liệu tổng hợp
+        const { consolidatedDir } = createConsolidatedDirectoryStructure();
+        
+        // Lưu dữ liệu tổng hợp
+        const filePath = path.join(consolidatedDir, 'all_trades.json');
+        saveJsonToFile(filePath, consolidatedTrades);
+        
+        return consolidatedTrades;
     } catch (error) {
-        console.error('Lỗi khi đọc file trades.json:', error.message);
-        return null;
+        console.error('Lỗi khi tổng hợp dữ liệu trades từ tất cả các bot:', error.message);
+        throw error;
     }
 }
 
-module.exports = {
-    getTradesData,
-    getLocalTradesData,
+/**
+ * Lấy dữ liệu giao dịch từ file local của một bot cụ thể
+ * @param {string} botId - ID của bot
+ * @returns {Object|null} Dữ liệu giao dịch của bot hoặc null nếu có lỗi
+ */
+function getLocalBotTradesData(botId) {
+    const filePath = path.join(createBotDirectoryStructure(botId).botDir, 'trades.json');
+    return readJsonFromFile(filePath);
 }
+
+/**
+ * Lấy dữ liệu giao dịch tổng hợp của tất cả các bot từ file local
+ * @returns {Object|null} Dữ liệu giao dịch tổng hợp hoặc null nếu có lỗi
+ */
+function getLocalTradesData() {
+    const filePath = path.join(createConsolidatedDirectoryStructure().consolidatedDir, 'all_trades.json');
+    const data = readJsonFromFile(filePath);
+    
+    // Nếu không có dữ liệu tổng hợp, thử lấy từ thư mục gốc (dữ liệu cũ)
+    if (!data) {
+        const legacyPath = path.join(path.dirname(path.dirname(filePath)), 'trades.json');
+        return readJsonFromFile(legacyPath);
+    }
+    
+    return data;
+}
+
+module.exports = {
+    getBotTradeData,
+    getAllTradesData,
+    getLocalBotTradesData,
+    getLocalTradesData
+};
