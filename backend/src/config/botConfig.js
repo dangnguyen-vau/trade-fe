@@ -24,8 +24,8 @@ const botConfigs = [
     type: 'longshort'
   },
   {
-    id: 'Default-Bot',
-    name: 'Bot Mặc Định',
+    id: 'BotHuy',
+    name: 'Huy-LongShort',
     host: '103.216.117.117',
     port: '82',
     auth: 'ZnJlcXRyYWRlcjoxMjM0NTY=', // Base64 của "freqtrader:123456"

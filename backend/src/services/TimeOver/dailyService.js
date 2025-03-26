@@ -84,14 +84,8 @@ async function getAllDailyData() {
             const totalAbsProfit = botsDataForDate.reduce((sum, item) => sum + (item.dailyData.abs_profit || 0), 0);
             const totalTradeCount = botsDataForDate.reduce((sum, item) => sum + (item.dailyData.trade_count || 0), 0);
             const totalFiatValue = botsDataForDate.reduce((sum, item) => sum + (item.dailyData.fiat_value || 0), 0);
-            
-            // Tính tổng số dư ban đầu
-            const totalStartingBalance = botsDataForDate.reduce((sum, item) => sum + (item.dailyData.starting_balance || 0), 0);
-            
-            // Tính tỷ lệ lợi nhuận dựa trên số dư ban đầu
-            const relProfit = totalStartingBalance > 0 
-                ? (totalAbsProfit / totalStartingBalance) 
-                : 0;
+            const relProfit = botsDataForDate.reduce((sum, item) => sum + (item.dailyData.rel_profit || 0), 0);
+            const totalStartingBalance = botsDataForDate.reduce((sum, item) => sum + (item.dailyData.starting_balance || 0), 0)
             
             return {
                 date,

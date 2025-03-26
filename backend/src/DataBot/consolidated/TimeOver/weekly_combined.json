@@ -1,0 +1,765 @@
+{
+  "data": [
+    {
+      "date": "2024-11-11",
+      "abs_profit": 0,
+      "rel_profit": 0,
+      "starting_balance": 10198.891803265056,
+      "fiat_value": 0,
+      "trade_count": 0,
+      "bots_detail": [
+        {
+          "botId": "ThanhHau-Long",
+          "botName": "Thành Hậu - Long",
+          "abs_profit": 0,
+          "rel_profit": 0,
+          "trade_count": 0
+        },
+        {
+          "botId": "ThanhHau-Short",
+          "botName": "Thành Hậu - Short",
+          "abs_profit": 0,
+          "rel_profit": 0,
+          "trade_count": 0
+        },
+        {
+          "botId": "ThanhHau-LongShort",
+          "botName": "Thành Hậu - Long Short",
+          "abs_profit": 0,
+          "rel_profit": 0,
+          "trade_count": 0
+        },
+        {
+          "botId": "BotHuy",
+          "botName": "Huy-LongShort",
+          "abs_profit": 0,
+          "rel_profit": 0,
+          "trade_count": 0
+        }
+      ]
+    },
+    {
+      "date": "2024-11-18",
+      "abs_profit": 0,
+      "rel_profit": 0,
+      "starting_balance": 10198.891803265056,
+      "fiat_value": 0,
+      "trade_count": 0,
+      "bots_detail": [
+        {
+          "botId": "ThanhHau-Long",
+          "botName": "Thành Hậu - Long",
+          "abs_profit": 0,
+          "rel_profit": 0,
+          "trade_count": 0
+        },
+        {
+          "botId": "ThanhHau-Short",
+          "botName": "Thành Hậu - Short",
+          "abs_profit": 0,
+          "rel_profit": 0,
+          "trade_count": 0
+        },
+        {
+          "botId": "ThanhHau-LongShort",
+          "botName": "Thành Hậu - Long Short",
+          "abs_profit": 0,
+          "rel_profit": 0,
+          "trade_count": 0
+        },
+        {
+          "botId": "BotHuy",
+          "botName": "Huy-LongShort",
+          "abs_profit": 0,
+          "rel_profit": 0,
+          "trade_count": 0
+        }
+      ]
+    },
+    {
+      "date": "2024-11-25",
+      "abs_profit": 0,
+      "rel_profit": 0,
+      "starting_balance": 10198.891803265056,
+      "fiat_value": 0,
+      "trade_count": 0,
+      "bots_detail": [
+        {
+          "botId": "ThanhHau-Long",
+          "botName": "Thành Hậu - Long",
+          "abs_profit": 0,
+          "rel_profit": 0,
+          "trade_count": 0
+        },
+        {
+          "botId": "ThanhHau-Short",
+          "botName": "Thành Hậu - Short",
+          "abs_profit": 0,
+          "rel_profit": 0,
+          "trade_count": 0
+        },
+        {
+          "botId": "ThanhHau-LongShort",
+          "botName": "Thành Hậu - Long Short",
+          "abs_profit": 0,
+          "rel_profit": 0,
+          "trade_count": 0
+        },
+        {
+          "botId": "BotHuy",
+          "botName": "Huy-LongShort",
+          "abs_profit": 0,
+          "rel_profit": 0,
+          "trade_count": 0
+        }
+      ]
+    },
+    {
+      "date": "2024-12-02",
+      "abs_profit": 0,
+      "rel_profit": 0,
+      "starting_balance": 10198.891803265056,
+      "fiat_value": 0,
+      "trade_count": 0,
+      "bots_detail": [
+        {
+          "botId": "ThanhHau-Long",
+          "botName": "Thành Hậu - Long",
+          "abs_profit": 0,
+          "rel_profit": 0,
+          "trade_count": 0
+        },
+        {
+          "botId": "ThanhHau-Short",
+          "botName": "Thành Hậu - Short",
+          "abs_profit": 0,
+          "rel_profit": 0,
+          "trade_count": 0
+        },
+        {
+          "botId": "ThanhHau-LongShort",
+          "botName": "Thành Hậu - Long Short",
+          "abs_profit": 0,
+          "rel_profit": 0,
+          "trade_count": 0
+        },
+        {
+          "botId": "BotHuy",
+          "botName": "Huy-LongShort",
+          "abs_profit": 0,
+          "rel_profit": 0,
+          "trade_count": 0
+        }
+      ]
+    },
+    {
+      "date": "2024-12-09",
+      "abs_profit": 0,
+      "rel_profit": 0,
+      "starting_balance": 10198.891803265056,
+      "fiat_value": 0,
+      "trade_count": 0,
+      "bots_detail": [
+        {
+          "botId": "ThanhHau-Long",
+          "botName": "Thành Hậu - Long",
+          "abs_profit": 0,
+          "rel_profit": 0,
+          "trade_count": 0
+        },
+        {
+          "botId": "ThanhHau-Short",
+          "botName": "Thành Hậu - Short",
+          "abs_profit": 0,
+          "rel_profit": 0,
+          "trade_count": 0
+        },
+        {
+          "botId": "ThanhHau-LongShort",
+          "botName": "Thành Hậu - Long Short",
+          "abs_profit": 0,
+          "rel_profit": 0,
+          "trade_count": 0
+        },
+        {
+          "botId": "BotHuy",
+          "botName": "Huy-LongShort",
+          "abs_profit": 0,
+          "rel_profit": 0,
+          "trade_count": 0
+        }
+      ]
+    },
+    {
+      "date": "2024-12-16",
+      "abs_profit": 0,
+      "rel_profit": 0,
+      "starting_balance": 10198.891803265056,
+      "fiat_value": 0,
+      "trade_count": 0,
+      "bots_detail": [
+        {
+          "botId": "ThanhHau-Long",
+          "botName": "Thành Hậu - Long",
+          "abs_profit": 0,
+          "rel_profit": 0,
+          "trade_count": 0
+        },
+        {
+          "botId": "ThanhHau-Short",
+          "botName": "Thành Hậu - Short",
+          "abs_profit": 0,
+          "rel_profit": 0,
+          "trade_count": 0
+        },
+        {
+          "botId": "ThanhHau-LongShort",
+          "botName": "Thành Hậu - Long Short",
+          "abs_profit": 0,
+          "rel_profit": 0,
+          "trade_count": 0
+        },
+        {
+          "botId": "BotHuy",
+          "botName": "Huy-LongShort",
+          "abs_profit": 0,
+          "rel_profit": 0,
+          "trade_count": 0
+        }
+      ]
+    },
+    {
+      "date": "2024-12-23",
+      "abs_profit": 0,
+      "rel_profit": 0,
+      "starting_balance": 10198.891803265056,
+      "fiat_value": 0,
+      "trade_count": 0,
+      "bots_detail": [
+        {
+          "botId": "ThanhHau-Long",
+          "botName": "Thành Hậu - Long",
+          "abs_profit": 0,
+          "rel_profit": 0,
+          "trade_count": 0
+        },
+        {
+          "botId": "ThanhHau-Short",
+          "botName": "Thành Hậu - Short",
+          "abs_profit": 0,
+          "rel_profit": 0,
+          "trade_count": 0
+        },
+        {
+          "botId": "ThanhHau-LongShort",
+          "botName": "Thành Hậu - Long Short",
+          "abs_profit": 0,
+          "rel_profit": 0,
+          "trade_count": 0
+        },
+        {
+          "botId": "BotHuy",
+          "botName": "Huy-LongShort",
+          "abs_profit": 0,
+          "rel_profit": 0,
+          "trade_count": 0
+        }
+      ]
+    },
+    {
+      "date": "2024-12-30",
+      "abs_profit": 0,
+      "rel_profit": 0,
+      "starting_balance": 10198.891803265056,
+      "fiat_value": 0,
+      "trade_count": 0,
+      "bots_detail": [
+        {
+          "botId": "ThanhHau-Long",
+          "botName": "Thành Hậu - Long",
+          "abs_profit": 0,
+          "rel_profit": 0,
+          "trade_count": 0
+        },
+        {
+          "botId": "ThanhHau-Short",
+          "botName": "Thành Hậu - Short",
+          "abs_profit": 0,
+          "rel_profit": 0,
+          "trade_count": 0
+        },
+        {
+          "botId": "ThanhHau-LongShort",
+          "botName": "Thành Hậu - Long Short",
+          "abs_profit": 0,
+          "rel_profit": 0,
+          "trade_count": 0
+        },
+        {
+          "botId": "BotHuy",
+          "botName": "Huy-LongShort",
+          "abs_profit": 0,
+          "rel_profit": 0,
+          "trade_count": 0
+        }
+      ]
+    },
+    {
+      "date": "2025-01-06",
+      "abs_profit": 0,
+      "rel_profit": 0,
+      "starting_balance": 10198.891803265056,
+      "fiat_value": 0,
+      "trade_count": 0,
+      "bots_detail": [
+        {
+          "botId": "ThanhHau-Long",
+          "botName": "Thành Hậu - Long",
+          "abs_profit": 0,
+          "rel_profit": 0,
+          "trade_count": 0
+        },
+        {
+          "botId": "ThanhHau-Short",
+          "botName": "Thành Hậu - Short",
+          "abs_profit": 0,
+          "rel_profit": 0,
+          "trade_count": 0
+        },
+        {
+          "botId": "ThanhHau-LongShort",
+          "botName": "Thành Hậu - Long Short",
+          "abs_profit": 0,
+          "rel_profit": 0,
+          "trade_count": 0
+        },
+        {
+          "botId": "BotHuy",
+          "botName": "Huy-LongShort",
+          "abs_profit": 0,
+          "rel_profit": 0,
+          "trade_count": 0
+        }
+      ]
+    },
+    {
+      "date": "2025-01-13",
+      "abs_profit": 0,
+      "rel_profit": 0,
+      "starting_balance": 10198.891803265056,
+      "fiat_value": 0,
+      "trade_count": 0,
+      "bots_detail": [
+        {
+          "botId": "ThanhHau-Long",
+          "botName": "Thành Hậu - Long",
+          "abs_profit": 0,
+          "rel_profit": 0,
+          "trade_count": 0
+        },
+        {
+          "botId": "ThanhHau-Short",
+          "botName": "Thành Hậu - Short",
+          "abs_profit": 0,
+          "rel_profit": 0,
+          "trade_count": 0
+        },
+        {
+          "botId": "ThanhHau-LongShort",
+          "botName": "Thành Hậu - Long Short",
+          "abs_profit": 0,
+          "rel_profit": 0,
+          "trade_count": 0
+        },
+        {
+          "botId": "BotHuy",
+          "botName": "Huy-LongShort",
+          "abs_profit": 0,
+          "rel_profit": 0,
+          "trade_count": 0
+        }
+      ]
+    },
+    {
+      "date": "2025-01-20",
+      "abs_profit": 0,
+      "rel_profit": 0,
+      "starting_balance": 10198.891803265056,
+      "fiat_value": 0,
+      "trade_count": 0,
+      "bots_detail": [
+        {
+          "botId": "ThanhHau-Long",
+          "botName": "Thành Hậu - Long",
+          "abs_profit": 0,
+          "rel_profit": 0,
+          "trade_count": 0
+        },
+        {
+          "botId": "ThanhHau-Short",
+          "botName": "Thành Hậu - Short",
+          "abs_profit": 0,
+          "rel_profit": 0,
+          "trade_count": 0
+        },
+        {
+          "botId": "ThanhHau-LongShort",
+          "botName": "Thành Hậu - Long Short",
+          "abs_profit": 0,
+          "rel_profit": 0,
+          "trade_count": 0
+        },
+        {
+          "botId": "BotHuy",
+          "botName": "Huy-LongShort",
+          "abs_profit": 0,
+          "rel_profit": 0,
+          "trade_count": 0
+        }
+      ]
+    },
+    {
+      "date": "2025-01-27",
+      "abs_profit": 0,
+      "rel_profit": 0,
+      "starting_balance": 10198.891803265056,
+      "fiat_value": 0,
+      "trade_count": 0,
+      "bots_detail": [
+        {
+          "botId": "ThanhHau-Long",
+          "botName": "Thành Hậu - Long",
+          "abs_profit": 0,
+          "rel_profit": 0,
+          "trade_count": 0
+        },
+        {
+          "botId": "ThanhHau-Short",
+          "botName": "Thành Hậu - Short",
+          "abs_profit": 0,
+          "rel_profit": 0,
+          "trade_count": 0
+        },
+        {
+          "botId": "ThanhHau-LongShort",
+          "botName": "Thành Hậu - Long Short",
+          "abs_profit": 0,
+          "rel_profit": 0,
+          "trade_count": 0
+        },
+        {
+          "botId": "BotHuy",
+          "botName": "Huy-LongShort",
+          "abs_profit": 0,
+          "rel_profit": 0,
+          "trade_count": 0
+        }
+      ]
+    },
+    {
+      "date": "2025-02-03",
+      "abs_profit": 0,
+      "rel_profit": 0,
+      "starting_balance": 10198.891803265056,
+      "fiat_value": 0,
+      "trade_count": 0,
+      "bots_detail": [
+        {
+          "botId": "ThanhHau-Long",
+          "botName": "Thành Hậu - Long",
+          "abs_profit": 0,
+          "rel_profit": 0,
+          "trade_count": 0
+        },
+        {
+          "botId": "ThanhHau-Short",
+          "botName": "Thành Hậu - Short",
+          "abs_profit": 0,
+          "rel_profit": 0,
+          "trade_count": 0
+        },
+        {
+          "botId": "ThanhHau-LongShort",
+          "botName": "Thành Hậu - Long Short",
+          "abs_profit": 0,
+          "rel_profit": 0,
+          "trade_count": 0
+        },
+        {
+          "botId": "BotHuy",
+          "botName": "Huy-LongShort",
+          "abs_profit": 0,
+          "rel_profit": 0,
+          "trade_count": 0
+        }
+      ]
+    },
+    {
+      "date": "2025-02-10",
+      "abs_profit": 0,
+      "rel_profit": 0,
+      "starting_balance": 10198.891803265056,
+      "fiat_value": 0,
+      "trade_count": 0,
+      "bots_detail": [
+        {
+          "botId": "ThanhHau-Long",
+          "botName": "Thành Hậu - Long",
+          "abs_profit": 0,
+          "rel_profit": 0,
+          "trade_count": 0
+        },
+        {
+          "botId": "ThanhHau-Short",
+          "botName": "Thành Hậu - Short",
+          "abs_profit": 0,
+          "rel_profit": 0,
+          "trade_count": 0
+        },
+        {
+          "botId": "ThanhHau-LongShort",
+          "botName": "Thành Hậu - Long Short",
+          "abs_profit": 0,
+          "rel_profit": 0,
+          "trade_count": 0
+        },
+        {
+          "botId": "BotHuy",
+          "botName": "Huy-LongShort",
+          "abs_profit": 0,
+          "rel_profit": 0,
+          "trade_count": 0
+        }
+      ]
+    },
+    {
+      "date": "2025-02-17",
+      "abs_profit": 0,
+      "rel_profit": 0,
+      "starting_balance": 10198.891803265056,
+      "fiat_value": 0,
+      "trade_count": 0,
+      "bots_detail": [
+        {
+          "botId": "ThanhHau-Long",
+          "botName": "Thành Hậu - Long",
+          "abs_profit": 0,
+          "rel_profit": 0,
+          "trade_count": 0
+        },
+        {
+          "botId": "ThanhHau-Short",
+          "botName": "Thành Hậu - Short",
+          "abs_profit": 0,
+          "rel_profit": 0,
+          "trade_count": 0
+        },
+        {
+          "botId": "ThanhHau-LongShort",
+          "botName": "Thành Hậu - Long Short",
+          "abs_profit": 0,
+          "rel_profit": 0,
+          "trade_count": 0
+        },
+        {
+          "botId": "BotHuy",
+          "botName": "Huy-LongShort",
+          "abs_profit": 0,
+          "rel_profit": 0,
+          "trade_count": 0
+        }
+      ]
+    },
+    {
+      "date": "2025-02-24",
+      "abs_profit": 0,
+      "rel_profit": 0,
+      "starting_balance": 10198.891803265056,
+      "fiat_value": 0,
+      "trade_count": 0,
+      "bots_detail": [
+        {
+          "botId": "ThanhHau-Long",
+          "botName": "Thành Hậu - Long",
+          "abs_profit": 0,
+          "rel_profit": 0,
+          "trade_count": 0
+        },
+        {
+          "botId": "ThanhHau-Short",
+          "botName": "Thành Hậu - Short",
+          "abs_profit": 0,
+          "rel_profit": 0,
+          "trade_count": 0
+        },
+        {
+          "botId": "ThanhHau-LongShort",
+          "botName": "Thành Hậu - Long Short",
+          "abs_profit": 0,
+          "rel_profit": 0,
+          "trade_count": 0
+        },
+        {
+          "botId": "BotHuy",
+          "botName": "Huy-LongShort",
+          "abs_profit": 0,
+          "rel_profit": 0,
+          "trade_count": 0
+        }
+      ]
+    },
+    {
+      "date": "2025-03-03",
+      "abs_profit": 1.61955314,
+      "rel_profit": 0.01619553,
+      "starting_balance": 10198.891803265056,
+      "fiat_value": 1.61955314,
+      "trade_count": 1,
+      "bots_detail": [
+        {
+          "botId": "ThanhHau-Long",
+          "botName": "Thành Hậu - Long",
+          "abs_profit": 0,
+          "rel_profit": 0,
+          "trade_count": 0
+        },
+        {
+          "botId": "ThanhHau-Short",
+          "botName": "Thành Hậu - Short",
+          "abs_profit": 0,
+          "rel_profit": 0,
+          "trade_count": 0
+        },
+        {
+          "botId": "ThanhHau-LongShort",
+          "botName": "Thành Hậu - Long Short",
+          "abs_profit": 0,
+          "rel_profit": 0,
+          "trade_count": 0
+        },
+        {
+          "botId": "BotHuy",
+          "botName": "Huy-LongShort",
+          "abs_profit": 1.61955314,
+          "rel_profit": 0.01619553,
+          "trade_count": 1
+        }
+      ]
+    },
+    {
+      "date": "2025-03-10",
+      "abs_profit": 0.71573106,
+      "rel_profit": 0.00704324,
+      "starting_balance": 10200.511356405057,
+      "fiat_value": 0.71573106,
+      "trade_count": 10,
+      "bots_detail": [
+        {
+          "botId": "ThanhHau-Long",
+          "botName": "Thành Hậu - Long",
+          "abs_profit": 0,
+          "rel_profit": 0,
+          "trade_count": 0
+        },
+        {
+          "botId": "ThanhHau-Short",
+          "botName": "Thành Hậu - Short",
+          "abs_profit": 0,
+          "rel_profit": 0,
+          "trade_count": 0
+        },
+        {
+          "botId": "ThanhHau-LongShort",
+          "botName": "Thành Hậu - Long Short",
+          "abs_profit": 0,
+          "rel_profit": 0,
+          "trade_count": 0
+        },
+        {
+          "botId": "BotHuy",
+          "botName": "Huy-LongShort",
+          "abs_profit": 0.71573106,
+          "rel_profit": 0.00704324,
+          "trade_count": 10
+        }
+      ]
+    },
+    {
+      "date": "2025-03-17",
+      "abs_profit": -3.0921060199999997,
+      "rel_profit": -0.016753070000000002,
+      "starting_balance": 10201.227087465057,
+      "fiat_value": -3.0921060199999997,
+      "trade_count": 10,
+      "bots_detail": [
+        {
+          "botId": "ThanhHau-Long",
+          "botName": "Thành Hậu - Long",
+          "abs_profit": 0,
+          "rel_profit": 0,
+          "trade_count": 0
+        },
+        {
+          "botId": "ThanhHau-Short",
+          "botName": "Thành Hậu - Short",
+          "abs_profit": 1.29161874,
+          "rel_profit": 0.02608381,
+          "trade_count": 1
+        },
+        {
+          "botId": "ThanhHau-LongShort",
+          "botName": "Thành Hậu - Long Short",
+          "abs_profit": 0,
+          "rel_profit": 0,
+          "trade_count": 0
+        },
+        {
+          "botId": "BotHuy",
+          "botName": "Huy-LongShort",
+          "abs_profit": -4.38372476,
+          "rel_profit": -0.04283688,
+          "trade_count": 9
+        }
+      ]
+    },
+    {
+      "date": "2025-03-24",
+      "abs_profit": 0.3297263599999991,
+      "rel_profit": 0.02460567,
+      "starting_balance": 10198.134981445057,
+      "fiat_value": 0.3297263599999991,
+      "trade_count": 8,
+      "bots_detail": [
+        {
+          "botId": "ThanhHau-Long",
+          "botName": "Thành Hậu - Long",
+          "abs_profit": 5.072196969999999,
+          "rel_profit": 0.10273056,
+          "trade_count": 2
+        },
+        {
+          "botId": "ThanhHau-Short",
+          "botName": "Thành Hậu - Short",
+          "abs_profit": -3.13638588,
+          "rel_profit": -0.06172817,
+          "trade_count": 1
+        },
+        {
+          "botId": "ThanhHau-LongShort",
+          "botName": "Thành Hậu - Long Short",
+          "abs_profit": 0,
+          "rel_profit": 0,
+          "trade_count": 0
+        },
+        {
+          "botId": "BotHuy",
+          "botName": "Huy-LongShort",
+          "abs_profit": -1.60608473,
+          "rel_profit": -0.01639672,
+          "trade_count": 5
+        }
+      ]
+    }
+  ],
+  "botCount": 4
+}

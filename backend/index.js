@@ -1,4 +1,5 @@
 const app = require('./app');
+const { updateAllData } = require('./src/scripts/updateAllBotsData');
 const { getBalanceData } = require('./src/services/balanceService');
 const { getProfitData } = require('./src/services/profitService');
 const { getDailyData } = require('./src/services/TimeOver/dailyService');
@@ -15,13 +16,7 @@ app.listen(PORT, async () => {
   
   // Lấy dữ liệu ban đầu khi khởi động server
   try {
-    await getTradesData();
-    await getProfitData();
-    await getBalanceData();
-    await getDailyData();
-    await getMonthlyData();
-    await getWeeklyData();
-
+    updateAllData();
     console.log('Đã lấy và lưu dữ liệu ban đầu');
   } catch (error) {
     console.error('Lỗi khi lấy dữ liệu ban đầu:', error.message);

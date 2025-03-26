@@ -1,0 +1,168 @@
+{
+  "data": [
+    {
+      "date": "2025-03-26",
+      "abs_profit": 0,
+      "rel_profit": 0,
+      "starting_balance": 54.44598379979125,
+      "fiat_value": 0,
+      "trade_count": 0
+    },
+    {
+      "date": "2025-03-25",
+      "abs_profit": 0,
+      "rel_profit": 0,
+      "starting_balance": 54.44598379979125,
+      "fiat_value": 0,
+      "trade_count": 0
+    },
+    {
+      "date": "2025-03-24",
+      "abs_profit": 5.072196969999999,
+      "rel_profit": 0.10273056,
+      "starting_balance": 49.37378682979125,
+      "fiat_value": 5.072196969999999,
+      "trade_count": 2
+    },
+    {
+      "date": "2025-03-23",
+      "abs_profit": 0,
+      "rel_profit": 0,
+      "starting_balance": 49.37378682979125,
+      "fiat_value": 0,
+      "trade_count": 0
+    },
+    {
+      "date": "2025-03-22",
+      "abs_profit": 0,
+      "rel_profit": 0,
+      "starting_balance": 49.37378682979125,
+      "fiat_value": 0,
+      "trade_count": 0
+    },
+    {
+      "date": "2025-03-21",
+      "abs_profit": 0,
+      "rel_profit": 0,
+      "starting_balance": 49.37378682979125,
+      "fiat_value": 0,
+      "trade_count": 0
+    },
+    {
+      "date": "2025-03-20",
+      "abs_profit": 0,
+      "rel_profit": 0,
+      "starting_balance": 49.37378682979125,
+      "fiat_value": 0,
+      "trade_count": 0
+    },
+    {
+      "date": "2025-03-19",
+      "abs_profit": 0,
+      "rel_profit": 0,
+      "starting_balance": 49.37378682979125,
+      "fiat_value": 0,
+      "trade_count": 0
+    },
+    {
+      "date": "2025-03-18",
+      "abs_profit": 0,
+      "rel_profit": 0,
+      "starting_balance": 49.37378682979125,
+      "fiat_value": 0,
+      "trade_count": 0
+    },
+    {
+      "date": "2025-03-17",
+      "abs_profit": 0,
+      "rel_profit": 0,
+      "starting_balance": 49.37378682979125,
+      "fiat_value": 0,
+      "trade_count": 0
+    },
+    {
+      "date": "2025-03-16",
+      "abs_profit": 0,
+      "rel_profit": 0,
+      "starting_balance": 49.37378682979125,
+      "fiat_value": 0,
+      "trade_count": 0
+    },
+    {
+      "date": "2025-03-15",
+      "abs_profit": 0,
+      "rel_profit": 0,
+      "starting_balance": 49.37378682979125,
+      "fiat_value": 0,
+      "trade_count": 0
+    },
+    {
+      "date": "2025-03-14",
+      "abs_profit": 0,
+      "rel_profit": 0,
+      "starting_balance": 49.37378682979125,
+      "fiat_value": 0,
+      "trade_count": 0
+    },
+    {
+      "date": "2025-03-13",
+      "abs_profit": 0,
+      "rel_profit": 0,
+      "starting_balance": 49.37378682979125,
+      "fiat_value": 0,
+      "trade_count": 0
+    },
+    {
+      "date": "2025-03-12",
+      "abs_profit": 0,
+      "rel_profit": 0,
+      "starting_balance": 49.37378682979125,
+      "fiat_value": 0,
+      "trade_count": 0
+    },
+    {
+      "date": "2025-03-11",
+      "abs_profit": 0,
+      "rel_profit": 0,
+      "starting_balance": 49.37378682979125,
+      "fiat_value": 0,
+      "trade_count": 0
+    },
+    {
+      "date": "2025-03-10",
+      "abs_profit": 0,
+      "rel_profit": 0,
+      "starting_balance": 49.37378682979125,
+      "fiat_value": 0,
+      "trade_count": 0
+    },
+    {
+      "date": "2025-03-09",
+      "abs_profit": 0,
+      "rel_profit": 0,
+      "starting_balance": 49.37378682979125,
+      "fiat_value": 0,
+      "trade_count": 0
+    },
+    {
+      "date": "2025-03-08",
+      "abs_profit": 0,
+      "rel_profit": 0,
+      "starting_balance": 49.37378682979125,
+      "fiat_value": 0,
+      "trade_count": 0
+    },
+    {
+      "date": "2025-03-07",
+      "abs_profit": 0,
+      "rel_profit": 0,
+      "starting_balance": 49.37378682979125,
+      "fiat_value": 0,
+      "trade_count": 0
+    }
+  ],
+  "fiat_display_currency": "USD",
+  "stake_currency": "USDT",
+  "botId": "ThanhHau-Long",
+  "botName": "Thành Hậu - Long"
+}

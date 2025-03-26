@@ -16,14 +16,14 @@ import { Line } from 'react-chartjs-2';
 import annotationPlugin from 'chartjs-plugin-annotation';
 import './MultiStrategyBacktestResults.css';
 import {
-  fetchDailyData,
-  fetchWeeklyData,
-  fetchMonthlyData,
+  fetchDailyStats,
+  fetchWeeklyStats,
+  fetchMonthlyStats,
   fetchTradesData,
-  fetchBalanceData,
-  fetchProfitData
+  fetchAggregatedStats,
+  fetchBotsData,
+  fetchBalanceData
 } from '../../services/api';
-import { transformTradeData } from '../../services/dataTransform';
 import Modal from '../ui/Modal';
 import AllTradesDetail from '../trades/AllTradesDetail';
 
@@ -57,15 +57,12 @@ const MultiStrategyBacktestResults = () => {
   const [isAllTradesModalOpen, setIsAllTradesModalOpen] = useState(false);
 
   // Dữ liệu từ API
-  const [dailyData, setDailyData] = useState(null);
-  const [weeklyData, setWeeklyData] = useState(null);
-  const [monthlyData, setMonthlyData] = useState(null);
+  const [dailyStats, setDailyStats] = useState([]);
+  const [weeklyStats, setWeeklyStats] = useState([]);
+  const [monthlyStats, setMonthlyStats] = useState([]);
   const [tradesData, setTradesData] = useState(null);
+  const [botsData, setBotsData] = useState(null);
   const [balanceData, setBalanceData] = useState(null);
-  const [profitData, setProfitData] = useState(null);
-
-  // Dữ liệu đã chuyển đổi
-  const [transformedData, setTransformedData] = useState(null);
 
   // Thống kê tổng hợp
   const [aggregatedStats, setAggregatedStats] = useState({
@@ -74,7 +71,8 @@ const MultiStrategyBacktestResults = () => {
     winRate: 0,
     totalProfit: 0,
     averageProfit: 0,
-    maxDrawdown: 0
+    maxDrawdown: 0,
+    currentBalance: 0
   });
 
   // Mở modal xem tất cả lệnh
@@ -94,28 +92,41 @@ const MultiStrategyBacktestResults = () => {
         setLoading(true);
         setError(null);
 
-        // Fetch tất cả dữ liệu cần thiết
-        const daily = await fetchDailyData();
-        const weekly = await fetchWeeklyData();
-        const monthly = await fetchMonthlyData();
-        const trades = await fetchTradesData();
-        const balance = await fetchBalanceData();
-        const profit = await fetchProfitData();
+        // Fetch tất cả dữ liệu cần thiết từ backend
+        const [
+          aggregatedData, 
+          tradesResult, 
+          botsResult, 
+          daily, 
+          weekly, 
+          monthly,
+          balance
+        ] = await Promise.all([
+          fetchAggregatedStats(),
+          fetchTradesData(),
+          fetchBotsData(),
+          fetchDailyStats(new Date()),
+          fetchWeeklyStats(new Date()),
+          fetchMonthlyStats(new Date()),
+          fetchBalanceData()
+        ]);
 
         // Lưu dữ liệu vào state
-        setDailyData(daily);
-        setWeeklyData(weekly);
-        setMonthlyData(monthly);
-        setTradesData(trades);
+        setAggregatedStats(aggregatedData || {
+          totalTrades: 0,
+          winningTrades: 0,
+          winRate: 0,
+          totalProfit: 0,
+          averageProfit: 0,
+          maxDrawdown: 0,
+          currentBalance: 0
+        });
+        setTradesData(tradesResult);
+        setBotsData(botsResult);
+        setDailyStats(daily || []);
+        setWeeklyStats(weekly || []);
+        setMonthlyStats(monthly || []);
         setBalanceData(balance);
-        setProfitData(profit);
-
-        // Biến đổi dữ liệu sử dụng hàm từ dataTransform.js
-        const transformed = transformTradeData(trades, balance, profit, daily, weekly, monthly);
-        setTransformedData(transformed);
-
-        // Tính toán thống kê tổng hợp
-        calculateAggregatedStats(trades);
 
       } catch (error) {
         console.error('Error loading data:', error);
@@ -128,70 +139,24 @@ const MultiStrategyBacktestResults = () => {
     loadData();
   }, []);
 
-  // Tính toán thống kê tổng hợp từ dữ liệu giao dịch
-  const calculateAggregatedStats = (trades) => {
-    if (!trades || !trades.trades || trades.trades.length === 0) {
-      return;
-    }
-
-    const allTrades = trades.trades;
-    const totalTrades = allTrades.length;
-    const winningTrades = allTrades.filter(trade => trade.profit_pct > 0).length;
-    const winRate = (winningTrades / totalTrades * 100).toFixed(2);
-    const totalProfit = allTrades.reduce((sum, trade) => sum + trade.profit_abs, 0);
-    const averageProfit = (totalProfit / totalTrades).toFixed(2);
-
-    // Tính max drawdown (đây là tính toán đơn giản, trong thực tế cần phức tạp hơn)
-    let maxDrawdown = 0;
-    let peak = 0;
-    let cumulativeProfit = 0;
-
-    // Sắp xếp giao dịch theo thời gian
-    const sortedTrades = [...allTrades].sort((a, b) =>
-      new Date(a.close_date) - new Date(b.close_date)
-    );
-
-    sortedTrades.forEach(trade => {
-      cumulativeProfit += trade.profit_abs;
-      if (cumulativeProfit > peak) {
-        peak = cumulativeProfit;
-      }
-      const drawdown = peak - cumulativeProfit;
-      if (drawdown > maxDrawdown) {
-        maxDrawdown = drawdown;
-      }
-    });
-
-    setAggregatedStats({
-      totalTrades,
-      winningTrades,
-      winRate,
-      totalProfit: totalProfit.toFixed(2),
-      averageProfit,
-      maxDrawdown: maxDrawdown.toFixed(2)
-    });
-  };
-
   // Tạo dữ liệu cho biểu đồ dựa trên timeframe đã chọn
   const formatChartData = () => {
-    if (!transformedData || transformedData.length === 0) {
+    if (!botsData || botsData.length === 0) {
       return null;
     }
 
-    // Lấy dữ liệu từ tất cả các bot và gộp lại
-    // Trong trường hợp thực tế, có thể cần một logic phức tạp hơn để gộp dữ liệu
-    // hoặc chỉ hiển thị một bot được chọn
-    const combinedBotData = transformedData[0]; // Lấy bot đầu tiên làm ví dụ
+    // Lấy dữ liệu từ bot đầu tiên (hoặc có thể thay bằng cách gộp dữ liệu từ tất cả bot)
+    const bot = botsData[0];
 
     switch (timeframe) {
       case 'day':
-        return formatDailyChartData(combinedBotData.daily_stats);
+        return formatDailyChartData(bot.daily_stats || []);
       case 'week':
-        return formatWeeklyChartData(combinedBotData.weekly_stats);
+        return formatWeeklyChartData(bot.weekly_stats || []);
       case 'month':
-        return formatMonthlyChartData(combinedBotData.monthly_stats);
+        return formatMonthlyChartData(bot.monthly_stats || []);
       default:
-        return formatDailyChartData(combinedBotData.daily_stats);
+        return formatDailyChartData(bot.daily_stats || []);
     }
   };
 
@@ -208,7 +173,7 @@ const MultiStrategyBacktestResults = () => {
 
     // Tính lợi nhuận tích lũy
     let cumulativeProfit = 0;
-    const chartData = sortedData.map((day, index) => {
+    const chartData = sortedData.map((day) => {
       cumulativeProfit += day.net_profit || 0;
       return {
         date: new Date(day.date).toLocaleDateString(),
@@ -275,7 +240,7 @@ const MultiStrategyBacktestResults = () => {
 
     // Tính lợi nhuận tích lũy
     let cumulativeProfit = 0;
-    const chartData = sortedData.map((week, index) => {
+    const chartData = sortedData.map((week) => {
       cumulativeProfit += week.net_profit || 0;
       return {
         date: new Date(week.date).toLocaleDateString(),
@@ -342,7 +307,7 @@ const MultiStrategyBacktestResults = () => {
 
     // Tính lợi nhuận tích lũy
     let cumulativeProfit = 0;
-    const chartData = sortedData.map((month, index) => {
+    const chartData = sortedData.map((month) => {
       cumulativeProfit += month.net_profit || 0;
       return {
         date: new Date(month.date).toLocaleDateString(),
@@ -417,11 +382,8 @@ const MultiStrategyBacktestResults = () => {
   // Format dữ liệu cho biểu đồ
   const chartData = formatChartData();
 
-  // Lấy thông tin tổng hợp từ dữ liệu đã biến đổi
-  let currentBalance = 0;
-  if (transformedData && transformedData.length > 0) {
-    currentBalance = transformedData[0].current_balance.balance_current || 0;
-  }
+  // Lấy thông tin số dư hiện tại
+  const currentBalance = balanceData?.total || 0;
 
   // Cấu hình chart
   const chartOptions = {
@@ -681,27 +643,27 @@ const MultiStrategyBacktestResults = () => {
       <div className="strategy-stats-container">
         <div className="strategy-stat-box">
           <h3>Tổng số giao dịch</h3>
-          <p>{aggregatedStats.totalTrades}</p>
+          <p>{aggregatedStats.totalTrades || 0}</p>
         </div>
         <div className="strategy-stat-box">
           <h3>Giao dịch thắng</h3>
-          <p>{aggregatedStats.winningTrades}</p>
+          <p>{aggregatedStats.winningTrades || 0}</p>
         </div>
         <div className="strategy-stat-box">
           <h3>Tỷ lệ thắng</h3>
-          <p>{aggregatedStats.winRate}%</p>
+          <p>{aggregatedStats.winRate || 0}%</p>
         </div>
         <div className="strategy-stat-box">
           <h3>Tổng lợi nhuận</h3>
-          <p>{aggregatedStats.totalProfit} USDT</p>
+          <p>{aggregatedStats.totalProfit || 0} USDT</p>
         </div>
         <div className="strategy-stat-box">
           <h3>Lợi nhuận trung bình</h3>
-          <p>{aggregatedStats.averageProfit} USDT</p>
+          <p>{aggregatedStats.averageProfit || 0} USDT</p>
         </div>
         <div className="strategy-stat-box">
           <h3>Drawdown tối đa</h3>
-          <p>{aggregatedStats.maxDrawdown} USDT</p>
+          <p>{aggregatedStats.maxDrawdown || 0} USDT</p>
         </div>
         <div className="strategy-stat-box">
           <h3>Số dư hiện tại</h3>

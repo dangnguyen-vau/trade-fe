@@ -10,96 +10,335 @@ import BotDetail from './components/bot/BotDetail';
 import AllTradesDetail from './components/trades/AllTradesDetail';
 import Modal from './components/ui/Modal';
 import MultiStrategyBacktestResults from './components/strategy/MultiStrategyBacktestResults';
-import { 
-  fetchTradesData, 
-  fetchBalanceData, 
-  fetchProfitData, 
-  fetchDailyData,
-  fetchWeeklyData,
-  fetchMonthlyData 
+import {
+  fetchTradesData,
+  fetchBotsData,
+  fetchMetadata,
+  fetchDailyStats,
+  fetchWeeklyStats,
+  fetchMonthlyStats
 } from './services/api';
-import { 
-  transformTradeData, 
-  getDailyStats, 
-  getWeeklyStats, 
-  getMonthlyStats 
-} from './services/dataTransform';
 
-function App() {
+// Custom hook để quản lý state và API
+const useDataFetching = () => {
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
   const [botsData, setBotsData] = useState([]);
   const [tradesData, setTradesData] = useState(null);
-  const [hoveredBot, setHoveredBot] = useState(null);
-  const [selectedBot, setSelectedBot] = useState(null);
   const [selectedDate, setSelectedDate] = useState(new Date());
-  const [selectedMonthData, setSelectedMonthData] = useState(null);
-  const [selectedDayData, setSelectedDayData] = useState(null);
-  const [selectedWeekData, setSelectedWeekData] = useState(null);
-  const [isModalOpen, setIsModalOpen] = useState(false);
-  const [isAllTradesModalOpen, setIsAllTradesModalOpen] = useState(false);
+  const [selectedDateStats, setSelectedDateStats] = useState([]);
+  const [previousDateStats, setPreviousDateStats] = useState([]);
+  const [weeklyBotsData, setWeeklyBotsData] = useState([]);
+  const [weeklyData, setWeeklyData] = useState([]);
+  const [monthlyBotsData, setMonthlyBotsData] = useState([]);
+  const [monthlyData, setMonthlyData] = useState([]);
+  const [fourWeekData, setFourWeekData] = useState([]);
+  const [twelveMonthData, setTwelveMonthData] = useState([]);
 
-  // Load data from API
+  // Tính toán ngày hôm qua
+  const yesterdayDate = useMemo(() => {
+    const date = new Date(selectedDate);
+    date.setDate(selectedDate.getDate() - 1);
+    return date;
+  }, [selectedDate]);
+
+  // Fetch dữ liệu ban đầu
   useEffect(() => {
-    const fetchData = async () => {
+    const fetchInitialData = async () => {
       setLoading(true);
       try {
-        const trades = await fetchTradesData();
-        const balance = await fetchBalanceData();
-        const profit = await fetchProfitData();
-        const daily = await fetchDailyData();
-        const weekly = await fetchWeeklyData();
-        const monthly = await fetchMonthlyData();
-
-        setTradesData(trades); // Lưu tradesData để sử dụng trong BotDetail
+        // Sử dụng Promise.all để gọi nhiều API cùng lúc
+        const [botsDataFetch, trades, metadata] = await Promise.all([
+          fetchBotsData(),
+          fetchTradesData(),
+          fetchMetadata()
+        ]);
         
-        const transformedData = transformTradeData(
-          trades,
-          balance,
-          profit,
-          daily,
-          weekly,
-          monthly
-        );
-
-        setBotsData(transformedData);
-
-        // Tìm ngày cuối cùng có dữ liệu để thiết lập làm mặc định
-        if (profit && profit.latest_trade_date) {
-          setSelectedDate(new Date(profit.latest_trade_date));
+        setTradesData(trades);
+        
+        if (botsDataFetch) {
+          setBotsData(botsDataFetch);
+          
+          if (metadata && metadata.latest_trade_date) {
+            setSelectedDate(new Date(metadata.latest_trade_date));
+          }
+        } else {
+          setError('Không thể tải dữ liệu bot. Vui lòng thử lại sau.');
         }
       } catch (error) {
-        console.error('Error fetching data:', error);
+        console.error('Error fetching initial data:', error);
         setError('Không thể tải dữ liệu. Vui lòng thử lại sau.');
       } finally {
         setLoading(false);
       }
     };
 
-    fetchData();
+    fetchInitialData();
   }, []);
 
-  // Xử lý khi click vào bot
-  const handleBotClick = useCallback((bot) => {
-    setSelectedBot(bot.name);
-    setIsModalOpen(true);
-  }, []);
+  // Fetch dữ liệu thống kê ngày đã chọn
+  useEffect(() => {
+    const fetchSelectedDateStatsData = async () => {
+      try {
+        const data = await fetchDailyStats(selectedDate);
+        setSelectedDateStats(data || []);
+      } catch (error) {
+        console.error('Error fetching selected date stats:', error);
+        setSelectedDateStats([]);
+      }
+    };
 
-  const handleCloseModal = useCallback(() => {
-    setIsModalOpen(false);
-    // Đặt timeout để tránh hiệu ứng nhấp nháy khi đóng modal
-    setTimeout(() => setSelectedBot(null), 300);
-  }, []);
+    fetchSelectedDateStatsData();
+  }, [selectedDate]);
 
-  // Mở modal xem tất cả lệnh
-  const handleOpenAllTradesModal = useCallback(() => {
-    setIsAllTradesModalOpen(true);
-  }, []);
+  // Fetch dữ liệu ngày hôm trước
+  useEffect(() => {
+    const fetchPrevDateStatsData = async () => {
+      try {
+        const data = await fetchDailyStats(yesterdayDate);
+        setPreviousDateStats(data || []);
+      } catch (error) {
+        console.error('Error fetching previous date stats:', error);
+        setPreviousDateStats([]);
+      }
+    };
 
-  // Đóng modal xem tất cả lệnh
-  const handleCloseAllTradesModal = useCallback(() => {
-    setIsAllTradesModalOpen(false);
-  }, []);
+    fetchPrevDateStatsData();
+  }, [yesterdayDate]);
+
+  // Fetch dữ liệu thống kê tuần
+  useEffect(() => {
+    const fetchWeeklyStatsData = async () => {
+      try {
+        const data = await fetchWeeklyStats(selectedDate);
+        setWeeklyBotsData(data || []);
+      } catch (error) {
+        console.error('Error fetching weekly stats:', error);
+        setWeeklyBotsData([]);
+      }
+    };
+
+    fetchWeeklyStatsData();
+  }, [selectedDate]);
+
+  // Fetch dữ liệu thống kê tháng
+  useEffect(() => {
+    const fetchMonthlyStatsData = async () => {
+      try {
+        const data = await fetchMonthlyStats(selectedDate);
+        setMonthlyBotsData(data || []);
+      } catch (error) {
+        console.error('Error fetching monthly stats:', error);
+        setMonthlyBotsData([]);
+      }
+    };
+
+    fetchMonthlyStatsData();
+  }, [selectedDate]);
+
+  // Fetch dữ liệu weekly data (7 ngày)
+  useEffect(() => {
+    const fetchWeeklyDataForChart = async () => {
+      try {
+        const result = [];
+        const promises = [];
+        
+        // Tạo mảng chứa 7 ngày gần nhất để lấy dữ liệu
+        for (let i = 0; i < 7; i++) {
+          const currentDate = new Date(selectedDate);
+          currentDate.setDate(selectedDate.getDate() - i);
+          
+          // Tạo promise để fetch dữ liệu
+          promises.push(
+            fetchDailyStats(currentDate)
+              .then(dailyStatsForDay => {
+                return {
+                  date: currentDate.toISOString().split('T')[0],
+                  bots: dailyStatsForDay ? dailyStatsForDay.map(bot => ({
+                    id: bot.name,
+                    ...bot
+                  })) : []
+                };
+              })
+              .catch(error => {
+                console.error(`Error fetching daily stats for day ${i}:`, error);
+                return {
+                  date: currentDate.toISOString().split('T')[0],
+                  bots: []
+                };
+              })
+          );
+        }
+        
+        // Chờ tất cả các promise hoàn thành
+        const dailyResults = await Promise.all(promises);
+        
+        // Sắp xếp kết quả theo ngày
+        dailyResults.sort((a, b) => new Date(b.date) - new Date(a.date));
+        
+        setWeeklyData(dailyResults);
+      } catch (error) {
+        console.error('Error fetching weekly data for chart:', error);
+        setWeeklyData([]);
+      }
+    };
+
+    fetchWeeklyDataForChart();
+  }, [selectedDate]);
+
+  // Fetch dữ liệu four week data (4 tuần)
+  useEffect(() => {
+    const fetchFourWeekData = async () => {
+      try {
+        const promises = [];
+        
+        for (let weekIndex = 0; weekIndex < 4; weekIndex++) {
+          const endDate = new Date(selectedDate);
+          endDate.setDate(selectedDate.getDate() - (weekIndex * 7));
+          const startDate = new Date(endDate);
+          startDate.setDate(endDate.getDate() - 6);
+          
+          promises.push(
+            fetchWeeklyStats(endDate)
+              .then(botPerformances => {
+                // Tính tổng lợi nhuận cho tuần
+                const totalProfit = botPerformances && Array.isArray(botPerformances)
+                  ? botPerformances.reduce((sum, bot) => sum + (bot.performance || 0), 0)
+                  : 0;
+                
+                return {
+                  weekStart: startDate.toISOString().split('T')[0],
+                  weekEnd: endDate.toISOString().split('T')[0],
+                  totalProfit: parseFloat(totalProfit.toFixed(1)),
+                  weekIndex,
+                  botPerformances: botPerformances || []
+                };
+              })
+              .catch(error => {
+                console.error(`Error fetching weekly stats for week ${weekIndex}:`, error);
+                return {
+                  weekStart: startDate.toISOString().split('T')[0],
+                  weekEnd: endDate.toISOString().split('T')[0],
+                  totalProfit: 0,
+                  weekIndex,
+                  botPerformances: []
+                };
+              })
+          );
+        }
+        
+        const result = await Promise.all(promises);
+        setFourWeekData(result);
+      } catch (error) {
+        console.error('Error fetching four week data:', error);
+        setFourWeekData([]);
+      }
+    };
+
+    fetchFourWeekData();
+  }, [selectedDate]);
+
+  // Fetch dữ liệu monthly data (30 ngày)
+  useEffect(() => {
+    const fetchMonthlyDataForChart = async () => {
+      try {
+        const promises = [];
+        
+        for (let i = 0; i < 30; i++) {
+          const currentDate = new Date(selectedDate);
+          currentDate.setDate(selectedDate.getDate() - i);
+          
+          promises.push(
+            fetchDailyStats(currentDate)
+              .then(dailyStatsForDay => {
+                return {
+                  date: currentDate.toISOString().split('T')[0],
+                  bots: dailyStatsForDay ? dailyStatsForDay.map(bot => ({
+                    name: bot.name,
+                    performance: bot.performance || 0,
+                    net_profit: bot.net_profit || 0,
+                    balance: bot.balance || 0,
+                    winrate: parseInt(bot.winRate) || 0
+                  })) : []
+                };
+              })
+              .catch(error => {
+                console.error(`Error fetching daily stats for day ${i} in monthly:`, error);
+                return {
+                  date: currentDate.toISOString().split('T')[0],
+                  bots: []
+                };
+              })
+          );
+        }
+        
+        const result = await Promise.all(promises);
+        // Sắp xếp kết quả theo ngày
+        result.sort((a, b) => new Date(b.date) - new Date(a.date));
+        
+        setMonthlyData(result);
+      } catch (error) {
+        console.error('Error fetching monthly data for chart:', error);
+        setMonthlyData([]);
+      }
+    };
+
+    fetchMonthlyDataForChart();
+  }, [selectedDate]);
+
+  // Fetch dữ liệu twelve month data (12 tháng)
+  useEffect(() => {
+    const fetchTwelveMonthData = async () => {
+      try {
+        const promises = [];
+        
+        for (let monthIndex = 0; monthIndex < 12; monthIndex++) {
+          const endDate = new Date(selectedDate);
+          endDate.setMonth(selectedDate.getMonth() - monthIndex);
+          const startDate = new Date(endDate);
+          startDate.setDate(1); // First day of month
+          
+          promises.push(
+            fetchMonthlyStats(endDate)
+              .then(botPerformances => {
+                // Tính tổng lợi nhuận cho tháng
+                const totalProfit = botPerformances && Array.isArray(botPerformances)
+                  ? botPerformances.reduce((sum, bot) => sum + (bot.performance || 0), 0)
+                  : 0;
+                
+                return {
+                  monthStart: startDate.toISOString().split('T')[0],
+                  monthEnd: endDate.toISOString().split('T')[0],
+                  totalProfit: parseFloat(totalProfit.toFixed(1)),
+                  monthIndex,
+                  monthLabel: startDate.toLocaleDateString('en-US', { month: 'short', year: 'numeric' }),
+                  botPerformances: botPerformances || []
+                };
+              })
+              .catch(error => {
+                console.error(`Error fetching monthly stats for month ${monthIndex}:`, error);
+                return {
+                  monthStart: startDate.toISOString().split('T')[0],
+                  monthEnd: endDate.toISOString().split('T')[0],
+                  totalProfit: 0,
+                  monthIndex,
+                  monthLabel: startDate.toLocaleDateString('en-US', { month: 'short', year: 'numeric' }),
+                  botPerformances: []
+                };
+              })
+          );
+        }
+        
+        const result = await Promise.all(promises);
+        setTwelveMonthData(result);
+      } catch (error) {
+        console.error('Error fetching twelve month data:', error);
+        setTwelveMonthData([]);
+      }
+    };
+
+    fetchTwelveMonthData();
+  }, [selectedDate]);
 
   // Handle date navigation
   const changeDate = useCallback((days) => {
@@ -108,38 +347,43 @@ function App() {
     setSelectedDate(newDate);
   }, [selectedDate]);
 
-  // Get daily stats for selected date
-  const selectedDateStats = useMemo(() => 
-    getDailyStats(botsData, selectedDate)
-  , [botsData, selectedDate]);
+  return {
+    loading,
+    error,
+    botsData,
+    tradesData,
+    selectedDate,
+    setSelectedDate,
+    selectedDateStats,
+    previousDateStats,
+    weeklyBotsData,
+    weeklyData,
+    monthlyBotsData,
+    monthlyData,
+    fourWeekData,
+    twelveMonthData,
+    changeDate
+  };
+};
 
-  // Get daily stats for previous day
-  const yesterdayDate = useMemo(() => {
-    const date = new Date(selectedDate);
-    date.setDate(selectedDate.getDate() - 1);
-    return date;
-  }, [selectedDate]);
-
-  const previousDateStats = useMemo(() => 
-    getDailyStats(botsData, yesterdayDate)
-  , [botsData, yesterdayDate]);
-
+// Custom hook để tính toán các chỉ số thống kê
+const useStatsCalculation = (selectedDateStats, previousDateStats, weeklyBotsData) => {
   // Calculate metrics for selected date
   const selectedNetProfit = useMemo(() =>
-    selectedDateStats.reduce((sum, bot) => sum + bot.performance, 0).toFixed(1)
+    selectedDateStats.reduce((sum, bot) => sum + (bot.performance || 0), 0).toFixed(1)
   , [selectedDateStats]);
 
   const previousNetProfit = useMemo(() =>
-    previousDateStats.reduce((sum, bot) => sum + bot.performance, 0).toFixed(1)
+    previousDateStats.reduce((sum, bot) => sum + (bot.performance || 0), 0).toFixed(1)
   , [previousDateStats]);
 
   const netProfitChange = useMemo(() =>
-    (selectedNetProfit - previousNetProfit).toFixed(1)
+    (Number(selectedNetProfit) - Number(previousNetProfit)).toFixed(1)
   , [selectedNetProfit, previousNetProfit]);
 
   // Calculate today's net profit amount
   const todayNetProfitAmount = useMemo(() =>
-    selectedDateStats.reduce((sum, bot) => sum + bot.net_profit, 0)
+    selectedDateStats.reduce((sum, bot) => sum + (bot.net_profit || 0), 0)
   , [selectedDateStats]);
 
   // Find top and bottom performers
@@ -171,11 +415,11 @@ function App() {
 
   // Calculate profitable bots
   const profitableBotsToday = useMemo(() =>
-    selectedDateStats.filter(bot => bot.performance > 0).length
+    selectedDateStats.filter(bot => (bot.performance || 0) > 0).length
   , [selectedDateStats]);
 
   const profitableBotsYesterday = useMemo(() =>
-    previousDateStats.filter(bot => bot.performance > 0).length
+    previousDateStats.filter(bot => (bot.performance || 0) > 0).length
   , [previousDateStats]);
 
   const profitableBotsChange = useMemo(() =>
@@ -185,34 +429,15 @@ function App() {
   const totalBots = useMemo(() => selectedDateStats.length, [selectedDateStats]);
 
   // Prepare daily data
-  const latestBotsData = useMemo(() => 
+  const latestBotsData = useMemo(() =>
     selectedDateStats.map(bot => ({
       id: bot.name,
       ...bot
     }))
   , [selectedDateStats]);
 
-  // Prepare weekly data
-  const weeklyData = useMemo(() => Array.from({ length: 7 }).map((_, index) => {
-    const currentDate = new Date(selectedDate);
-    currentDate.setDate(selectedDate.getDate() - index);
-    
-    return {
-      date: currentDate.toISOString().split('T')[0],
-      bots: getDailyStats(botsData, currentDate).map(bot => ({
-        id: bot.name,
-        ...bot
-      }))
-    };
-  }), [botsData, selectedDate]);
-
-  // Calculate weekly stats
-  const weeklyBotsData = useMemo(() => 
-    getWeeklyStats(botsData, selectedDate)
-  , [botsData, selectedDate]);
-
   // Calculate weekly metrics
-  const weeklyNetProfit = useMemo(() => 
+  const weeklyNetProfit = useMemo(() =>
     weeklyBotsData.reduce((sum, bot) => sum + (bot.net_profit || 0), 0)
   , [weeklyBotsData]);
 
@@ -239,78 +464,89 @@ function App() {
     weeklyBotsData.reduce((sum, bot) => sum + (bot.performance || 0), 0).toFixed(2)
   , [weeklyBotsData]);
 
-  // Prepare 4-week data
-  const fourWeekData = useMemo(() => Array.from({ length: 4 }).map((_, weekIndex) => {
-    const endDate = new Date(selectedDate);
-    endDate.setDate(selectedDate.getDate() - (weekIndex * 7));
-    const startDate = new Date(endDate);
-    startDate.setDate(endDate.getDate() - 6);
+  return {
+    selectedNetProfit,
+    netProfitChange,
+    todayNetProfitAmount,
+    topBot,
+    bottomBot,
+    profitableBotsToday,
+    totalBots,
+    profitableBotsChange,
+    latestBotsData,
+    weeklyNetProfit,
+    topWeeklyPerformer,
+    bottomWeeklyPerformer,
+    avgProfitableBotsPerDay,
+    weeklyTotalProfitPercent
+  };
+};
 
-    // Get botPerformances for this week
-    const botPerformances = getWeeklyStats(botsData, endDate).map(bot => ({
-      id: bot.name,
-      ...bot
-    }));
+function App() {
+  const [hoveredBot, setHoveredBot] = useState(null);
+  const [selectedBot, setSelectedBot] = useState(null);
+  const [selectedMonthData, setSelectedMonthData] = useState(null);
+  const [selectedDayData, setSelectedDayData] = useState(null);
+  const [selectedWeekData, setSelectedWeekData] = useState(null);
+  const [isModalOpen, setIsModalOpen] = useState(false);
+  const [isAllTradesModalOpen, setIsAllTradesModalOpen] = useState(false);
 
-    // Calculate total profit for the week
-    const totalProfit = botPerformances.reduce((sum, bot) => sum + (bot.performance || 0), 0);
+  const {
+    loading,
+    error,
+    botsData,
+    tradesData,
+    selectedDate,
+    setSelectedDate,
+    selectedDateStats,
+    previousDateStats,
+    weeklyBotsData,
+    weeklyData,
+    monthlyBotsData,
+    monthlyData,
+    fourWeekData,
+    twelveMonthData,
+    changeDate
+  } = useDataFetching();
 
-    return {
-      weekStart: startDate.toISOString().split('T')[0],
-      weekEnd: endDate.toISOString().split('T')[0],
-      totalProfit: parseFloat(totalProfit.toFixed(1)),
-      weekIndex,
-      botPerformances
-    };
-  }), [botsData, selectedDate]);
+  const {
+    selectedNetProfit,
+    netProfitChange,
+    todayNetProfitAmount,
+    topBot,
+    bottomBot,
+    profitableBotsToday,
+    totalBots,
+    profitableBotsChange,
+    latestBotsData,
+    weeklyNetProfit,
+    topWeeklyPerformer,
+    bottomWeeklyPerformer,
+    avgProfitableBotsPerDay,
+    weeklyTotalProfitPercent
+  } = useStatsCalculation(selectedDateStats, previousDateStats, weeklyBotsData);
 
-  // Prepare monthly data
-  const monthlyData = useMemo(() => Array.from({ length: 30 }).map((_, index) => {
-    const currentDate = new Date(selectedDate);
-    currentDate.setDate(selectedDate.getDate() - index);
-    
-    return {
-      date: currentDate.toISOString().split('T')[0],
-      bots: getDailyStats(botsData, currentDate).map(bot => ({
-        name: bot.name,
-        performance: bot.performance || 0,
-        net_profit: bot.net_profit || 0,
-        balance: bot.balance || 0,
-        winrate: parseInt(bot.winRate) || 0
-      }))
-    };
-  }), [botsData, selectedDate]);
+  // Xử lý khi click vào bot
+  const handleBotClick = useCallback((bot) => {
+    setSelectedBot(bot.name);
+    setIsModalOpen(true);
+  }, []);
 
-  // Calculate monthly stats
-  const monthlyBotsData = useMemo(() => 
-    getMonthlyStats(botsData, selectedDate)
-  , [botsData, selectedDate]);
+  const handleCloseModal = useCallback(() => {
+    setIsModalOpen(false);
+    // Đặt timeout để tránh hiệu ứng nhấp nháy khi đóng modal
+    setTimeout(() => setSelectedBot(null), 300);
+  }, []);
 
-  // Prepare 12-month data
-  const twelveMonthData = useMemo(() => Array.from({ length: 12 }).map((_, monthIndex) => {
-    const endDate = new Date(selectedDate);
-    endDate.setMonth(selectedDate.getMonth() - monthIndex);
-    const startDate = new Date(endDate);
-    startDate.setDate(1); // First day of month
+  // Mở modal xem tất cả lệnh
+  const handleOpenAllTradesModal = useCallback(() => {
+    setIsAllTradesModalOpen(true);
+  }, []);
 
-    // Get botPerformances for this month
-    const botPerformances = getMonthlyStats(botsData, endDate).map(bot => ({
-      id: bot.name,
-      ...bot
-    }));
-
-    // Calculate total profit for the month
-    const totalProfit = botPerformances.reduce((sum, bot) => sum + (bot.performance || 0), 0);
-
-    return {
-      monthStart: startDate.toISOString().split('T')[0],
-      monthEnd: endDate.toISOString().split('T')[0],
-      totalProfit: parseFloat(totalProfit.toFixed(1)),
-      monthIndex,
-      monthLabel: startDate.toLocaleDateString('en-US', { month: 'short', year: 'numeric' }),
-      botPerformances
-    };
-  }), [botsData, selectedDate]);
+  // Đóng modal xem tất cả lệnh
+  const handleCloseAllTradesModal = useCallback(() => {
+    setIsAllTradesModalOpen(false);
+  }, []);
 
   // Hiển thị loading khi đang tải dữ liệu
   if (loading) {
@@ -339,40 +575,39 @@ function App() {
             <h1>Bot Profit Monitor</h1>
             <p>Track • Analyze • Optimize</p>
           </div>
-          
+
           <div className="dashboard-section">
             <div className="header-section">
-              <div>
-                <h1>Daily Trading Summary</h1>
-                <div className="subtitle-with-controls">
-                  <div className="subtitle">
-                    Profit Overview •
-                    <div className="date-controls">
-                      <button
-                        className="date-nav-btn"
-                        onClick={() => changeDate(-1)}
-                        title="Previous day"
-                      >
-                        ←
-                      </button>
-                      <input
-                        type="date"
-                        value={selectedDate.toISOString().split('T')[0]}
-                        onChange={(e) => setSelectedDate(new Date(e.target.value))}
-                        className="date-picker"
-                      />
-                      <button
-                        className="date-nav-btn"
-                        onClick={() => changeDate(1)}
-                        title="Next day"
-                      >
-                        →
-                      </button>
-                    </div>
+              <h1>Daily Trading Summary</h1>
+              <div className="subtitle-with-controls">
+                <div className="subtitle">
+                  Profit Overview •
+                  <div className="date-controls">
+                    <button
+                      className="date-nav-btn"
+                      onClick={() => changeDate(-1)}
+                      title="Previous day"
+                    >
+                      ←
+                    </button>
+                    <input
+                      type="date"
+                      value={selectedDate.toISOString().split('T')[0]}
+                      onChange={(e) => setSelectedDate(new Date(e.target.value))}
+                      className="date-picker"
+                    />
+                    <button
+                      className="date-nav-btn"
+                      onClick={() => changeDate(1)}
+                      title="Next day"
+                    >
+                      →
+                    </button>
                   </div>
                 </div>
               </div>
               <div className="stats-container">
+                {/* Tổng kết của ngày */}
                 <DailyStatsSummary
                   todayNetProfit={selectedNetProfit}
                   todayNetProfitChange={netProfitChange}
@@ -385,13 +620,14 @@ function App() {
                   totalBots={totalBots}
                   profitableBotsChange={profitableBotsChange}
                 />
-                
+
               </div>
             </div>
             <div className="dashboard-container">
+              {/* Sơ đồ cột */}
               <div className="chart-section">
                 <ProfitChart
-                  botsData={latestBotsData}
+                  botsData={latestBotsData} // Giá trị không dùng đến
                   onBotHover={setHoveredBot}
                   type="daily"
                   weeklyData={weeklyData}
@@ -399,6 +635,7 @@ function App() {
                   setSelectedDayData={setSelectedDayData}
                 />
               </div>
+              {/* List Card Bot */}
               <div className="bots-list">
                 {(selectedDayData ? selectedDayData.bots : latestBotsData).map((bot, index) => (
                   <BotCard
@@ -571,16 +808,16 @@ function App() {
                   : twelveMonthData.length > 0
                     ? twelveMonthData[0].botPerformances
                     : []).map((bot, index) => (
-                  <BotCard
-                    key={bot.id || index}
-                    bot={bot}
-                    index={index}
-                    isHighlighted={hoveredBot === bot.name}
-                    isSelected={selectedBot === bot.name}
-                    onClick={() => handleBotClick(bot)}
-                    type="monthly"
-                  />
-                ))}
+                      <BotCard
+                        key={bot.id || index}
+                        bot={bot}
+                        index={index}
+                        isHighlighted={hoveredBot === bot.name}
+                        isSelected={selectedBot === bot.name}
+                        onClick={() => handleBotClick(bot)}
+                        type="monthly"
+                      />
+                    ))}
               </div>
             </div>
           </div>
@@ -590,10 +827,10 @@ function App() {
         </div>
       </div>
       <QuickOverview botsData={botsData} />
-      
+
       {selectedBotData && tradesData && (
-        <Modal 
-          isOpen={isModalOpen} 
+        <Modal
+          isOpen={isModalOpen}
           onClose={handleCloseModal}
           title={`Chi tiết Bot: ${selectedBotData.name}`}
         >
@@ -602,8 +839,8 @@ function App() {
       )}
 
       {tradesData && (
-        <Modal 
-          isOpen={isAllTradesModalOpen} 
+        <Modal
+          isOpen={isAllTradesModalOpen}
           onClose={handleCloseAllTradesModal}
           title="Thống kê tất cả lệnh giao dịch"
         >
