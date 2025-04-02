@@ -145,12 +145,7 @@ function getLocalWeeklyData() {
     
     // Nếu không có dữ liệu tổng hợp, thử lấy từ thư mục gốc (dữ liệu cũ)
     if (!data) {
-        const legacyPath = path.join(
-            path.dirname(path.dirname(path.dirname(filePath))), 
-            'TimeOver', 
-            'weekly.json'
-        );
-        return readJsonFromFile(legacyPath);
+        console.warn('Bị lỗi lấy dữ liệu tuần vì không có dữ liệu tuần tổng hợp');
     }
     
     return data;

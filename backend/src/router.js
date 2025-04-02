@@ -134,31 +134,6 @@ router.get('/api/bots', (req, res) => {
     }
 });
 
-// API MỚI: Lấy thông tin thống kê theo ngày (tất cả hoặc ngày cụ thể)
-router.get('/api/stats/daily', (req, res) => {
-    try {
-        const { date } = req.query;
-        let dailyStats;
-        
-        if (date) {
-            // Nếu có date, lấy thống kê theo ngày cụ thể
-            dailyStats = getDailyStats(new Date(date));
-        } else {
-            // Nếu không có date, lấy tất cả
-            dailyStats = getAllDailyStats();
-        }
-        
-        if (dailyStats && dailyStats.length > 0) {
-            return res.json(dailyStats);
-        } else {
-            return res.status(404).json({ error: 'Không tìm thấy dữ liệu thống kê theo ngày' });
-        }
-    } catch (error) {
-        console.error('Lỗi khi xử lý dữ liệu thống kê theo ngày:', error.message);
-        return res.status(500).json({ error: 'Lỗi server' });
-    }
-});
-
 // API MỚI: Lấy thông tin thống kê theo ngày cụ thể (cho frontend sử dụng)
 router.get('/api/stats/daily/:date', (req, res) => {
     try {
@@ -177,31 +152,6 @@ router.get('/api/stats/daily/:date', (req, res) => {
         }
     } catch (error) {
         console.error('Lỗi khi xử lý dữ liệu thống kê theo ngày:', error.message);
-        return res.status(500).json({ error: 'Lỗi server' });
-    }
-});
-
-// API MỚI: Lấy thông tin thống kê theo tuần (tất cả hoặc tuần kết thúc vào ngày cụ thể)
-router.get('/api/stats/weekly', (req, res) => {
-    try {
-        const { endDate } = req.query;
-        let weeklyStats;
-        
-        if (endDate) {
-            // Nếu có endDate, lấy thống kê theo tuần kết thúc vào ngày cụ thể
-            weeklyStats = getWeeklyStats(new Date(endDate));
-        } else {
-            // Nếu không có endDate, lấy tất cả
-            weeklyStats = getAllWeeklyStats();
-        }
-        
-        if (weeklyStats && weeklyStats.length > 0) {
-            return res.json(weeklyStats);
-        } else {
-            return res.status(404).json({ error: 'Không tìm thấy dữ liệu thống kê theo tuần' });
-        }
-    } catch (error) {
-        console.error('Lỗi khi xử lý dữ liệu thống kê theo tuần:', error.message);
         return res.status(500).json({ error: 'Lỗi server' });
     }
 });
@@ -353,6 +303,76 @@ router.get('/api/aggregated-data', async (req, res) => {
     console.error('Lỗi khi tổng hợp dữ liệu:', error);
     res.status(500).json({ success: false, message: 'Lỗi khi tổng hợp dữ liệu' });
   }
+});
+
+// API mới: Lấy danh sách các tuần có sẵn trong dữ liệu
+router.get('/api/stats/available-weeks', (req, res) => {
+    try {
+        const { getLocalWeeklyData } = require('./services/TimeOver/weeklyService');
+        const weeklyData = getLocalWeeklyData();
+        
+        if (!weeklyData || !weeklyData.data) {
+            return res.status(404).json({ error: 'Không tìm thấy dữ liệu tuần' });
+        }
+
+        // Cấu trúc dữ liệu tuần để hiển thị trên frontend
+        const availableWeeks = weeklyData.data.map(week => {
+            const weekStart = new Date(week.date);
+            const weekEnd = new Date(weekStart);
+            weekEnd.setDate(weekStart.getDate() + 6);
+            
+            return {
+                key: week.date,
+                startDate: weekStart.toISOString().split('T')[0],
+                endDate: weekEnd.toISOString().split('T')[0],
+                label: `${weekStart.toLocaleDateString('vi-VN', { day: '2-digit', month: '2-digit' })} - ${weekEnd.toLocaleDateString('vi-VN', { day: '2-digit', month: '2-digit' })}`,
+                abs_profit: week.abs_profit,
+                rel_profit: week.rel_profit,
+                trade_count: week.trade_count
+            };
+        }).sort((a, b) => new Date(b.startDate) - new Date(a.startDate)); // Sắp xếp từ mới đến cũ
+
+        return res.json(availableWeeks);
+    } catch (error) {
+        console.error('Lỗi khi lấy danh sách tuần:', error.message);
+        return res.status(500).json({ error: 'Lỗi server' });
+    }
+});
+
+// API mới: Lấy danh sách các tháng có sẵn trong dữ liệu
+router.get('/api/stats/available-months', (req, res) => {
+    try {
+        const { getLocalMonthlyData } = require('./services/TimeOver/monthlyService');
+        const monthlyData = getLocalMonthlyData();
+        
+        if (!monthlyData || !monthlyData.data) {
+            return res.status(404).json({ error: 'Không tìm thấy dữ liệu tháng' });
+        }
+
+        // Cấu trúc dữ liệu tháng để hiển thị trên frontend
+        const availableMonths = monthlyData.data.map(month => {
+            const monthDate = new Date(month.date);
+            
+            // Tính ngày bắt đầu và kết thúc của tháng
+            const startDate = new Date(monthDate.getFullYear(), monthDate.getMonth(), 1);
+            const endDate = new Date(monthDate.getFullYear(), monthDate.getMonth() + 1, 0);
+            
+            return {
+                key: month.date,
+                startDate: startDate.toISOString().split('T')[0],
+                endDate: endDate.toISOString().split('T')[0],
+                label: monthDate.toLocaleDateString('vi-VN', { month: 'long', year: 'numeric' }),
+                abs_profit: month.abs_profit,
+                rel_profit: month.rel_profit,
+                trade_count: month.trade_count
+            };
+        }).sort((a, b) => new Date(b.startDate) - new Date(a.startDate)); // Sắp xếp từ mới đến cũ
+
+        return res.json(availableMonths);
+    } catch (error) {
+        console.error('Lỗi khi lấy danh sách tháng:', error.message);
+        return res.status(500).json({ error: 'Lỗi server' });
+    }
 });
 
 module.exports = router;

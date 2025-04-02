@@ -19,9 +19,9 @@ import {
   fetchDailyStats,
   fetchWeeklyStats,
   fetchMonthlyStats,
-  fetchTradesData,
+  fetchAvailableTradesData,
   fetchAggregatedStats,
-  fetchBotsData,
+  fetchAllBotsData,
   fetchBalanceData
 } from '../../services/api';
 import Modal from '../ui/Modal';
@@ -103,8 +103,8 @@ const MultiStrategyBacktestResults = () => {
           balance
         ] = await Promise.all([
           fetchAggregatedStats(),
-          fetchTradesData(),
-          fetchBotsData(),
+          fetchAvailableTradesData(),
+          fetchAllBotsData(),
           fetchDailyStats(new Date()),
           fetchWeeklyStats(new Date()),
           fetchMonthlyStats(new Date()),

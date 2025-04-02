@@ -11,12 +11,14 @@ import AllTradesDetail from './components/trades/AllTradesDetail';
 import Modal from './components/ui/Modal';
 import MultiStrategyBacktestResults from './components/strategy/MultiStrategyBacktestResults';
 import {
-  fetchTradesData,
-  fetchBotsData,
+  fetchAvailableTradesData,
+  fetchAllBotsData,
   fetchMetadata,
   fetchDailyStats,
   fetchWeeklyStats,
-  fetchMonthlyStats
+  fetchMonthlyStats,
+  fetchAvailableWeeks,
+  fetchAvailableMonths
 } from './services/api';
 
 // Custom hook để quản lý state và API
@@ -34,6 +36,10 @@ const useDataFetching = () => {
   const [monthlyData, setMonthlyData] = useState([]);
   const [fourWeekData, setFourWeekData] = useState([]);
   const [twelveMonthData, setTwelveMonthData] = useState([]);
+  const [availableWeeks, setAvailableWeeks] = useState([]);
+  const [availableMonths, setAvailableMonths] = useState([]);
+  const [selectedWeekIndex, setSelectedWeekIndex] = useState(0);
+  const [selectedMonthIndex, setSelectedMonthIndex] = useState(0);
 
   // Tính toán ngày hôm qua
   const yesterdayDate = useMemo(() => {
@@ -48,13 +54,17 @@ const useDataFetching = () => {
       setLoading(true);
       try {
         // Sử dụng Promise.all để gọi nhiều API cùng lúc
-        const [botsDataFetch, trades, metadata] = await Promise.all([
-          fetchBotsData(),
-          fetchTradesData(),
-          fetchMetadata()
+        const [botsDataFetch, trades, metadata, weeksData, monthsData] = await Promise.all([
+          fetchAllBotsData(),
+          fetchAvailableTradesData(),
+          fetchMetadata(),
+          fetchAvailableWeeks(),
+          fetchAvailableMonths()
         ]);
         
         setTradesData(trades);
+        setAvailableWeeks(weeksData || []);
+        setAvailableMonths(monthsData || []);
         
         if (botsDataFetch) {
           setBotsData(botsDataFetch);
@@ -110,8 +120,16 @@ const useDataFetching = () => {
   useEffect(() => {
     const fetchWeeklyStatsData = async () => {
       try {
-        const data = await fetchWeeklyStats(selectedDate);
-        setWeeklyBotsData(data || []);
+        // Sử dụng tuần đang chọn nếu có sẵn, nếu không thì dùng ngày hiện tại
+        if (availableWeeks.length > 0 && selectedWeekIndex >= 0) {
+          const selectedWeek = availableWeeks[selectedWeekIndex];
+          const endDate = new Date(selectedWeek.endDate);
+          const data = await fetchWeeklyStats(endDate);
+          setWeeklyBotsData(data || []);
+        } else {
+          const data = await fetchWeeklyStats(selectedDate);
+          setWeeklyBotsData(data || []);
+        }
       } catch (error) {
         console.error('Error fetching weekly stats:', error);
         setWeeklyBotsData([]);
@@ -119,14 +137,34 @@ const useDataFetching = () => {
     };
 
     fetchWeeklyStatsData();
-  }, [selectedDate]);
+  }, [selectedDate, availableWeeks, selectedWeekIndex]);
 
   // Fetch dữ liệu thống kê tháng
   useEffect(() => {
     const fetchMonthlyStatsData = async () => {
       try {
-        const data = await fetchMonthlyStats(selectedDate);
-        setMonthlyBotsData(data || []);
+        // Sử dụng tháng đang chọn nếu có sẵn, nếu không thì dùng ngày hiện tại
+        if (availableMonths.length > 0 && selectedMonthIndex >= 0) {
+          const selectedMonth = availableMonths[selectedMonthIndex];
+          if (!selectedMonth || !selectedMonth.endDate) {
+            console.error('Không tìm thấy tháng hợp lệ hoặc tháng không có endDate');
+            setMonthlyBotsData([]);
+            return;
+          }
+          
+          const endDate = new Date(selectedMonth.endDate);
+          if (isNaN(endDate.getTime())) {
+            console.error('endDate không hợp lệ:', selectedMonth.endDate);
+            setMonthlyBotsData([]);
+            return;
+          }
+          
+          const data = await fetchMonthlyStats(endDate);
+          setMonthlyBotsData(data || []);
+        } else {
+          const data = await fetchMonthlyStats(selectedDate);
+          setMonthlyBotsData(data || []);
+        }
       } catch (error) {
         console.error('Error fetching monthly stats:', error);
         setMonthlyBotsData([]);
@@ -134,7 +172,7 @@ const useDataFetching = () => {
     };
 
     fetchMonthlyStatsData();
-  }, [selectedDate]);
+  }, [selectedDate, availableMonths, selectedMonthIndex]);
 
   // Fetch dữ liệu weekly data (7 ngày)
   useEffect(() => {
@@ -186,46 +224,46 @@ const useDataFetching = () => {
     fetchWeeklyDataForChart();
   }, [selectedDate]);
 
-  // Fetch dữ liệu four week data (4 tuần)
+  // Fetch dữ liệu four week data (4 tuần) - sử dụng available weeks
   useEffect(() => {
     const fetchFourWeekData = async () => {
       try {
-        const promises = [];
+        if (availableWeeks.length === 0) return;
         
-        for (let weekIndex = 0; weekIndex < 4; weekIndex++) {
-          const endDate = new Date(selectedDate);
-          endDate.setDate(selectedDate.getDate() - (weekIndex * 7));
-          const startDate = new Date(endDate);
-          startDate.setDate(endDate.getDate() - 6);
+        // Lấy tối đa 4 tuần gần nhất từ danh sách availableWeeks
+        const weeksToUse = availableWeeks.slice(0, 4);
+        const promises = weeksToUse.map((week, weekIndex) => {
+          const endDate = new Date(week.endDate);
+          const startDate = new Date(week.startDate);
           
-          promises.push(
-            fetchWeeklyStats(endDate)
-              .then(botPerformances => {
-                // Tính tổng lợi nhuận cho tuần
-                const totalProfit = botPerformances && Array.isArray(botPerformances)
-                  ? botPerformances.reduce((sum, bot) => sum + (bot.performance || 0), 0)
-                  : 0;
-                
-                return {
-                  weekStart: startDate.toISOString().split('T')[0],
-                  weekEnd: endDate.toISOString().split('T')[0],
-                  totalProfit: parseFloat(totalProfit.toFixed(1)),
-                  weekIndex,
-                  botPerformances: botPerformances || []
-                };
-              })
-              .catch(error => {
-                console.error(`Error fetching weekly stats for week ${weekIndex}:`, error);
-                return {
-                  weekStart: startDate.toISOString().split('T')[0],
-                  weekEnd: endDate.toISOString().split('T')[0],
-                  totalProfit: 0,
-                  weekIndex,
-                  botPerformances: []
-                };
-              })
-          );
-        }
+          return fetchWeeklyStats(endDate)
+            .then(botPerformances => {
+              // Tính tổng lợi nhuận cho tuần
+              const totalProfit = botPerformances && Array.isArray(botPerformances)
+                ? botPerformances.reduce((sum, bot) => sum + (bot.performance || 0), 0)
+                : 0;
+              
+              return {
+                weekStart: startDate.toISOString().split('T')[0],
+                weekEnd: endDate.toISOString().split('T')[0],
+                totalProfit: parseFloat(totalProfit.toFixed(1)),
+                weekIndex,
+                weekLabel: `${startDate.toLocaleDateString('en-US', { month: 'short', day: 'numeric' })} - ${endDate.toLocaleDateString('en-US', { month: 'short', day: 'numeric' })}`,
+                botPerformances: botPerformances || []
+              };
+            })
+            .catch(error => {
+              console.error(`Error fetching weekly stats for week ${weekIndex}:`, error);
+              return {
+                weekStart: startDate.toISOString().split('T')[0],
+                weekEnd: endDate.toISOString().split('T')[0],
+                totalProfit: 0,
+                weekIndex,
+                weekLabel: `${startDate.toLocaleDateString('en-US', { month: 'short', day: 'numeric' })} - ${endDate.toLocaleDateString('en-US', { month: 'short', day: 'numeric' })}`,
+                botPerformances: []
+              };
+            });
+        });
         
         const result = await Promise.all(promises);
         setFourWeekData(result);
@@ -236,7 +274,7 @@ const useDataFetching = () => {
     };
 
     fetchFourWeekData();
-  }, [selectedDate]);
+  }, [availableWeeks]);
 
   // Fetch dữ liệu monthly data (30 ngày)
   useEffect(() => {
@@ -286,51 +324,74 @@ const useDataFetching = () => {
     fetchMonthlyDataForChart();
   }, [selectedDate]);
 
-  // Fetch dữ liệu twelve month data (12 tháng)
+  // Fetch dữ liệu twelve month data - sử dụng available months
   useEffect(() => {
     const fetchTwelveMonthData = async () => {
       try {
-        const promises = [];
+        if (availableMonths.length === 0) return;
         
-        for (let monthIndex = 0; monthIndex < 12; monthIndex++) {
-          const endDate = new Date(selectedDate);
-          endDate.setMonth(selectedDate.getMonth() - monthIndex);
-          const startDate = new Date(endDate);
-          startDate.setDate(1); // First day of month
+        // Lấy tối đa 12 tháng gần nhất từ danh sách availableMonths
+        const monthsToUse = availableMonths.slice(0, 12);
+        const promises = monthsToUse.map((month, monthIndex) => {
+          // Kiểm tra dữ liệu tháng có hợp lệ không
+          if (!month || !month.endDate) {
+            console.error(`Invalid month data at index ${monthIndex}:`, month);
+            return Promise.resolve({
+              monthStart: null,
+              monthEnd: null,
+              totalProfit: 0,
+              monthIndex,
+              monthLabel: `Tháng không hợp lệ`,
+              botPerformances: []
+            });
+          }
           
-          promises.push(
-            fetchMonthlyStats(endDate)
-              .then(botPerformances => {
-                // Tính tổng lợi nhuận cho tháng
-                const totalProfit = botPerformances && Array.isArray(botPerformances)
-                  ? botPerformances.reduce((sum, bot) => sum + (bot.performance || 0), 0)
-                  : 0;
-                
-                return {
-                  monthStart: startDate.toISOString().split('T')[0],
-                  monthEnd: endDate.toISOString().split('T')[0],
-                  totalProfit: parseFloat(totalProfit.toFixed(1)),
-                  monthIndex,
-                  monthLabel: startDate.toLocaleDateString('en-US', { month: 'short', year: 'numeric' }),
-                  botPerformances: botPerformances || []
-                };
-              })
-              .catch(error => {
-                console.error(`Error fetching monthly stats for month ${monthIndex}:`, error);
-                return {
-                  monthStart: startDate.toISOString().split('T')[0],
-                  monthEnd: endDate.toISOString().split('T')[0],
-                  totalProfit: 0,
-                  monthIndex,
-                  monthLabel: startDate.toLocaleDateString('en-US', { month: 'short', year: 'numeric' }),
-                  botPerformances: []
-                };
-              })
-          );
-        }
+          const endDate = new Date(month.endDate);
+          const startDate = new Date(month.startDate);
+          
+          if (isNaN(endDate.getTime()) || isNaN(startDate.getTime())) {
+            console.error(`Invalid date for month at index ${monthIndex}:`, month);
+            return Promise.resolve({
+              monthStart: null,
+              monthEnd: null,
+              totalProfit: 0,
+              monthIndex,
+              monthLabel: `Tháng không hợp lệ`,
+              botPerformances: []
+            });
+          }
+          
+          return fetchMonthlyStats(endDate)
+            .then(botPerformances => {
+              // Tính tổng lợi nhuận cho tháng
+              const totalProfit = botPerformances && Array.isArray(botPerformances)
+                ? botPerformances.reduce((sum, bot) => sum + (bot.performance || 0), 0)
+                : 0;
+              
+              return {
+                monthStart: startDate.toISOString().split('T')[0],
+                monthEnd: endDate.toISOString().split('T')[0],
+                totalProfit: parseFloat(totalProfit.toFixed(1)),
+                monthIndex,
+                monthLabel: startDate.toLocaleDateString('vi-VN', { month: 'long', year: 'numeric' }),
+                botPerformances: botPerformances || []
+              };
+            })
+            .catch(error => {
+              console.error(`Error fetching monthly stats for month ${monthIndex}:`, error);
+              return {
+                monthStart: startDate.toISOString().split('T')[0],
+                monthEnd: endDate.toISOString().split('T')[0],
+                totalProfit: 0,
+                monthIndex,
+                monthLabel: startDate.toLocaleDateString('vi-VN', { month: 'long', year: 'numeric' }),
+                botPerformances: []
+              };
+            });
+        });
         
         const result = await Promise.all(promises);
-        setTwelveMonthData(result);
+        setTwelveMonthData(result.filter(item => item.monthStart !== null));
       } catch (error) {
         console.error('Error fetching twelve month data:', error);
         setTwelveMonthData([]);
@@ -338,7 +399,7 @@ const useDataFetching = () => {
     };
 
     fetchTwelveMonthData();
-  }, [selectedDate]);
+  }, [availableMonths]);
 
   // Handle date navigation
   const changeDate = useCallback((days) => {
@@ -346,6 +407,26 @@ const useDataFetching = () => {
     newDate.setDate(selectedDate.getDate() + days);
     setSelectedDate(newDate);
   }, [selectedDate]);
+
+  // Chuyển đổi tuần trước/sau
+  const changeWeek = useCallback((direction) => {
+    if (availableWeeks.length === 0) return;
+    
+    const newIndex = selectedWeekIndex + direction;
+    if (newIndex >= 0 && newIndex < availableWeeks.length) {
+      setSelectedWeekIndex(newIndex);
+    }
+  }, [selectedWeekIndex, availableWeeks]);
+
+  // Chuyển đổi tháng trước/sau
+  const changeMonth = useCallback((direction) => {
+    if (availableMonths.length === 0) return;
+    
+    const newIndex = selectedMonthIndex + direction;
+    if (newIndex >= 0 && newIndex < availableMonths.length) {
+      setSelectedMonthIndex(newIndex);
+    }
+  }, [selectedMonthIndex, availableMonths]);
 
   return {
     loading,
@@ -362,7 +443,13 @@ const useDataFetching = () => {
     monthlyData,
     fourWeekData,
     twelveMonthData,
-    changeDate
+    changeDate,
+    availableWeeks,
+    availableMonths,
+    selectedWeekIndex,
+    selectedMonthIndex,
+    changeWeek,
+    changeMonth
   };
 };
 
@@ -503,10 +590,15 @@ function App() {
     weeklyBotsData,
     weeklyData,
     monthlyBotsData,
-    monthlyData,
     fourWeekData,
     twelveMonthData,
-    changeDate
+    changeDate,
+    availableWeeks,
+    availableMonths,
+    selectedWeekIndex,
+    selectedMonthIndex,
+    changeWeek,
+    changeMonth
   } = useDataFetching();
 
   const {
@@ -662,24 +754,38 @@ function App() {
                     <div className="date-controls">
                       <button
                         className="date-nav-btn"
-                        onClick={() => changeDate(-7)}
+                        onClick={() => changeWeek(1)}
                         title="Previous week"
+                        disabled={selectedWeekIndex >= availableWeeks.length - 1}
                       >
                         ←
                       </button>
                       <span>
-                        {weeklyData.length > 6 && new Date(weeklyData[6].date).toLocaleDateString('en-US', {
-                          month: 'short',
-                          day: 'numeric'
-                        })} - {weeklyData.length > 0 && new Date(weeklyData[0].date).toLocaleDateString('en-US', {
-                          month: 'short',
-                          day: 'numeric'
-                        })}
+                        {availableWeeks.length > 0 && selectedWeekIndex < availableWeeks.length ? 
+                          `${new Date(availableWeeks[selectedWeekIndex].startDate).toLocaleDateString('en-US', {
+                            month: 'short',
+                            day: 'numeric'
+                          })} - ${new Date(availableWeeks[selectedWeekIndex].endDate).toLocaleDateString('en-US', {
+                            month: 'short',
+                            day: 'numeric'
+                          })}` :
+                          (weeklyData.length > 0 ? 
+                            `${weeklyData.length > 6 ? new Date(weeklyData[6].date).toLocaleDateString('en-US', {
+                              month: 'short',
+                              day: 'numeric'
+                            }) : ''} - ${new Date(weeklyData[0].date).toLocaleDateString('en-US', {
+                              month: 'short',
+                              day: 'numeric'
+                            })}` : 
+                            'No weekly data available'
+                          )
+                        }
                       </span>
                       <button
                         className="date-nav-btn"
-                        onClick={() => changeDate(7)}
+                        onClick={() => changeWeek(-1)}
                         title="Next week"
+                        disabled={selectedWeekIndex <= 0}
                       >
                         →
                       </button>
@@ -687,6 +793,7 @@ function App() {
                   </div>
                 </div>
               </div>
+              {/* Tổng thể của tuần */}
               <WeeklyStatsSummary
                 weeklyNetProfit={weeklyNetProfit}
                 totalProfitPercent={weeklyTotalProfitPercent}
@@ -698,18 +805,21 @@ function App() {
                 totalBots={botsData.length}
               />
             </div>
+            {/* Chia hai bên */}
             <div className="dashboard-container">
+              {/* Biểu đồ chi tiết tuần */}
               <div className="chart-section">
                 <ProfitChart
-                  botsData={weeklyBotsData}
+                  botsData={weeklyBotsData} // Dữ liệu tuần tổng quan trong transform của tuần select
                   onBotHover={setHoveredBot}
                   type="weekly"
-                  fourWeekData={fourWeekData}
-                  weeklyData={weeklyData}
+                  fourWeekData={fourWeekData} // Dữ liệu 4 tuần sau select
+                  weeklyData={weeklyData} // Dữ liệu 7 ngày trong tuần select
                   selectedWeekData={selectedWeekData}
                   setSelectedWeekData={setSelectedWeekData}
                 />
               </div>
+              {/* Card bot tuần */}
               <div className="bots-list">
                 {(selectedWeekData ? selectedWeekData.botPerformances : weeklyBotsData).map((bot, index) => (
                   <BotCard
@@ -733,7 +843,7 @@ function App() {
                   <div className="subtitle">
                     {selectedMonthData ? 'Monthly Detail View' : 'Current Month'} •
                     <div className="date-controls">
-                      {selectedMonthData && (
+                      {selectedMonthData ? (
                         <button
                           className="date-nav-btn"
                           onClick={() => setSelectedMonthData(null)}
@@ -741,13 +851,41 @@ function App() {
                         >
                           ←
                         </button>
+                      ) : (
+                        <>
+                          <button
+                            className="date-nav-btn"
+                            onClick={() => changeMonth(1)}
+                            title="Previous month"
+                            disabled={selectedMonthIndex >= availableMonths.length - 1}
+                          >
+                            ←
+                          </button>
+                          <span>
+                            {availableMonths.length > 0 && selectedMonthIndex < availableMonths.length ? 
+                              `${new Date(availableMonths[selectedMonthIndex].startDate).toLocaleDateString('en-US', {
+                                month: 'long', 
+                                year: 'numeric'
+                              })}` :
+                              (twelveMonthData.length > 0 ? 
+                                `${new Date(twelveMonthData[0].monthStart).toLocaleDateString('en-US', { 
+                                  month: 'long', 
+                                  year: 'numeric' 
+                                })}` : 
+                                'No monthly data available'
+                              )
+                            }
+                          </span>
+                          <button
+                            className="date-nav-btn"
+                            onClick={() => changeMonth(-1)}
+                            title="Next month"
+                            disabled={selectedMonthIndex <= 0}
+                          >
+                            →
+                          </button>
+                        </>
                       )}
-                      <span>
-                        {selectedMonthData
-                          ? `${new Date(selectedMonthData.monthStart).toLocaleDateString('en-US', { month: 'long', year: 'numeric' })}`
-                          : `${twelveMonthData.length > 0 ? new Date(twelveMonthData[0].monthStart).toLocaleDateString('en-US', { month: 'long', year: 'numeric' }) : ''}`
-                        }
-                      </span>
                     </div>
                   </div>
                 </div>

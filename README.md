@@ -133,7 +133,7 @@ File này chứa các hàm xử lý dữ liệu quan trọng:
 ### api.js
 
 File này chứa các hàm gọi API:
-- **fetchTradesData**: Lấy dữ liệu về các lệnh giao dịch
+- **fetchAvailableTradesData**: Lấy dữ liệu về các lệnh giao dịch
 - **fetchBalanceData**: Lấy dữ liệu về số dư tài khoản
 - **fetchProfitData**: Lấy dữ liệu về lợi nhuận
 - **fetchDailyData, fetchWeeklyData, fetchMonthlyData**: Lấy dữ liệu thống kê theo khung thời gian

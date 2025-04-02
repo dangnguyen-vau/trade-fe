@@ -130,13 +130,28 @@ function transformTradeData(useConsolidated = true) {
                             // Tính tổng lợi nhuận trong ngày
                             const total_dailyProfit = tradesOnDate.reduce((sum, trade) => sum + (trade.realized_profit || 0), 0);
                             
-                            // Tính tổng số vốn bỏ ra trong ngày
-                            const totalStake = tradesOnDate.reduce((sum, trade) => sum + (trade.stake_amount || 0), 0);
-                            
-                            // Tính tỷ lệ lợi nhuận dựa trên số vốn bỏ ra
-                            const total_dailyProfitPercent = totalStake > 0 
-                                ? (total_dailyProfit / totalStake) * 100 
-                                : 0;
+                            // Kiểm tra xem có dữ liệu daily_combined.json không
+                            let total_dailyProfitPercent = 0;
+                            try {
+                                // Lấy dữ liệu từ daily_combined.json
+                                const dailyDataForDate = dailyData?.data?.find(d => d.date === dateStr);
+                                
+                                if (dailyDataForDate && dailyDataForDate.bots_detail) {
+                                    // Tìm thông tin của bot hiện tại trong ngày đang xét
+                                    const botDetail = dailyDataForDate.bots_detail.find(b => b.botId === botName);
+                                    
+                                    if (botDetail && botDetail.rel_profit) {
+                                        // Nếu tìm thấy, sử dụng rel_profit từ file daily_combined.json và chuyển đổi thành phần trăm
+                                        total_dailyProfitPercent = botDetail.rel_profit * 100;
+                                    } else {
+                                       console.warn('Không thấy dữ liệu relprofit của bot');
+                                    }
+                                } else {
+                                   console.warn('không tìm thấy dữ liệu cho ngày đó');
+                                }
+                            } catch (error) {
+                                console.error('Đã xảy ra lỗi: ', error);
+                            }
 
                             // Tính win rate trong ngày
                             const dailyWinningTrades = tradesOnDate.filter(trade => (trade.profit_pct || (trade.profit_ratio || 0) * 100) > 0).length;
@@ -199,13 +214,28 @@ function transformTradeData(useConsolidated = true) {
                         // Tính toán lợi nhuận thực tế của bot trong tuần
                         const weeklyProfit = tradesInWeek.reduce((sum, trade) => sum + (trade.realized_profit || 0), 0);
 
-                        // Tính tổng số vống bỏ ra
-                        const stakeAmount = tradesInWeek.reduce((sum, trade) => sum + (trade.stake_amount || 0), 0);
-
-                        // Tính tỷ lệ lợi nhuận dựa trên số giao dịch thực tế
-                        const profitPercent = stakeAmount > 0
-                            ? (weeklyProfit / stakeAmount) * 100
-                            : 0;
+                        // Lấy dữ liệu profit_percent từ weeklyData nếu có
+                        let profitPercent = 0;
+                        try {
+                            // Tìm dữ liệu tuần tương ứng
+                            const weeklyDataForDate = week;
+                            
+                            if (weeklyDataForDate && weeklyDataForDate.bots_detail) {
+                                // Tìm thông tin của bot hiện tại trong tuần đang xét
+                                const botDetail = weeklyDataForDate.bots_detail.find(b => b.botId === botName);
+                                
+                                if (botDetail && botDetail.rel_profit !== undefined) {
+                                    // Nếu tìm thấy, sử dụng rel_profit từ file weekly_combined.json và chuyển đổi thành phần trăm
+                                    profitPercent = botDetail.rel_profit * 100;
+                                } else {
+                                    console.warn("không tìm thấy thông tin bot");
+                                }
+                            } else {
+                                console.warn('không tìm thấy thông tin bot');
+                            }
+                        } catch (error) {
+                            console.error(`Lỗi khi lấy dữ liệu rel_profit từ weekly_combined.json: ${error.message}`);
+                        }
 
                         // Tính win rate trong tuần
                         const winningTrades = tradesInWeek.filter(trade => (trade.realized_profit || 0) > 0).length;
@@ -264,13 +294,28 @@ function transformTradeData(useConsolidated = true) {
                         // Tính toán lợi nhuận thực tế của bot trong tháng
                         const monthlyProfit = tradesInMonth.reduce((sum, trade) => sum + (trade.realized_profit || 0), 0);
 
-                        // Tính tổng số vốn bỏ ra
-                        const stakeAmount = tradesInMonth.reduce((sum, trade) => sum + (trade.stake_amount || 0), 0);
-
-                        // Tính tỷ lệ lợi nhuận dựa trên số giao dịch thực tế
-                        const profitPercent = stakeAmount > 0
-                            ? (monthlyProfit / stakeAmount) * 100
-                            : 0;
+                        // Lấy dữ liệu profit_percent từ monthlyData nếu có
+                        let profitPercent = 0;
+                        try {
+                            // Tìm dữ liệu tháng tương ứng
+                            const monthlyDataForDate = month;
+                            
+                            if (monthlyDataForDate && monthlyDataForDate.bots_detail) {
+                                // Tìm thông tin của bot hiện tại trong tháng đang xét
+                                const botDetail = monthlyDataForDate.bots_detail.find(b => b.botId === botName);
+                                
+                                if (botDetail && botDetail.rel_profit !== undefined) {
+                                    // Nếu tìm thấy, sử dụng rel_profit từ file monthly_combined.json và chuyển đổi thành phần trăm
+                                    profitPercent = botDetail.rel_profit * 100;
+                                } else {
+                                    console.warn('không tìm thấy thông tin bot');
+                                }
+                            } else {
+                                console.warn('không tìm thấy dữ liệu cho tháng đó');
+                            }
+                        } catch (error) {
+                            console.error(`Lỗi khi lấy dữ liệu rel_profit từ monthly_combined.json: ${error.message}`);
+                        }
 
                         // Tính win rate trong tháng
                         const winningTrades = tradesInMonth.filter(trade => (trade.realized_profit || 0) > 0).length;
@@ -568,7 +613,7 @@ function getAllMonthlyStats() {
  */
 function getDailyStats(date) {
     if (!date) {
-        return getAllDailyStats();
+        console.warn("Yêu cầu cần ngày cụ thể, thiếu ngày cụ thể trong getDailyStats");
     }
 
     // Khi lấy dữ liệu cho từng bot riêng biệt theo ngày, phải đặt useConsolidated = false
@@ -602,37 +647,74 @@ function getDailyStats(date) {
  * @returns {Array} Mảng dữ liệu thống kê theo tuần
  */
 function getWeeklyStats(endDate) {
-    if (!endDate) {
-        return getAllWeeklyStats();
+    try {
+        if (!endDate) {
+            console.warn("Yêu cầu cần ngày cụ thể trong getWeeklyStats");
+            return [];
+        }
+
+        // Lấy dữ liệu weekly_combined
+        const weeklyData = getLocalWeeklyData() || { data: [] };
+        if (!weeklyData.data || !weeklyData.data.length) {
+            console.warn("Không tìm thấy dữ liệu tuần trong weekly_combined.json");
+            return [];
+        }
+
+        // Đảm bảo endDate là object Date
+        const endDateObj = typeof endDate === 'string' ? new Date(endDate) : new Date(endDate);
+        const endDateStr = endDateObj.toISOString().split('T')[0];
+
+        // Tìm tuần phù hợp trong dữ liệu
+        const weeklyEntry = weeklyData.data.find(week => {
+            // Ngày trong file weekly_combined.json là ngày bắt đầu của tuần
+            const weekDate = new Date(week.date);
+            const weekEndDate = new Date(weekDate);
+            weekEndDate.setDate(weekDate.getDate() + 6);
+            
+            // Kiểm tra nếu endDate thuộc khoảng của tuần này
+            return weekDate <= endDateObj && endDateObj <= weekEndDate;
+        });
+
+        if (!weeklyEntry) {
+            console.warn(`Không tìm thấy dữ liệu tuần kết thúc vào ngày ${endDateStr} trong weekly_combined.json`);
+            // Tìm tuần gần nhất để trả về
+            const sortedWeeks = [...weeklyData.data].sort((a, b) => new Date(b.date) - new Date(a.date));
+            const closestWeek = sortedWeeks.length > 0 ? sortedWeeks[0] : null;
+            
+            if (!closestWeek) return [];
+            
+            console.log(`Trả về dữ liệu tuần gần nhất: ${closestWeek.date}`);
+            return formatWeeklyStats(closestWeek);
+        }
+
+        return formatWeeklyStats(weeklyEntry);
+    } catch (error) {
+        console.error("Lỗi khi lấy dữ liệu thống kê theo tuần:", error);
+        return [];
     }
+}
 
-    const bots = transformTradeData();
-    if (!bots || bots.length === 0) return [];
-
-    // Đảm bảo endDate là object Date
-    const endDateObj = typeof endDate === 'string' ? new Date(endDate) : new Date(endDate);
+/**
+ * Format dữ liệu thống kê theo tuần để trả về cho frontend
+ * @param {Object} weekEntry - Dữ liệu tuần từ weekly_combined.json
+ * @returns {Array} Mảng dữ liệu thống kê theo tuần
+ */
+function formatWeeklyStats(weekEntry) {
+    if (!weekEntry || !weekEntry.bots_detail) return [];
     
-    // Tìm ngày đầu tuần (cách 7 ngày)
-    const startDate = new Date(endDateObj);
-    startDate.setDate(endDateObj.getDate() - 6);
-
-    return bots.map(bot => {
-        // Lấy từ weekly_stats nếu có
-        const weeklyStat = bot.weekly_stats.find(stat => {
-            const statDate = new Date(stat.date);
-            return statDate >= startDate && statDate <= endDateObj;
-        }) || {};
-
-        return {
-            name: bot.name,
-            performance: weeklyStat.profit_percent || 0,
-            net_profit: weeklyStat.net_profit || 0,
-            winRate: `${weeklyStat.winrate || 0}%`,
-            trades: weeklyStat.trades_count || 0,
-            win_count: weeklyStat.win_count || 0,
-            balance: bot.current_balance
-        };
-    });
+    return weekEntry.bots_detail.map(bot => ({
+        name: bot.botName,
+        performance: bot.rel_profit * 100, // Chuyển đổi thành phần trăm
+        net_profit: bot.abs_profit || 0,
+        winRate: "N/A", // Không có thông tin win rate trong weekly_combined.json
+        trades: bot.trade_count || 0,
+        win_count: 0, // Không có thông tin win count trong weekly_combined.json
+        balance: {
+            balance_starting: 0,
+            balance_current: 0,
+            balance_percent: 0
+        }
+    }));
 }
 
 /**
@@ -641,37 +723,72 @@ function getWeeklyStats(endDate) {
  * @returns {Array} Mảng dữ liệu thống kê theo tháng
  */
 function getMonthlyStats(date) {
-    if (!date) {
-        return getAllMonthlyStats();
+    try {
+        if (!date) {
+            console.warn("Yêu cầu cần tháng cụ thể trong getMonthlyStats");
+            return [];
+        }
+
+        // Lấy dữ liệu monthly_combined
+        const monthlyData = getLocalMonthlyData() || { data: [] };
+        if (!monthlyData.data || !monthlyData.data.length) {
+            console.warn("Không tìm thấy dữ liệu tháng trong monthly_combined.json");
+            return [];
+        }
+
+        // Đảm bảo date là object Date
+        const dateObj = typeof date === 'string' ? new Date(date) : new Date(date);
+        
+        // Format tháng-năm để so sánh
+        const monthYearFormat = `${dateObj.getFullYear()}-${String(dateObj.getMonth() + 1).padStart(2, '0')}`;
+        
+        // Tìm tháng phù hợp trong dữ liệu
+        const monthlyEntry = monthlyData.data.find(month => {
+            const monthDate = new Date(month.date);
+            const monthDateFormat = `${monthDate.getFullYear()}-${String(monthDate.getMonth() + 1).padStart(2, '0')}`;
+            return monthDateFormat === monthYearFormat;
+        });
+
+        if (!monthlyEntry) {
+            console.warn(`Không tìm thấy dữ liệu tháng ${monthYearFormat} trong monthly_combined.json`);
+            // Tìm tháng gần nhất để trả về
+            const sortedMonths = [...monthlyData.data].sort((a, b) => new Date(b.date) - new Date(a.date));
+            const closestMonth = sortedMonths.length > 0 ? sortedMonths[0] : null;
+            
+            if (!closestMonth) return [];
+            
+            console.log(`Trả về dữ liệu tháng gần nhất: ${closestMonth.date}`);
+            return formatMonthlyStats(closestMonth);
+        }
+
+        return formatMonthlyStats(monthlyEntry);
+    } catch (error) {
+        console.error("Lỗi khi lấy dữ liệu thống kê theo tháng:", error);
+        return [];
     }
+}
 
-    const bots = transformTradeData();
-    if (!bots || bots.length === 0) return [];
-
-    // Đảm bảo date là object Date
-    const dateObj = typeof date === 'string' ? new Date(date) : new Date(date);
+/**
+ * Format dữ liệu thống kê theo tháng để trả về cho frontend
+ * @param {Object} monthEntry - Dữ liệu tháng từ monthly_combined.json
+ * @returns {Array} Mảng dữ liệu thống kê theo tháng
+ */
+function formatMonthlyStats(monthEntry) {
+    if (!monthEntry || !monthEntry.bots_detail) return [];
     
-    // Tính ngày đầu tháng và cuối tháng
-    const startDate = new Date(dateObj.getFullYear(), dateObj.getMonth(), 1);
-    const endDate = new Date(dateObj.getFullYear(), dateObj.getMonth() + 1, 0);
-    
-    // Format tháng-năm để so sánh
-    const monthYear = `${dateObj.getFullYear()}-${String(dateObj.getMonth() + 1).padStart(2, '0')}`;
-
-    return bots.map(bot => {
-        // Lấy từ monthly_stats nếu có
-        const monthlyStat = bot.monthly_stats.find(stat => stat.date.startsWith(monthYear)) || {};
-
-        return {
-            name: bot.name,
-            performance: monthlyStat.profit_percent || 0,
-            net_profit: monthlyStat.net_profit || 0,
-            winRate: `${monthlyStat.winrate || 0}%`,
-            trades: monthlyStat.trades_count || 0,
-            win_count: monthlyStat.win_count || 0,
-            balance: bot.current_balance
-        };
-    });
+    return monthEntry.bots_detail.map(bot => ({
+        name: bot.botName,
+        performance: bot.rel_profit * 100, // Chuyển đổi thành phần trăm
+        net_profit: bot.abs_profit || 0,
+        winRate: "N/A", // Không có thông tin win rate trong monthly_combined.json
+        trades: bot.trade_count || 0,
+        win_count: 0, // Không có thông tin win count trong monthly_combined.json
+        balance: {
+            balance_starting: 0,
+            balance_current: 0,
+            balance_percent: 0
+        }
+    }));
 }
 
 /**

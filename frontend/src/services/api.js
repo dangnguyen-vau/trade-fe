@@ -2,7 +2,7 @@ import axios from 'axios';
 
 const BASE_URL = 'http://localhost:3080'; // URL của backend
 
-export const fetchTradesData = async () => {
+export const fetchAvailableTradesData = async () => {
   try {
     const response = await axios.get(`${BASE_URL}/trades`);
     return response.data; // Trả về toàn bộ dữ liệu với cấu trúc { trades: [...], trades_count: X, ... }
@@ -62,7 +62,7 @@ export const fetchMonthlyData = async () => {
   }
 };
 
-export const fetchBotsData = async () => {
+export const fetchAllBotsData = async () => {
   try {
     const response = await axios.get(`${BASE_URL}/api/bots`);
     return response.data;
@@ -78,9 +78,9 @@ export const fetchDailyStats = async (date) => {
     if (date) {
       // Nếu có tham số date, sử dụng param trong URL
       url = `${BASE_URL}/api/stats/daily/${date.toISOString().split('T')[0]}`;
+      const response = await axios.get(url);
+      return response.data;
     }
-    const response = await axios.get(url);
-    return response.data;
   } catch (error) {
     console.error('Error fetching daily stats:', error);
     return null;
@@ -93,9 +93,9 @@ export const fetchWeeklyStats = async (endDate) => {
     if (endDate) {
       // Nếu có tham số endDate, sử dụng param trong URL
       url = `${BASE_URL}/api/stats/weekly/${endDate.toISOString().split('T')[0]}`;
+      const response = await axios.get(url);
+      return response.data;
     }
-    const response = await axios.get(url);
-    return response.data;
   } catch (error) {
     console.error('Error fetching weekly stats:', error);
     return null;
@@ -106,6 +106,11 @@ export const fetchMonthlyStats = async (date) => {
   try {
     let url = `${BASE_URL}/api/stats/monthly`;
     if (date) {
+      // Kiểm tra date có hợp lệ không trước khi gọi toISOString()
+      if (!(date instanceof Date) || isNaN(date.getTime())) {
+        console.error('Invalid date provided to fetchMonthlyStats:', date);
+        return null;
+      }
       // Nếu có tham số date, sử dụng param trong URL
       url = `${BASE_URL}/api/stats/monthly/${date.toISOString().split('T')[0]}`;
     }
@@ -155,5 +160,33 @@ export const fetchAggregatedStats = async () => {
       averageProfit: 0,
       maxDrawdown: 0
     };
+  }
+};
+
+/**
+ * Lấy danh sách các tuần có sẵn từ weekly_combined.json
+ * @returns {Promise<Array>} Danh sách các tuần có dữ liệu
+ */
+export const fetchAvailableWeeks = async () => {
+  try {
+    const response = await axios.get(`${BASE_URL}/api/stats/available-weeks`);
+    return response.data;
+  } catch (error) {
+    console.error('Error fetching available weeks:', error);
+    return [];
+  }
+};
+
+/**
+ * Lấy danh sách các tháng có sẵn từ monthly_combined.json
+ * @returns {Promise<Array>} Danh sách các tháng có dữ liệu
+ */
+export const fetchAvailableMonths = async () => {
+  try {
+    const response = await axios.get(`${BASE_URL}/api/stats/available-months`);
+    return response.data;
+  } catch (error) {
+    console.error('Error fetching available months:', error);
+    return [];
   }
 };
