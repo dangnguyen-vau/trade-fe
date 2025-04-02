@@ -2,10 +2,6 @@ const express = require('express');
 const router = express.Router();
 const { getLocalTradesData } = require('./services/tradeService');
 const { getLocalBalanceData } = require('./services/balanceService');
-const { getLocalProfitData } = require('./services/profitService');
-const { getLocalDailyData } = require('./services/TimeOver/dailyService');
-const { getLocalWeeklyData } = require('./services/TimeOver/weeklyService');
-const { getLocalMonthlyData } = require('./services/TimeOver/monthlyService');
 const { calculateAggregatedStats } = require('./services/statsService');
 const { 
     transformTradeData, 
@@ -13,11 +9,8 @@ const {
     getWeeklyStats, 
     getMonthlyStats,
     getMetadata,
-    getBotDetails
+    getBotByFilename,
 } = require('./services/botService');
-const { getAllTradesData } = require('./services/tradeService');
-const { getAllBotConfigs } = require('./services');
-const { getAllDailyData } = require('./services/TimeOver/dailyService');
 
 // Endpoint để lấy dữ liệu trades
 router.get('/trades', (req, res) => {
@@ -35,77 +28,10 @@ router.get('/trades', (req, res) => {
     }
 });
 
-// Endpoint để lấy dữ liệu profit
-router.get('/profit', (req, res) => {
-    try {
-        const tradesData = getLocalProfitData();
-
-        if (tradesData) {
-            return res.json(tradesData);
-        } else {
-            return res.status(404).json({ error: 'Dữ liệu chưa được tạo' });
-        }
-    } catch (error) {
-        console.error('Lỗi khi đọc dữ liệu trades:', error.message);
-        return res.status(500).json({ error: 'Lỗi server' });
-    }
-});
-
-// Endpoint để lấy dữ liệu trades
+// Endpoint để lấy dữ liệu balance
 router.get('/balance', (req, res) => {
     try {
         const tradesData = getLocalBalanceData();
-
-        if (tradesData) {
-            return res.json(tradesData);
-        } else {
-            return res.status(404).json({ error: 'Dữ liệu chưa được tạo' });
-        }
-    } catch (error) {
-        console.error('Lỗi khi đọc dữ liệu trades:', error.message);
-        return res.status(500).json({ error: 'Lỗi server' });
-    }
-});
-
-
-// Endpoint để lấy dữ liệu trades
-router.get('/daily', (req, res) => {
-    try {
-        const tradesData = getLocalDailyData();
-
-        if (tradesData) {
-            return res.json(tradesData);
-        } else {
-            return res.status(404).json({ error: 'Dữ liệu chưa được tạo' });
-        }
-    } catch (error) {
-        console.error('Lỗi khi đọc dữ liệu trades:', error.message);
-        return res.status(500).json({ error: 'Lỗi server' });
-    }
-});
-
-
-// Endpoint để lấy dữ liệu trades
-router.get('/week', (req, res) => {
-    try {
-        const tradesData = getLocalWeeklyData();
-
-        if (tradesData) {
-            return res.json(tradesData);
-        } else {
-            return res.status(404).json({ error: 'Dữ liệu chưa được tạo' });
-        }
-    } catch (error) {
-        console.error('Lỗi khi đọc dữ liệu trades:', error.message);
-        return res.status(500).json({ error: 'Lỗi server' });
-    }
-});
-
-
-// Endpoint để lấy dữ liệu trades
-router.get('/month', (req, res) => {
-    try {
-        const tradesData = getLocalMonthlyData();
 
         if (tradesData) {
             return res.json(tradesData);
@@ -241,28 +167,6 @@ router.get('/api/metadata', (req, res) => {
     }
 });
 
-// API MỚI: Lấy thông tin chi tiết của một bot cụ thể
-router.get('/api/bots/:botName', (req, res) => {
-    try {
-        const { botName } = req.params;
-        
-        if (!botName) {
-            return res.status(400).json({ error: 'Thiếu tham số botName' });
-        }
-        
-        const botData = getBotDetails(botName);
-        
-        if (botData) {
-            return res.json(botData);
-        } else {
-            return res.status(404).json({ error: 'Không tìm thấy bot với tên đã chỉ định' });
-        }
-    } catch (error) {
-        console.error('Lỗi khi xử lý dữ liệu bot:', error.message);
-        return res.status(500).json({ error: 'Lỗi server' });
-    }
-});
-
 // API endpoint để lấy thống kê tổng hợp
 router.get('/api/stats/aggregated', (req, res) => {
     try {
@@ -371,6 +275,28 @@ router.get('/api/stats/available-months', (req, res) => {
         return res.json(availableMonths);
     } catch (error) {
         console.error('Lỗi khi lấy danh sách tháng:', error.message);
+        return res.status(500).json({ error: 'Lỗi server' });
+    }
+});
+
+// Thêm API mới cho getBotData trong frontend
+router.get('/api/bots/file/:filename', (req, res) => {
+    try {
+        const { filename } = req.params;
+        
+        if (!filename) {
+            return res.status(400).json({ error: 'Thiếu tham số filename' });
+        }
+        
+        const botData = getBotByFilename(filename);
+        
+        if (botData) {
+            return res.json(botData);
+        } else {
+            return res.status(404).json({ error: 'Không tìm thấy bot với filename đã chỉ định' });
+        }
+    } catch (error) {
+        console.error(`Lỗi khi xử lý dữ liệu bot với filename ${req.params.filename}:`, error.message);
         return res.status(500).json({ error: 'Lỗi server' });
     }
 });

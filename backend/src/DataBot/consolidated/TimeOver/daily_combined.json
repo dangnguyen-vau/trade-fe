@@ -5,7 +5,7 @@
       "abs_profit": -1.00115529,
       "rel_profit": -0.009507889999999998,
       "starting_balance": 302.2885811944659,
-      "fiat_value": -1.0011627215119203,
+      "fiat_value": -1.00117090732632,
       "trade_count": 4,
       "bots_detail": [
         {
@@ -81,7 +81,7 @@
       "abs_profit": 0.26543838,
       "rel_profit": 0.0025672200000000003,
       "starting_balance": 301.2874259044659,
-      "fiat_value": 0.26545091572201995,
+      "fiat_value": 0.26545490766292,
       "trade_count": 3,
       "bots_detail": [
         {
@@ -119,7 +119,7 @@
       "abs_profit": -0.2731096700000001,
       "rel_profit": -0.0024744499999999996,
       "starting_balance": 301.55286428446595,
-      "fiat_value": -0.27313252796840004,
+      "fiat_value": -0.27313835251240026,
       "trade_count": 2,
       "bots_detail": [
         {
@@ -157,7 +157,7 @@
       "abs_profit": -1.03848705,
       "rel_profit": -0.010294460000000002,
       "starting_balance": 301.2797546144659,
-      "fiat_value": -1.0384254317236201,
+      "fiat_value": -1.0384219698625201,
       "trade_count": 3,
       "bots_detail": [
         {
@@ -195,7 +195,7 @@
       "abs_profit": -0.22051735000000017,
       "rel_profit": -0.0017406700000000032,
       "starting_balance": 300.2412675644659,
-      "fiat_value": -0.22056278572297017,
+      "fiat_value": -0.22057214027762018,
       "trade_count": 4,
       "bots_detail": [
         {
@@ -233,7 +233,7 @@
       "abs_profit": -0.7969276,
       "rel_profit": -0.00795745,
       "starting_balance": 300.0207502144659,
-      "fiat_value": -0.79691487777764,
+      "fiat_value": -0.79691818034344,
       "trade_count": 4,
       "bots_detail": [
         {
@@ -271,7 +271,7 @@
       "abs_profit": -0.45037430999999994,
       "rel_profit": -0.00453406,
       "starting_balance": 299.2238226144659,
-      "fiat_value": -0.45036935588259,
+      "fiat_value": -0.45037160775414,
       "trade_count": 2,
       "bots_detail": [
         {
@@ -309,7 +309,7 @@
       "abs_profit": 1.29161874,
       "rel_profit": 0.02605505,
       "starting_balance": 298.77344830446594,
-      "fiat_value": 1.29160453219386,
+      "fiat_value": 1.29161099028756,
       "trade_count": 1,
       "bots_detail": [
         {
@@ -347,7 +347,7 @@
       "abs_profit": 0.48353864,
       "rel_profit": 0.004621129999999999,
       "starting_balance": 300.06506704446593,
-      "fiat_value": 0.48349234615077985,
+      "fiat_value": 0.48348769920187984,
       "trade_count": 3,
       "bots_detail": [
         {
@@ -385,7 +385,7 @@
       "abs_profit": 3.79145547,
       "rel_profit": 0.08909339,
       "starting_balance": 300.54860568446594,
-      "fiat_value": 3.7913991489421894,
+      "fiat_value": 3.7914155863837395,
       "trade_count": 7,
       "bots_detail": [
         {
@@ -423,7 +423,7 @@
       "abs_profit": -3.51519988,
       "rel_profit": -0.06555741,
       "starting_balance": 304.34006115446596,
-      "fiat_value": -3.5151593018529903,
+      "fiat_value": -3.51517654837854,
       "trade_count": 5,
       "bots_detail": [
         {
@@ -461,7 +461,7 @@
       "abs_profit": -3.8392094499999994,
       "rel_profit": -0.06984525,
       "starting_balance": 300.82486127446595,
-      "fiat_value": -3.839144629472009,
+      "fiat_value": -3.83915993082546,
       "trade_count": 6,
       "bots_detail": [
         {
@@ -537,7 +537,7 @@
       "abs_profit": -0.3217303400000002,
       "rel_profit": -0.0025379699999999988,
       "starting_balance": 297.1388710144659,
-      "fiat_value": -0.32168429427484013,
+      "fiat_value": -0.32167857418664014,
       "trade_count": 4,
       "bots_detail": [
         {
@@ -575,7 +575,7 @@
       "abs_profit": 1.72069107,
       "rel_profit": 0.04238933,
       "starting_balance": 296.8171406744659,
-      "fiat_value": 1.72071947754267,
+      "fiat_value": 1.7207362422298205,
       "trade_count": 5,
       "bots_detail": [
         {
@@ -613,7 +613,7 @@
       "abs_profit": -0.15311871999999999,
       "rel_profit": -0.0015481499999999999,
       "starting_balance": 298.5378317444659,
-      "fiat_value": -0.15310022440103999,
+      "fiat_value": -0.15309809149583997,
       "trade_count": 4,
       "bots_detail": [
         {
@@ -651,7 +651,7 @@
       "abs_profit": -6.64619117,
       "rel_profit": -0.13744431000000001,
       "starting_balance": 298.3847130244659,
-      "fiat_value": -6.646141636411251,
+      "fiat_value": -6.6461789319385005,
       "trade_count": 5,
       "bots_detail": [
         {
@@ -689,7 +689,7 @@
       "abs_profit": 0.58232923,
       "rel_profit": 0.005872050000000001,
       "starting_balance": 291.73852185446594,
-      "fiat_value": 0.5822920127800799,
+      "fiat_value": 0.58228961208168,
       "trade_count": 3,
       "bots_detail": [
         {
@@ -727,7 +727,7 @@
       "abs_profit": -0.37188818,
       "rel_profit": -0.00362989,
       "starting_balance": 292.32085108446597,
-      "fiat_value": -0.37185852215432,
+      "fiat_value": -0.37185597347872,
       "trade_count": 2,
       "bots_detail": [
         {

@@ -2,6 +2,10 @@ import axios from 'axios';
 
 const BASE_URL = 'http://localhost:3080'; // URL của backend
 
+/**
+ * Lấy thông tin tất cả các giao dịch từ hệ thống
+ * @returns {Object} Dữ liệu giao dịch bao gồm danh sách trades và số lượng
+ */
 export const fetchAvailableTradesData = async () => {
   try {
     const response = await axios.get(`${BASE_URL}/trades`);
@@ -12,6 +16,10 @@ export const fetchAvailableTradesData = async () => {
   }
 };
 
+/**
+ * Lấy thông tin số dư tài khoản của các bot
+ * @returns {Object} Dữ liệu về số dư và lịch sử số dư
+ */
 export const fetchBalanceData = async () => {
   try {
     const response = await axios.get(`${BASE_URL}/balance`);
@@ -22,46 +30,10 @@ export const fetchBalanceData = async () => {
   }
 };
 
-export const fetchProfitData = async () => {
-  try {
-    const response = await axios.get(`${BASE_URL}/profit`);
-    return response.data;
-  } catch (error) {
-    console.error('Error fetching profit data:', error);
-    return null;
-  }
-};
-
-export const fetchDailyData = async () => {
-  try {
-    const response = await axios.get(`${BASE_URL}/daily`);
-    return response.data; // Trả về toàn bộ dữ liệu daily
-  } catch (error) {
-    console.error('Error fetching daily data:', error);
-    return null;
-  }
-};
-
-export const fetchWeeklyData = async () => {
-  try {
-    const response = await axios.get(`${BASE_URL}/week`);
-    return response.data; // Trả về toàn bộ dữ liệu weekly
-  } catch (error) {
-    console.error('Error fetching weekly data:', error);
-    return null;
-  }
-};
-
-export const fetchMonthlyData = async () => {
-  try {
-    const response = await axios.get(`${BASE_URL}/month`);
-    return response.data; // Trả về toàn bộ dữ liệu monthly
-  } catch (error) {
-    console.error('Error fetching monthly data:', error);
-    return null;
-  }
-};
-
+/**
+ * Lấy danh sách tất cả các bot và thông tin của chúng
+ * @returns {Array} Mảng chứa thông tin của tất cả các bot
+ */
 export const fetchAllBotsData = async () => {
   try {
     const response = await axios.get(`${BASE_URL}/api/bots`);
@@ -72,6 +44,26 @@ export const fetchAllBotsData = async () => {
   }
 };
 
+/**
+ * Lấy dữ liệu chi tiết của một bot theo tên file cấu hình
+ * @param {string} filename Tên file cấu hình của bot
+ * @returns {Object} Thông tin chi tiết của bot
+ */
+export const getBotData = async (filename) => {
+  try {
+    const response = await axios.get(`${BASE_URL}/api/bots/file/${filename}`);
+    return response.data;
+  } catch (error) {
+    console.error(`Error fetching bot data for ${filename}:`, error);
+    return null;
+  }
+};
+
+/**
+ * Lấy thống kê theo ngày của các bot
+ * @param {Date} date Ngày cần lấy thống kê
+ * @returns {Array} Mảng chứa thống kê theo ngày của các bot
+ */
 export const fetchDailyStats = async (date) => {
   try {
     let url = `${BASE_URL}/api/stats/daily`;
@@ -87,6 +79,11 @@ export const fetchDailyStats = async (date) => {
   }
 };
 
+/**
+ * Lấy thống kê theo tuần của các bot
+ * @param {Date} endDate Ngày kết thúc của tuần cần lấy thống kê
+ * @returns {Array} Mảng chứa thống kê theo tuần của các bot
+ */
 export const fetchWeeklyStats = async (endDate) => {
   try {
     let url = `${BASE_URL}/api/stats/weekly`;
@@ -102,6 +99,11 @@ export const fetchWeeklyStats = async (endDate) => {
   }
 };
 
+/**
+ * Lấy thống kê theo tháng của các bot
+ * @param {Date} date Ngày trong tháng cần lấy thống kê
+ * @returns {Array} Mảng chứa thống kê theo tháng của các bot
+ */
 export const fetchMonthlyStats = async (date) => {
   try {
     let url = `${BASE_URL}/api/stats/monthly`;
@@ -122,6 +124,10 @@ export const fetchMonthlyStats = async (date) => {
   }
 };
 
+/**
+ * Lấy thông tin metadata của hệ thống (ngày giao dịch mới nhất, phiên bản...)
+ * @returns {Object} Thông tin metadata của hệ thống
+ */
 export const fetchMetadata = async () => {
   try {
     const response = await axios.get(`${BASE_URL}/api/metadata`);
@@ -132,19 +138,9 @@ export const fetchMetadata = async () => {
   }
 };
 
-export const fetchBotDetails = async (botName) => {
-  try {
-    const response = await axios.get(`${BASE_URL}/api/bots/${botName}`);
-    return response.data;
-  } catch (error) {
-    console.error(`Error fetching details for bot ${botName}:`, error);
-    return null;
-  }
-};
-
 /**
- * Lấy dữ liệu thống kê tổng hợp đã được xử lý từ backend
- * @returns {Promise<Object>} Thống kê tổng hợp
+ * Lấy thống kê tổng hợp từ tất cả các bot (tỷ lệ thắng, tổng lợi nhuận...)
+ * @returns {Object} Thống kê tổng hợp của tất cả các bot
  */
 export const fetchAggregatedStats = async () => {
   try {
@@ -164,8 +160,8 @@ export const fetchAggregatedStats = async () => {
 };
 
 /**
- * Lấy danh sách các tuần có sẵn từ weekly_combined.json
- * @returns {Promise<Array>} Danh sách các tuần có dữ liệu
+ * Lấy danh sách các tuần có dữ liệu thống kê
+ * @returns {Array} Danh sách các tuần có dữ liệu
  */
 export const fetchAvailableWeeks = async () => {
   try {
@@ -178,8 +174,8 @@ export const fetchAvailableWeeks = async () => {
 };
 
 /**
- * Lấy danh sách các tháng có sẵn từ monthly_combined.json
- * @returns {Promise<Array>} Danh sách các tháng có dữ liệu
+ * Lấy danh sách các tháng có dữ liệu thống kê
+ * @returns {Array} Danh sách các tháng có dữ liệu
  */
 export const fetchAvailableMonths = async () => {
   try {

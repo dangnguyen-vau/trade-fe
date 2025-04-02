@@ -863,6 +863,45 @@ function getBotDetails(botName) {
     return botData || null;
 }
 
+/**
+ * Lấy thông tin chi tiết của một bot dựa trên tên file cấu hình
+ * @param {string} filename Tên file cấu hình của bot
+ * @returns {Object} Thông tin chi tiết của bot
+ */
+function getBotByFilename(filename) {
+    try {
+        if (!filename) {
+            console.error('Tham số filename bị thiếu');
+            return null;
+        }
+
+        // Lấy dữ liệu bot từ hàm transformTradeData
+        const botsData = transformTradeData();
+        
+        if (!botsData || botsData.length === 0) {
+            console.error('Không tìm thấy dữ liệu bot nào');
+            return null;
+        }
+
+        // Tìm bot dựa trên filename
+        // Giả sử filename tương ứng với botId hoặc name của bot
+        const botData = botsData.find(bot => 
+            (bot.botId && bot.botId.includes(filename)) || 
+            (bot.name && bot.name.includes(filename))
+        );
+
+        if (!botData) {
+            console.error(`Không tìm thấy bot với filename: ${filename}`);
+            return null;
+        }
+
+        return botData;
+    } catch (error) {
+        console.error(`Lỗi khi lấy dữ liệu bot theo filename ${filename}:`, error.message);
+        return null;
+    }
+}
+
 module.exports = {
     transformTradeData,
     getDailyStats,
@@ -872,5 +911,6 @@ module.exports = {
     getAllWeeklyStats,
     getAllMonthlyStats,
     getMetadata,
-    getBotDetails
+    getBotDetails,
+    getBotByFilename
 }; 

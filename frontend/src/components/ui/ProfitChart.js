@@ -23,7 +23,7 @@ ChartJS.register(
   ChartDataLabels
 );
 
-function ProfitChart({ botsData, onBotHover, type = 'daily', weeklyData, fourWeekData, twelveMonthData, selectedMonthData, onMonthSelect, selectedDayData, setSelectedDayData, selectedWeekData, setSelectedWeekData }) {
+function ProfitChart({ onBotHover, type = 'daily', weeklyData, fourWeekData, twelveMonthData, selectedMonthData, onMonthSelect, selectedDayData, setSelectedDayData, selectedWeekData, setSelectedWeekData }) {
   const [selectedDayIndex, setSelectedDayIndex] = useState(null);
 
   // Update selectedDayData when weeklyData or selectedDayIndex changes
