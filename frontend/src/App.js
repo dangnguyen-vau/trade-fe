@@ -659,7 +659,7 @@ function App() {
                   type="daily"
                   weeklyData={weeklyData}
                   selectedDayData={selectedDayData}
-                  setSelectedDayData={setSelectedDayData}
+                  setSelectedDayData={setSelectedDayData} // khi bấm vào biểu đồ kích hoạt setSelectedDayData
                 />
               </div>
               {/* List Card Bot */}

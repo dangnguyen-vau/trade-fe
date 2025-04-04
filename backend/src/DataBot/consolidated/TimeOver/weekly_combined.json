@@ -4,7 +4,7 @@
       "date": "2024-11-18",
       "abs_profit": 0,
       "rel_profit": 0,
-      "starting_balance": 299.1145222944659,
+      "starting_balance": 10798.115242295182,
       "fiat_value": 0,
       "trade_count": 0,
       "bots_detail": [
@@ -32,6 +32,83 @@
         {
           "botId": "VuongHuy:83-Long",
           "botName": "Vương Huy - Long",
+          "abs_profit": 0,
+          "rel_profit": 0,
+          "trade_count": 0
+        },
+        {
+          "botId": "ThanhHau:70-LongShort",
+          "botName": "Thành Hậu - Long Short",
+          "abs_profit": 0,
+          "rel_profit": 0,
+          "trade_count": 0
+        },
+        {
+          "botId": "VuongHuy:85-Short",
+          "botName": "Vương Huy - Short",
+          "abs_profit": 0,
+          "rel_profit": 0,
+          "trade_count": 0
+        },
+        {
+          "botId": "VuongHuy:86-Long",
+          "botName": "Vương Huy - Long",
+          "abs_profit": 0,
+          "rel_profit": 0,
+          "trade_count": 0
+        },
+        {
+          "botId": "VuongChien:31-Short",
+          "botName": "Vương Chiến - Short",
+          "abs_profit": 0,
+          "rel_profit": 0,
+          "trade_count": 0
+        },
+        {
+          "botId": "VuongChien:32-Long",
+          "botName": "Vương Chiến - Long",
+          "abs_profit": 0,
+          "rel_profit": 0,
+          "trade_count": 0
+        },
+        {
+          "botId": "VuongDuc:7901-Short",
+          "botName": "Vương Đức - Short",
+          "abs_profit": 0,
+          "rel_profit": 0,
+          "trade_count": 0
+        },
+        {
+          "botId": "VuongDuc:7902-Long",
+          "botName": "Vương Đức - Long",
+          "abs_profit": 0,
+          "rel_profit": 0,
+          "trade_count": 0
+        },
+        {
+          "botId": "HauDuc:7904-Short",
+          "botName": "Hậu Đức - Short",
+          "abs_profit": 0,
+          "rel_profit": 0,
+          "trade_count": 0
+        },
+        {
+          "botId": "HauDuc:7903-Long",
+          "botName": "Hậu Đức - Long",
+          "abs_profit": 0,
+          "rel_profit": 0,
+          "trade_count": 0
+        },
+        {
+          "botId": "HauDuc:7906-Short",
+          "botName": "Hậu Đức - Short",
+          "abs_profit": 0,
+          "rel_profit": 0,
+          "trade_count": 0
+        },
+        {
+          "botId": "HauDuc:7905-Long",
+          "botName": "Hậu Đức - Long",
           "abs_profit": 0,
           "rel_profit": 0,
           "trade_count": 0
@@ -42,7 +119,7 @@
       "date": "2024-11-25",
       "abs_profit": 0,
       "rel_profit": 0,
-      "starting_balance": 299.1145222944659,
+      "starting_balance": 10798.115242295182,
       "fiat_value": 0,
       "trade_count": 0,
       "bots_detail": [
@@ -70,6 +147,83 @@
         {
           "botId": "VuongHuy:83-Long",
           "botName": "Vương Huy - Long",
+          "abs_profit": 0,
+          "rel_profit": 0,
+          "trade_count": 0
+        },
+        {
+          "botId": "ThanhHau:70-LongShort",
+          "botName": "Thành Hậu - Long Short",
+          "abs_profit": 0,
+          "rel_profit": 0,
+          "trade_count": 0
+        },
+        {
+          "botId": "VuongHuy:85-Short",
+          "botName": "Vương Huy - Short",
+          "abs_profit": 0,
+          "rel_profit": 0,
+          "trade_count": 0
+        },
+        {
+          "botId": "VuongHuy:86-Long",
+          "botName": "Vương Huy - Long",
+          "abs_profit": 0,
+          "rel_profit": 0,
+          "trade_count": 0
+        },
+        {
+          "botId": "VuongChien:31-Short",
+          "botName": "Vương Chiến - Short",
+          "abs_profit": 0,
+          "rel_profit": 0,
+          "trade_count": 0
+        },
+        {
+          "botId": "VuongChien:32-Long",
+          "botName": "Vương Chiến - Long",
+          "abs_profit": 0,
+          "rel_profit": 0,
+          "trade_count": 0
+        },
+        {
+          "botId": "VuongDuc:7901-Short",
+          "botName": "Vương Đức - Short",
+          "abs_profit": 0,
+          "rel_profit": 0,
+          "trade_count": 0
+        },
+        {
+          "botId": "VuongDuc:7902-Long",
+          "botName": "Vương Đức - Long",
+          "abs_profit": 0,
+          "rel_profit": 0,
+          "trade_count": 0
+        },
+        {
+          "botId": "HauDuc:7904-Short",
+          "botName": "Hậu Đức - Short",
+          "abs_profit": 0,
+          "rel_profit": 0,
+          "trade_count": 0
+        },
+        {
+          "botId": "HauDuc:7903-Long",
+          "botName": "Hậu Đức - Long",
+          "abs_profit": 0,
+          "rel_profit": 0,
+          "trade_count": 0
+        },
+        {
+          "botId": "HauDuc:7906-Short",
+          "botName": "Hậu Đức - Short",
+          "abs_profit": 0,
+          "rel_profit": 0,
+          "trade_count": 0
+        },
+        {
+          "botId": "HauDuc:7905-Long",
+          "botName": "Hậu Đức - Long",
           "abs_profit": 0,
           "rel_profit": 0,
           "trade_count": 0
@@ -80,7 +234,7 @@
       "date": "2024-12-02",
       "abs_profit": 0,
       "rel_profit": 0,
-      "starting_balance": 299.1145222944659,
+      "starting_balance": 10798.115242295182,
       "fiat_value": 0,
       "trade_count": 0,
       "bots_detail": [
@@ -108,6 +262,83 @@
         {
           "botId": "VuongHuy:83-Long",
           "botName": "Vương Huy - Long",
+          "abs_profit": 0,
+          "rel_profit": 0,
+          "trade_count": 0
+        },
+        {
+          "botId": "ThanhHau:70-LongShort",
+          "botName": "Thành Hậu - Long Short",
+          "abs_profit": 0,
+          "rel_profit": 0,
+          "trade_count": 0
+        },
+        {
+          "botId": "VuongHuy:85-Short",
+          "botName": "Vương Huy - Short",
+          "abs_profit": 0,
+          "rel_profit": 0,
+          "trade_count": 0
+        },
+        {
+          "botId": "VuongHuy:86-Long",
+          "botName": "Vương Huy - Long",
+          "abs_profit": 0,
+          "rel_profit": 0,
+          "trade_count": 0
+        },
+        {
+          "botId": "VuongChien:31-Short",
+          "botName": "Vương Chiến - Short",
+          "abs_profit": 0,
+          "rel_profit": 0,
+          "trade_count": 0
+        },
+        {
+          "botId": "VuongChien:32-Long",
+          "botName": "Vương Chiến - Long",
+          "abs_profit": 0,
+          "rel_profit": 0,
+          "trade_count": 0
+        },
+        {
+          "botId": "VuongDuc:7901-Short",
+          "botName": "Vương Đức - Short",
+          "abs_profit": 0,
+          "rel_profit": 0,
+          "trade_count": 0
+        },
+        {
+          "botId": "VuongDuc:7902-Long",
+          "botName": "Vương Đức - Long",
+          "abs_profit": 0,
+          "rel_profit": 0,
+          "trade_count": 0
+        },
+        {
+          "botId": "HauDuc:7904-Short",
+          "botName": "Hậu Đức - Short",
+          "abs_profit": 0,
+          "rel_profit": 0,
+          "trade_count": 0
+        },
+        {
+          "botId": "HauDuc:7903-Long",
+          "botName": "Hậu Đức - Long",
+          "abs_profit": 0,
+          "rel_profit": 0,
+          "trade_count": 0
+        },
+        {
+          "botId": "HauDuc:7906-Short",
+          "botName": "Hậu Đức - Short",
+          "abs_profit": 0,
+          "rel_profit": 0,
+          "trade_count": 0
+        },
+        {
+          "botId": "HauDuc:7905-Long",
+          "botName": "Hậu Đức - Long",
           "abs_profit": 0,
           "rel_profit": 0,
           "trade_count": 0
@@ -118,7 +349,7 @@
       "date": "2024-12-09",
       "abs_profit": 0,
       "rel_profit": 0,
-      "starting_balance": 299.1145222944659,
+      "starting_balance": 10798.115242295182,
       "fiat_value": 0,
       "trade_count": 0,
       "bots_detail": [
@@ -146,6 +377,83 @@
         {
           "botId": "VuongHuy:83-Long",
           "botName": "Vương Huy - Long",
+          "abs_profit": 0,
+          "rel_profit": 0,
+          "trade_count": 0
+        },
+        {
+          "botId": "ThanhHau:70-LongShort",
+          "botName": "Thành Hậu - Long Short",
+          "abs_profit": 0,
+          "rel_profit": 0,
+          "trade_count": 0
+        },
+        {
+          "botId": "VuongHuy:85-Short",
+          "botName": "Vương Huy - Short",
+          "abs_profit": 0,
+          "rel_profit": 0,
+          "trade_count": 0
+        },
+        {
+          "botId": "VuongHuy:86-Long",
+          "botName": "Vương Huy - Long",
+          "abs_profit": 0,
+          "rel_profit": 0,
+          "trade_count": 0
+        },
+        {
+          "botId": "VuongChien:31-Short",
+          "botName": "Vương Chiến - Short",
+          "abs_profit": 0,
+          "rel_profit": 0,
+          "trade_count": 0
+        },
+        {
+          "botId": "VuongChien:32-Long",
+          "botName": "Vương Chiến - Long",
+          "abs_profit": 0,
+          "rel_profit": 0,
+          "trade_count": 0
+        },
+        {
+          "botId": "VuongDuc:7901-Short",
+          "botName": "Vương Đức - Short",
+          "abs_profit": 0,
+          "rel_profit": 0,
+          "trade_count": 0
+        },
+        {
+          "botId": "VuongDuc:7902-Long",
+          "botName": "Vương Đức - Long",
+          "abs_profit": 0,
+          "rel_profit": 0,
+          "trade_count": 0
+        },
+        {
+          "botId": "HauDuc:7904-Short",
+          "botName": "Hậu Đức - Short",
+          "abs_profit": 0,
+          "rel_profit": 0,
+          "trade_count": 0
+        },
+        {
+          "botId": "HauDuc:7903-Long",
+          "botName": "Hậu Đức - Long",
+          "abs_profit": 0,
+          "rel_profit": 0,
+          "trade_count": 0
+        },
+        {
+          "botId": "HauDuc:7906-Short",
+          "botName": "Hậu Đức - Short",
+          "abs_profit": 0,
+          "rel_profit": 0,
+          "trade_count": 0
+        },
+        {
+          "botId": "HauDuc:7905-Long",
+          "botName": "Hậu Đức - Long",
           "abs_profit": 0,
           "rel_profit": 0,
           "trade_count": 0
@@ -156,7 +464,7 @@
       "date": "2024-12-16",
       "abs_profit": 0,
       "rel_profit": 0,
-      "starting_balance": 299.1145222944659,
+      "starting_balance": 10798.115242295182,
       "fiat_value": 0,
       "trade_count": 0,
       "bots_detail": [
@@ -184,6 +492,83 @@
         {
           "botId": "VuongHuy:83-Long",
           "botName": "Vương Huy - Long",
+          "abs_profit": 0,
+          "rel_profit": 0,
+          "trade_count": 0
+        },
+        {
+          "botId": "ThanhHau:70-LongShort",
+          "botName": "Thành Hậu - Long Short",
+          "abs_profit": 0,
+          "rel_profit": 0,
+          "trade_count": 0
+        },
+        {
+          "botId": "VuongHuy:85-Short",
+          "botName": "Vương Huy - Short",
+          "abs_profit": 0,
+          "rel_profit": 0,
+          "trade_count": 0
+        },
+        {
+          "botId": "VuongHuy:86-Long",
+          "botName": "Vương Huy - Long",
+          "abs_profit": 0,
+          "rel_profit": 0,
+          "trade_count": 0
+        },
+        {
+          "botId": "VuongChien:31-Short",
+          "botName": "Vương Chiến - Short",
+          "abs_profit": 0,
+          "rel_profit": 0,
+          "trade_count": 0
+        },
+        {
+          "botId": "VuongChien:32-Long",
+          "botName": "Vương Chiến - Long",
+          "abs_profit": 0,
+          "rel_profit": 0,
+          "trade_count": 0
+        },
+        {
+          "botId": "VuongDuc:7901-Short",
+          "botName": "Vương Đức - Short",
+          "abs_profit": 0,
+          "rel_profit": 0,
+          "trade_count": 0
+        },
+        {
+          "botId": "VuongDuc:7902-Long",
+          "botName": "Vương Đức - Long",
+          "abs_profit": 0,
+          "rel_profit": 0,
+          "trade_count": 0
+        },
+        {
+          "botId": "HauDuc:7904-Short",
+          "botName": "Hậu Đức - Short",
+          "abs_profit": 0,
+          "rel_profit": 0,
+          "trade_count": 0
+        },
+        {
+          "botId": "HauDuc:7903-Long",
+          "botName": "Hậu Đức - Long",
+          "abs_profit": 0,
+          "rel_profit": 0,
+          "trade_count": 0
+        },
+        {
+          "botId": "HauDuc:7906-Short",
+          "botName": "Hậu Đức - Short",
+          "abs_profit": 0,
+          "rel_profit": 0,
+          "trade_count": 0
+        },
+        {
+          "botId": "HauDuc:7905-Long",
+          "botName": "Hậu Đức - Long",
           "abs_profit": 0,
           "rel_profit": 0,
           "trade_count": 0
@@ -194,7 +579,7 @@
       "date": "2024-12-23",
       "abs_profit": 0,
       "rel_profit": 0,
-      "starting_balance": 299.1145222944659,
+      "starting_balance": 10798.115242295182,
       "fiat_value": 0,
       "trade_count": 0,
       "bots_detail": [
@@ -222,6 +607,83 @@
         {
           "botId": "VuongHuy:83-Long",
           "botName": "Vương Huy - Long",
+          "abs_profit": 0,
+          "rel_profit": 0,
+          "trade_count": 0
+        },
+        {
+          "botId": "ThanhHau:70-LongShort",
+          "botName": "Thành Hậu - Long Short",
+          "abs_profit": 0,
+          "rel_profit": 0,
+          "trade_count": 0
+        },
+        {
+          "botId": "VuongHuy:85-Short",
+          "botName": "Vương Huy - Short",
+          "abs_profit": 0,
+          "rel_profit": 0,
+          "trade_count": 0
+        },
+        {
+          "botId": "VuongHuy:86-Long",
+          "botName": "Vương Huy - Long",
+          "abs_profit": 0,
+          "rel_profit": 0,
+          "trade_count": 0
+        },
+        {
+          "botId": "VuongChien:31-Short",
+          "botName": "Vương Chiến - Short",
+          "abs_profit": 0,
+          "rel_profit": 0,
+          "trade_count": 0
+        },
+        {
+          "botId": "VuongChien:32-Long",
+          "botName": "Vương Chiến - Long",
+          "abs_profit": 0,
+          "rel_profit": 0,
+          "trade_count": 0
+        },
+        {
+          "botId": "VuongDuc:7901-Short",
+          "botName": "Vương Đức - Short",
+          "abs_profit": 0,
+          "rel_profit": 0,
+          "trade_count": 0
+        },
+        {
+          "botId": "VuongDuc:7902-Long",
+          "botName": "Vương Đức - Long",
+          "abs_profit": 0,
+          "rel_profit": 0,
+          "trade_count": 0
+        },
+        {
+          "botId": "HauDuc:7904-Short",
+          "botName": "Hậu Đức - Short",
+          "abs_profit": 0,
+          "rel_profit": 0,
+          "trade_count": 0
+        },
+        {
+          "botId": "HauDuc:7903-Long",
+          "botName": "Hậu Đức - Long",
+          "abs_profit": 0,
+          "rel_profit": 0,
+          "trade_count": 0
+        },
+        {
+          "botId": "HauDuc:7906-Short",
+          "botName": "Hậu Đức - Short",
+          "abs_profit": 0,
+          "rel_profit": 0,
+          "trade_count": 0
+        },
+        {
+          "botId": "HauDuc:7905-Long",
+          "botName": "Hậu Đức - Long",
           "abs_profit": 0,
           "rel_profit": 0,
           "trade_count": 0
@@ -232,7 +694,7 @@
       "date": "2024-12-30",
       "abs_profit": 0,
       "rel_profit": 0,
-      "starting_balance": 299.1145222944659,
+      "starting_balance": 10798.115242295182,
       "fiat_value": 0,
       "trade_count": 0,
       "bots_detail": [
@@ -260,6 +722,83 @@
         {
           "botId": "VuongHuy:83-Long",
           "botName": "Vương Huy - Long",
+          "abs_profit": 0,
+          "rel_profit": 0,
+          "trade_count": 0
+        },
+        {
+          "botId": "ThanhHau:70-LongShort",
+          "botName": "Thành Hậu - Long Short",
+          "abs_profit": 0,
+          "rel_profit": 0,
+          "trade_count": 0
+        },
+        {
+          "botId": "VuongHuy:85-Short",
+          "botName": "Vương Huy - Short",
+          "abs_profit": 0,
+          "rel_profit": 0,
+          "trade_count": 0
+        },
+        {
+          "botId": "VuongHuy:86-Long",
+          "botName": "Vương Huy - Long",
+          "abs_profit": 0,
+          "rel_profit": 0,
+          "trade_count": 0
+        },
+        {
+          "botId": "VuongChien:31-Short",
+          "botName": "Vương Chiến - Short",
+          "abs_profit": 0,
+          "rel_profit": 0,
+          "trade_count": 0
+        },
+        {
+          "botId": "VuongChien:32-Long",
+          "botName": "Vương Chiến - Long",
+          "abs_profit": 0,
+          "rel_profit": 0,
+          "trade_count": 0
+        },
+        {
+          "botId": "VuongDuc:7901-Short",
+          "botName": "Vương Đức - Short",
+          "abs_profit": 0,
+          "rel_profit": 0,
+          "trade_count": 0
+        },
+        {
+          "botId": "VuongDuc:7902-Long",
+          "botName": "Vương Đức - Long",
+          "abs_profit": 0,
+          "rel_profit": 0,
+          "trade_count": 0
+        },
+        {
+          "botId": "HauDuc:7904-Short",
+          "botName": "Hậu Đức - Short",
+          "abs_profit": 0,
+          "rel_profit": 0,
+          "trade_count": 0
+        },
+        {
+          "botId": "HauDuc:7903-Long",
+          "botName": "Hậu Đức - Long",
+          "abs_profit": 0,
+          "rel_profit": 0,
+          "trade_count": 0
+        },
+        {
+          "botId": "HauDuc:7906-Short",
+          "botName": "Hậu Đức - Short",
+          "abs_profit": 0,
+          "rel_profit": 0,
+          "trade_count": 0
+        },
+        {
+          "botId": "HauDuc:7905-Long",
+          "botName": "Hậu Đức - Long",
           "abs_profit": 0,
           "rel_profit": 0,
           "trade_count": 0
@@ -270,7 +809,7 @@
       "date": "2025-01-06",
       "abs_profit": 0,
       "rel_profit": 0,
-      "starting_balance": 299.1145222944659,
+      "starting_balance": 10798.115242295182,
       "fiat_value": 0,
       "trade_count": 0,
       "bots_detail": [
@@ -298,6 +837,83 @@
         {
           "botId": "VuongHuy:83-Long",
           "botName": "Vương Huy - Long",
+          "abs_profit": 0,
+          "rel_profit": 0,
+          "trade_count": 0
+        },
+        {
+          "botId": "ThanhHau:70-LongShort",
+          "botName": "Thành Hậu - Long Short",
+          "abs_profit": 0,
+          "rel_profit": 0,
+          "trade_count": 0
+        },
+        {
+          "botId": "VuongHuy:85-Short",
+          "botName": "Vương Huy - Short",
+          "abs_profit": 0,
+          "rel_profit": 0,
+          "trade_count": 0
+        },
+        {
+          "botId": "VuongHuy:86-Long",
+          "botName": "Vương Huy - Long",
+          "abs_profit": 0,
+          "rel_profit": 0,
+          "trade_count": 0
+        },
+        {
+          "botId": "VuongChien:31-Short",
+          "botName": "Vương Chiến - Short",
+          "abs_profit": 0,
+          "rel_profit": 0,
+          "trade_count": 0
+        },
+        {
+          "botId": "VuongChien:32-Long",
+          "botName": "Vương Chiến - Long",
+          "abs_profit": 0,
+          "rel_profit": 0,
+          "trade_count": 0
+        },
+        {
+          "botId": "VuongDuc:7901-Short",
+          "botName": "Vương Đức - Short",
+          "abs_profit": 0,
+          "rel_profit": 0,
+          "trade_count": 0
+        },
+        {
+          "botId": "VuongDuc:7902-Long",
+          "botName": "Vương Đức - Long",
+          "abs_profit": 0,
+          "rel_profit": 0,
+          "trade_count": 0
+        },
+        {
+          "botId": "HauDuc:7904-Short",
+          "botName": "Hậu Đức - Short",
+          "abs_profit": 0,
+          "rel_profit": 0,
+          "trade_count": 0
+        },
+        {
+          "botId": "HauDuc:7903-Long",
+          "botName": "Hậu Đức - Long",
+          "abs_profit": 0,
+          "rel_profit": 0,
+          "trade_count": 0
+        },
+        {
+          "botId": "HauDuc:7906-Short",
+          "botName": "Hậu Đức - Short",
+          "abs_profit": 0,
+          "rel_profit": 0,
+          "trade_count": 0
+        },
+        {
+          "botId": "HauDuc:7905-Long",
+          "botName": "Hậu Đức - Long",
           "abs_profit": 0,
           "rel_profit": 0,
           "trade_count": 0
@@ -308,7 +924,7 @@
       "date": "2025-01-13",
       "abs_profit": 0,
       "rel_profit": 0,
-      "starting_balance": 299.1145222944659,
+      "starting_balance": 10798.115242295182,
       "fiat_value": 0,
       "trade_count": 0,
       "bots_detail": [
@@ -336,6 +952,83 @@
         {
           "botId": "VuongHuy:83-Long",
           "botName": "Vương Huy - Long",
+          "abs_profit": 0,
+          "rel_profit": 0,
+          "trade_count": 0
+        },
+        {
+          "botId": "ThanhHau:70-LongShort",
+          "botName": "Thành Hậu - Long Short",
+          "abs_profit": 0,
+          "rel_profit": 0,
+          "trade_count": 0
+        },
+        {
+          "botId": "VuongHuy:85-Short",
+          "botName": "Vương Huy - Short",
+          "abs_profit": 0,
+          "rel_profit": 0,
+          "trade_count": 0
+        },
+        {
+          "botId": "VuongHuy:86-Long",
+          "botName": "Vương Huy - Long",
+          "abs_profit": 0,
+          "rel_profit": 0,
+          "trade_count": 0
+        },
+        {
+          "botId": "VuongChien:31-Short",
+          "botName": "Vương Chiến - Short",
+          "abs_profit": 0,
+          "rel_profit": 0,
+          "trade_count": 0
+        },
+        {
+          "botId": "VuongChien:32-Long",
+          "botName": "Vương Chiến - Long",
+          "abs_profit": 0,
+          "rel_profit": 0,
+          "trade_count": 0
+        },
+        {
+          "botId": "VuongDuc:7901-Short",
+          "botName": "Vương Đức - Short",
+          "abs_profit": 0,
+          "rel_profit": 0,
+          "trade_count": 0
+        },
+        {
+          "botId": "VuongDuc:7902-Long",
+          "botName": "Vương Đức - Long",
+          "abs_profit": 0,
+          "rel_profit": 0,
+          "trade_count": 0
+        },
+        {
+          "botId": "HauDuc:7904-Short",
+          "botName": "Hậu Đức - Short",
+          "abs_profit": 0,
+          "rel_profit": 0,
+          "trade_count": 0
+        },
+        {
+          "botId": "HauDuc:7903-Long",
+          "botName": "Hậu Đức - Long",
+          "abs_profit": 0,
+          "rel_profit": 0,
+          "trade_count": 0
+        },
+        {
+          "botId": "HauDuc:7906-Short",
+          "botName": "Hậu Đức - Short",
+          "abs_profit": 0,
+          "rel_profit": 0,
+          "trade_count": 0
+        },
+        {
+          "botId": "HauDuc:7905-Long",
+          "botName": "Hậu Đức - Long",
           "abs_profit": 0,
           "rel_profit": 0,
           "trade_count": 0
@@ -346,7 +1039,7 @@
       "date": "2025-01-20",
       "abs_profit": 0,
       "rel_profit": 0,
-      "starting_balance": 299.1145222944659,
+      "starting_balance": 10798.115242295182,
       "fiat_value": 0,
       "trade_count": 0,
       "bots_detail": [
@@ -374,6 +1067,83 @@
         {
           "botId": "VuongHuy:83-Long",
           "botName": "Vương Huy - Long",
+          "abs_profit": 0,
+          "rel_profit": 0,
+          "trade_count": 0
+        },
+        {
+          "botId": "ThanhHau:70-LongShort",
+          "botName": "Thành Hậu - Long Short",
+          "abs_profit": 0,
+          "rel_profit": 0,
+          "trade_count": 0
+        },
+        {
+          "botId": "VuongHuy:85-Short",
+          "botName": "Vương Huy - Short",
+          "abs_profit": 0,
+          "rel_profit": 0,
+          "trade_count": 0
+        },
+        {
+          "botId": "VuongHuy:86-Long",
+          "botName": "Vương Huy - Long",
+          "abs_profit": 0,
+          "rel_profit": 0,
+          "trade_count": 0
+        },
+        {
+          "botId": "VuongChien:31-Short",
+          "botName": "Vương Chiến - Short",
+          "abs_profit": 0,
+          "rel_profit": 0,
+          "trade_count": 0
+        },
+        {
+          "botId": "VuongChien:32-Long",
+          "botName": "Vương Chiến - Long",
+          "abs_profit": 0,
+          "rel_profit": 0,
+          "trade_count": 0
+        },
+        {
+          "botId": "VuongDuc:7901-Short",
+          "botName": "Vương Đức - Short",
+          "abs_profit": 0,
+          "rel_profit": 0,
+          "trade_count": 0
+        },
+        {
+          "botId": "VuongDuc:7902-Long",
+          "botName": "Vương Đức - Long",
+          "abs_profit": 0,
+          "rel_profit": 0,
+          "trade_count": 0
+        },
+        {
+          "botId": "HauDuc:7904-Short",
+          "botName": "Hậu Đức - Short",
+          "abs_profit": 0,
+          "rel_profit": 0,
+          "trade_count": 0
+        },
+        {
+          "botId": "HauDuc:7903-Long",
+          "botName": "Hậu Đức - Long",
+          "abs_profit": 0,
+          "rel_profit": 0,
+          "trade_count": 0
+        },
+        {
+          "botId": "HauDuc:7906-Short",
+          "botName": "Hậu Đức - Short",
+          "abs_profit": 0,
+          "rel_profit": 0,
+          "trade_count": 0
+        },
+        {
+          "botId": "HauDuc:7905-Long",
+          "botName": "Hậu Đức - Long",
           "abs_profit": 0,
           "rel_profit": 0,
           "trade_count": 0
@@ -384,7 +1154,7 @@
       "date": "2025-01-27",
       "abs_profit": 0,
       "rel_profit": 0,
-      "starting_balance": 299.1145222944659,
+      "starting_balance": 10798.115242295182,
       "fiat_value": 0,
       "trade_count": 0,
       "bots_detail": [
@@ -412,6 +1182,83 @@
         {
           "botId": "VuongHuy:83-Long",
           "botName": "Vương Huy - Long",
+          "abs_profit": 0,
+          "rel_profit": 0,
+          "trade_count": 0
+        },
+        {
+          "botId": "ThanhHau:70-LongShort",
+          "botName": "Thành Hậu - Long Short",
+          "abs_profit": 0,
+          "rel_profit": 0,
+          "trade_count": 0
+        },
+        {
+          "botId": "VuongHuy:85-Short",
+          "botName": "Vương Huy - Short",
+          "abs_profit": 0,
+          "rel_profit": 0,
+          "trade_count": 0
+        },
+        {
+          "botId": "VuongHuy:86-Long",
+          "botName": "Vương Huy - Long",
+          "abs_profit": 0,
+          "rel_profit": 0,
+          "trade_count": 0
+        },
+        {
+          "botId": "VuongChien:31-Short",
+          "botName": "Vương Chiến - Short",
+          "abs_profit": 0,
+          "rel_profit": 0,
+          "trade_count": 0
+        },
+        {
+          "botId": "VuongChien:32-Long",
+          "botName": "Vương Chiến - Long",
+          "abs_profit": 0,
+          "rel_profit": 0,
+          "trade_count": 0
+        },
+        {
+          "botId": "VuongDuc:7901-Short",
+          "botName": "Vương Đức - Short",
+          "abs_profit": 0,
+          "rel_profit": 0,
+          "trade_count": 0
+        },
+        {
+          "botId": "VuongDuc:7902-Long",
+          "botName": "Vương Đức - Long",
+          "abs_profit": 0,
+          "rel_profit": 0,
+          "trade_count": 0
+        },
+        {
+          "botId": "HauDuc:7904-Short",
+          "botName": "Hậu Đức - Short",
+          "abs_profit": 0,
+          "rel_profit": 0,
+          "trade_count": 0
+        },
+        {
+          "botId": "HauDuc:7903-Long",
+          "botName": "Hậu Đức - Long",
+          "abs_profit": 0,
+          "rel_profit": 0,
+          "trade_count": 0
+        },
+        {
+          "botId": "HauDuc:7906-Short",
+          "botName": "Hậu Đức - Short",
+          "abs_profit": 0,
+          "rel_profit": 0,
+          "trade_count": 0
+        },
+        {
+          "botId": "HauDuc:7905-Long",
+          "botName": "Hậu Đức - Long",
           "abs_profit": 0,
           "rel_profit": 0,
           "trade_count": 0
@@ -422,7 +1269,7 @@
       "date": "2025-02-03",
       "abs_profit": 0,
       "rel_profit": 0,
-      "starting_balance": 299.1145222944659,
+      "starting_balance": 10798.115242295182,
       "fiat_value": 0,
       "trade_count": 0,
       "bots_detail": [
@@ -450,6 +1297,83 @@
         {
           "botId": "VuongHuy:83-Long",
           "botName": "Vương Huy - Long",
+          "abs_profit": 0,
+          "rel_profit": 0,
+          "trade_count": 0
+        },
+        {
+          "botId": "ThanhHau:70-LongShort",
+          "botName": "Thành Hậu - Long Short",
+          "abs_profit": 0,
+          "rel_profit": 0,
+          "trade_count": 0
+        },
+        {
+          "botId": "VuongHuy:85-Short",
+          "botName": "Vương Huy - Short",
+          "abs_profit": 0,
+          "rel_profit": 0,
+          "trade_count": 0
+        },
+        {
+          "botId": "VuongHuy:86-Long",
+          "botName": "Vương Huy - Long",
+          "abs_profit": 0,
+          "rel_profit": 0,
+          "trade_count": 0
+        },
+        {
+          "botId": "VuongChien:31-Short",
+          "botName": "Vương Chiến - Short",
+          "abs_profit": 0,
+          "rel_profit": 0,
+          "trade_count": 0
+        },
+        {
+          "botId": "VuongChien:32-Long",
+          "botName": "Vương Chiến - Long",
+          "abs_profit": 0,
+          "rel_profit": 0,
+          "trade_count": 0
+        },
+        {
+          "botId": "VuongDuc:7901-Short",
+          "botName": "Vương Đức - Short",
+          "abs_profit": 0,
+          "rel_profit": 0,
+          "trade_count": 0
+        },
+        {
+          "botId": "VuongDuc:7902-Long",
+          "botName": "Vương Đức - Long",
+          "abs_profit": 0,
+          "rel_profit": 0,
+          "trade_count": 0
+        },
+        {
+          "botId": "HauDuc:7904-Short",
+          "botName": "Hậu Đức - Short",
+          "abs_profit": 0,
+          "rel_profit": 0,
+          "trade_count": 0
+        },
+        {
+          "botId": "HauDuc:7903-Long",
+          "botName": "Hậu Đức - Long",
+          "abs_profit": 0,
+          "rel_profit": 0,
+          "trade_count": 0
+        },
+        {
+          "botId": "HauDuc:7906-Short",
+          "botName": "Hậu Đức - Short",
+          "abs_profit": 0,
+          "rel_profit": 0,
+          "trade_count": 0
+        },
+        {
+          "botId": "HauDuc:7905-Long",
+          "botName": "Hậu Đức - Long",
           "abs_profit": 0,
           "rel_profit": 0,
           "trade_count": 0
@@ -460,7 +1384,7 @@
       "date": "2025-02-10",
       "abs_profit": 0,
       "rel_profit": 0,
-      "starting_balance": 299.1145222944659,
+      "starting_balance": 10798.115242295182,
       "fiat_value": 0,
       "trade_count": 0,
       "bots_detail": [
@@ -488,6 +1412,83 @@
         {
           "botId": "VuongHuy:83-Long",
           "botName": "Vương Huy - Long",
+          "abs_profit": 0,
+          "rel_profit": 0,
+          "trade_count": 0
+        },
+        {
+          "botId": "ThanhHau:70-LongShort",
+          "botName": "Thành Hậu - Long Short",
+          "abs_profit": 0,
+          "rel_profit": 0,
+          "trade_count": 0
+        },
+        {
+          "botId": "VuongHuy:85-Short",
+          "botName": "Vương Huy - Short",
+          "abs_profit": 0,
+          "rel_profit": 0,
+          "trade_count": 0
+        },
+        {
+          "botId": "VuongHuy:86-Long",
+          "botName": "Vương Huy - Long",
+          "abs_profit": 0,
+          "rel_profit": 0,
+          "trade_count": 0
+        },
+        {
+          "botId": "VuongChien:31-Short",
+          "botName": "Vương Chiến - Short",
+          "abs_profit": 0,
+          "rel_profit": 0,
+          "trade_count": 0
+        },
+        {
+          "botId": "VuongChien:32-Long",
+          "botName": "Vương Chiến - Long",
+          "abs_profit": 0,
+          "rel_profit": 0,
+          "trade_count": 0
+        },
+        {
+          "botId": "VuongDuc:7901-Short",
+          "botName": "Vương Đức - Short",
+          "abs_profit": 0,
+          "rel_profit": 0,
+          "trade_count": 0
+        },
+        {
+          "botId": "VuongDuc:7902-Long",
+          "botName": "Vương Đức - Long",
+          "abs_profit": 0,
+          "rel_profit": 0,
+          "trade_count": 0
+        },
+        {
+          "botId": "HauDuc:7904-Short",
+          "botName": "Hậu Đức - Short",
+          "abs_profit": 0,
+          "rel_profit": 0,
+          "trade_count": 0
+        },
+        {
+          "botId": "HauDuc:7903-Long",
+          "botName": "Hậu Đức - Long",
+          "abs_profit": 0,
+          "rel_profit": 0,
+          "trade_count": 0
+        },
+        {
+          "botId": "HauDuc:7906-Short",
+          "botName": "Hậu Đức - Short",
+          "abs_profit": 0,
+          "rel_profit": 0,
+          "trade_count": 0
+        },
+        {
+          "botId": "HauDuc:7905-Long",
+          "botName": "Hậu Đức - Long",
           "abs_profit": 0,
           "rel_profit": 0,
           "trade_count": 0
@@ -498,7 +1499,7 @@
       "date": "2025-02-17",
       "abs_profit": 0,
       "rel_profit": 0,
-      "starting_balance": 299.1145222944659,
+      "starting_balance": 10798.115242295182,
       "fiat_value": 0,
       "trade_count": 0,
       "bots_detail": [
@@ -526,6 +1527,83 @@
         {
           "botId": "VuongHuy:83-Long",
           "botName": "Vương Huy - Long",
+          "abs_profit": 0,
+          "rel_profit": 0,
+          "trade_count": 0
+        },
+        {
+          "botId": "ThanhHau:70-LongShort",
+          "botName": "Thành Hậu - Long Short",
+          "abs_profit": 0,
+          "rel_profit": 0,
+          "trade_count": 0
+        },
+        {
+          "botId": "VuongHuy:85-Short",
+          "botName": "Vương Huy - Short",
+          "abs_profit": 0,
+          "rel_profit": 0,
+          "trade_count": 0
+        },
+        {
+          "botId": "VuongHuy:86-Long",
+          "botName": "Vương Huy - Long",
+          "abs_profit": 0,
+          "rel_profit": 0,
+          "trade_count": 0
+        },
+        {
+          "botId": "VuongChien:31-Short",
+          "botName": "Vương Chiến - Short",
+          "abs_profit": 0,
+          "rel_profit": 0,
+          "trade_count": 0
+        },
+        {
+          "botId": "VuongChien:32-Long",
+          "botName": "Vương Chiến - Long",
+          "abs_profit": 0,
+          "rel_profit": 0,
+          "trade_count": 0
+        },
+        {
+          "botId": "VuongDuc:7901-Short",
+          "botName": "Vương Đức - Short",
+          "abs_profit": 0,
+          "rel_profit": 0,
+          "trade_count": 0
+        },
+        {
+          "botId": "VuongDuc:7902-Long",
+          "botName": "Vương Đức - Long",
+          "abs_profit": 0,
+          "rel_profit": 0,
+          "trade_count": 0
+        },
+        {
+          "botId": "HauDuc:7904-Short",
+          "botName": "Hậu Đức - Short",
+          "abs_profit": 0,
+          "rel_profit": 0,
+          "trade_count": 0
+        },
+        {
+          "botId": "HauDuc:7903-Long",
+          "botName": "Hậu Đức - Long",
+          "abs_profit": 0,
+          "rel_profit": 0,
+          "trade_count": 0
+        },
+        {
+          "botId": "HauDuc:7906-Short",
+          "botName": "Hậu Đức - Short",
+          "abs_profit": 0,
+          "rel_profit": 0,
+          "trade_count": 0
+        },
+        {
+          "botId": "HauDuc:7905-Long",
+          "botName": "Hậu Đức - Long",
           "abs_profit": 0,
           "rel_profit": 0,
           "trade_count": 0
@@ -536,7 +1614,7 @@
       "date": "2025-02-24",
       "abs_profit": 0,
       "rel_profit": 0,
-      "starting_balance": 299.1145222944659,
+      "starting_balance": 10798.115242295182,
       "fiat_value": 0,
       "trade_count": 0,
       "bots_detail": [
@@ -567,6 +1645,83 @@
           "abs_profit": 0,
           "rel_profit": 0,
           "trade_count": 0
+        },
+        {
+          "botId": "ThanhHau:70-LongShort",
+          "botName": "Thành Hậu - Long Short",
+          "abs_profit": 0,
+          "rel_profit": 0,
+          "trade_count": 0
+        },
+        {
+          "botId": "VuongHuy:85-Short",
+          "botName": "Vương Huy - Short",
+          "abs_profit": 0,
+          "rel_profit": 0,
+          "trade_count": 0
+        },
+        {
+          "botId": "VuongHuy:86-Long",
+          "botName": "Vương Huy - Long",
+          "abs_profit": 0,
+          "rel_profit": 0,
+          "trade_count": 0
+        },
+        {
+          "botId": "VuongChien:31-Short",
+          "botName": "Vương Chiến - Short",
+          "abs_profit": 0,
+          "rel_profit": 0,
+          "trade_count": 0
+        },
+        {
+          "botId": "VuongChien:32-Long",
+          "botName": "Vương Chiến - Long",
+          "abs_profit": 0,
+          "rel_profit": 0,
+          "trade_count": 0
+        },
+        {
+          "botId": "VuongDuc:7901-Short",
+          "botName": "Vương Đức - Short",
+          "abs_profit": 0,
+          "rel_profit": 0,
+          "trade_count": 0
+        },
+        {
+          "botId": "VuongDuc:7902-Long",
+          "botName": "Vương Đức - Long",
+          "abs_profit": 0,
+          "rel_profit": 0,
+          "trade_count": 0
+        },
+        {
+          "botId": "HauDuc:7904-Short",
+          "botName": "Hậu Đức - Short",
+          "abs_profit": 0,
+          "rel_profit": 0,
+          "trade_count": 0
+        },
+        {
+          "botId": "HauDuc:7903-Long",
+          "botName": "Hậu Đức - Long",
+          "abs_profit": 0,
+          "rel_profit": 0,
+          "trade_count": 0
+        },
+        {
+          "botId": "HauDuc:7906-Short",
+          "botName": "Hậu Đức - Short",
+          "abs_profit": 0,
+          "rel_profit": 0,
+          "trade_count": 0
+        },
+        {
+          "botId": "HauDuc:7905-Long",
+          "botName": "Hậu Đức - Long",
+          "abs_profit": 0,
+          "rel_profit": 0,
+          "trade_count": 0
         }
       ]
     },
@@ -574,8 +1729,8 @@
       "date": "2025-03-03",
       "abs_profit": 1.61955314,
       "rel_profit": 0.01619553,
-      "starting_balance": 299.1145222944659,
-      "fiat_value": 1.61954342268116,
+      "starting_balance": 10798.115242295182,
+      "fiat_value": 1.61888588410632,
       "trade_count": 1,
       "bots_detail": [
         {
@@ -605,6 +1760,83 @@
           "abs_profit": 0,
           "rel_profit": 0,
           "trade_count": 0
+        },
+        {
+          "botId": "ThanhHau:70-LongShort",
+          "botName": "Thành Hậu - Long Short",
+          "abs_profit": 0,
+          "rel_profit": 0,
+          "trade_count": 0
+        },
+        {
+          "botId": "VuongHuy:85-Short",
+          "botName": "Vương Huy - Short",
+          "abs_profit": 0,
+          "rel_profit": 0,
+          "trade_count": 0
+        },
+        {
+          "botId": "VuongHuy:86-Long",
+          "botName": "Vương Huy - Long",
+          "abs_profit": 0,
+          "rel_profit": 0,
+          "trade_count": 0
+        },
+        {
+          "botId": "VuongChien:31-Short",
+          "botName": "Vương Chiến - Short",
+          "abs_profit": 0,
+          "rel_profit": 0,
+          "trade_count": 0
+        },
+        {
+          "botId": "VuongChien:32-Long",
+          "botName": "Vương Chiến - Long",
+          "abs_profit": 0,
+          "rel_profit": 0,
+          "trade_count": 0
+        },
+        {
+          "botId": "VuongDuc:7901-Short",
+          "botName": "Vương Đức - Short",
+          "abs_profit": 0,
+          "rel_profit": 0,
+          "trade_count": 0
+        },
+        {
+          "botId": "VuongDuc:7902-Long",
+          "botName": "Vương Đức - Long",
+          "abs_profit": 0,
+          "rel_profit": 0,
+          "trade_count": 0
+        },
+        {
+          "botId": "HauDuc:7904-Short",
+          "botName": "Hậu Đức - Short",
+          "abs_profit": 0,
+          "rel_profit": 0,
+          "trade_count": 0
+        },
+        {
+          "botId": "HauDuc:7903-Long",
+          "botName": "Hậu Đức - Long",
+          "abs_profit": 0,
+          "rel_profit": 0,
+          "trade_count": 0
+        },
+        {
+          "botId": "HauDuc:7906-Short",
+          "botName": "Hậu Đức - Short",
+          "abs_profit": 0,
+          "rel_profit": 0,
+          "trade_count": 0
+        },
+        {
+          "botId": "HauDuc:7905-Long",
+          "botName": "Hậu Đức - Long",
+          "abs_profit": 0,
+          "rel_profit": 0,
+          "trade_count": 0
         }
       ]
     },
@@ -612,8 +1844,8 @@
       "date": "2025-03-10",
       "abs_profit": 0.8187888499999999,
       "rel_profit": 0.00807382,
-      "starting_balance": 300.7340754344659,
-      "fiat_value": 0.81878043330204,
+      "starting_balance": 10799.734795435183,
+      "fiat_value": 0.8184518181671699,
       "trade_count": 13,
       "bots_detail": [
         {
@@ -643,6 +1875,83 @@
           "abs_profit": 0.10305778999999993,
           "rel_profit": 0.00103058,
           "trade_count": 3
+        },
+        {
+          "botId": "ThanhHau:70-LongShort",
+          "botName": "Thành Hậu - Long Short",
+          "abs_profit": 0,
+          "rel_profit": 0,
+          "trade_count": 0
+        },
+        {
+          "botId": "VuongHuy:85-Short",
+          "botName": "Vương Huy - Short",
+          "abs_profit": 0,
+          "rel_profit": 0,
+          "trade_count": 0
+        },
+        {
+          "botId": "VuongHuy:86-Long",
+          "botName": "Vương Huy - Long",
+          "abs_profit": 0,
+          "rel_profit": 0,
+          "trade_count": 0
+        },
+        {
+          "botId": "VuongChien:31-Short",
+          "botName": "Vương Chiến - Short",
+          "abs_profit": 0,
+          "rel_profit": 0,
+          "trade_count": 0
+        },
+        {
+          "botId": "VuongChien:32-Long",
+          "botName": "Vương Chiến - Long",
+          "abs_profit": 0,
+          "rel_profit": 0,
+          "trade_count": 0
+        },
+        {
+          "botId": "VuongDuc:7901-Short",
+          "botName": "Vương Đức - Short",
+          "abs_profit": 0,
+          "rel_profit": 0,
+          "trade_count": 0
+        },
+        {
+          "botId": "VuongDuc:7902-Long",
+          "botName": "Vương Đức - Long",
+          "abs_profit": 0,
+          "rel_profit": 0,
+          "trade_count": 0
+        },
+        {
+          "botId": "HauDuc:7904-Short",
+          "botName": "Hậu Đức - Short",
+          "abs_profit": 0,
+          "rel_profit": 0,
+          "trade_count": 0
+        },
+        {
+          "botId": "HauDuc:7903-Long",
+          "botName": "Hậu Đức - Long",
+          "abs_profit": 0,
+          "rel_profit": 0,
+          "trade_count": 0
+        },
+        {
+          "botId": "HauDuc:7906-Short",
+          "botName": "Hậu Đức - Short",
+          "abs_profit": 0,
+          "rel_profit": 0,
+          "trade_count": 0
+        },
+        {
+          "botId": "HauDuc:7905-Long",
+          "botName": "Hậu Đức - Long",
+          "abs_profit": 0,
+          "rel_profit": 0,
+          "trade_count": 0
         }
       ]
     },
@@ -650,8 +1959,8 @@
       "date": "2025-03-17",
       "abs_profit": -1.0042586,
       "rel_profit": 0.00407515,
-      "starting_balance": 301.55286428446595,
-      "fiat_value": -1.004323561260681,
+      "starting_balance": 10800.553584285182,
+      "fiat_value": -1.0037468769840001,
       "trade_count": 19,
       "bots_detail": [
         {
@@ -681,16 +1990,93 @@
           "abs_profit": 2.0878474199999997,
           "rel_profit": 0.02085698,
           "trade_count": 9
+        },
+        {
+          "botId": "ThanhHau:70-LongShort",
+          "botName": "Thành Hậu - Long Short",
+          "abs_profit": 0,
+          "rel_profit": 0,
+          "trade_count": 0
+        },
+        {
+          "botId": "VuongHuy:85-Short",
+          "botName": "Vương Huy - Short",
+          "abs_profit": 0,
+          "rel_profit": 0,
+          "trade_count": 0
+        },
+        {
+          "botId": "VuongHuy:86-Long",
+          "botName": "Vương Huy - Long",
+          "abs_profit": 0,
+          "rel_profit": 0,
+          "trade_count": 0
+        },
+        {
+          "botId": "VuongChien:31-Short",
+          "botName": "Vương Chiến - Short",
+          "abs_profit": 0,
+          "rel_profit": 0,
+          "trade_count": 0
+        },
+        {
+          "botId": "VuongChien:32-Long",
+          "botName": "Vương Chiến - Long",
+          "abs_profit": 0,
+          "rel_profit": 0,
+          "trade_count": 0
+        },
+        {
+          "botId": "VuongDuc:7901-Short",
+          "botName": "Vương Đức - Short",
+          "abs_profit": 0,
+          "rel_profit": 0,
+          "trade_count": 0
+        },
+        {
+          "botId": "VuongDuc:7902-Long",
+          "botName": "Vương Đức - Long",
+          "abs_profit": 0,
+          "rel_profit": 0,
+          "trade_count": 0
+        },
+        {
+          "botId": "HauDuc:7904-Short",
+          "botName": "Hậu Đức - Short",
+          "abs_profit": 0,
+          "rel_profit": 0,
+          "trade_count": 0
+        },
+        {
+          "botId": "HauDuc:7903-Long",
+          "botName": "Hậu Đức - Long",
+          "abs_profit": 0,
+          "rel_profit": 0,
+          "trade_count": 0
+        },
+        {
+          "botId": "HauDuc:7906-Short",
+          "botName": "Hậu Đức - Short",
+          "abs_profit": 0,
+          "rel_profit": 0,
+          "trade_count": 0
+        },
+        {
+          "botId": "HauDuc:7905-Long",
+          "botName": "Hậu Đức - Long",
+          "abs_profit": 0,
+          "rel_profit": 0,
+          "trade_count": 0
         }
       ]
     },
     {
       "date": "2025-03-24",
-      "abs_profit": -2.1638926599999997,
-      "rel_profit": -0.016879959999999996,
-      "starting_balance": 300.54860568446594,
-      "fiat_value": -2.1637482550405194,
-      "trade_count": 33,
+      "abs_profit": -9.337161779999999,
+      "rel_profit": -0.04995064,
+      "starting_balance": 10799.549325685184,
+      "fiat_value": -9.33326000529223,
+      "trade_count": 120,
       "bots_detail": [
         {
           "botId": "ThanhHau:71-Long",
@@ -719,16 +2105,93 @@
           "abs_profit": -3.86534128,
           "rel_profit": -0.03782471,
           "trade_count": 15
+        },
+        {
+          "botId": "ThanhHau:70-LongShort",
+          "botName": "Thành Hậu - Long Short",
+          "abs_profit": -5.54794968,
+          "rel_profit": -0.00055479,
+          "trade_count": 11
+        },
+        {
+          "botId": "VuongHuy:85-Short",
+          "botName": "Vương Huy - Short",
+          "abs_profit": 0,
+          "rel_profit": 0,
+          "trade_count": 0
+        },
+        {
+          "botId": "VuongHuy:86-Long",
+          "botName": "Vương Huy - Long",
+          "abs_profit": -1.69801098,
+          "rel_profit": -0.03396022,
+          "trade_count": 52
+        },
+        {
+          "botId": "VuongChien:31-Short",
+          "botName": "Vương Chiến - Short",
+          "abs_profit": -0.030494349999999996,
+          "rel_profit": -0.00061604,
+          "trade_count": 8
+        },
+        {
+          "botId": "VuongChien:32-Long",
+          "botName": "Vương Chiến - Long",
+          "abs_profit": -0.01660832,
+          "rel_profit": -0.00033552,
+          "trade_count": 9
+        },
+        {
+          "botId": "VuongDuc:7901-Short",
+          "botName": "Vương Đức - Short",
+          "abs_profit": 0.05251978,
+          "rel_profit": 0.0010504,
+          "trade_count": 4
+        },
+        {
+          "botId": "VuongDuc:7902-Long",
+          "botName": "Vương Đức - Long",
+          "abs_profit": 0.06727443,
+          "rel_profit": 0.00134549,
+          "trade_count": 3
+        },
+        {
+          "botId": "HauDuc:7904-Short",
+          "botName": "Hậu Đức - Short",
+          "abs_profit": 0,
+          "rel_profit": 0,
+          "trade_count": 0
+        },
+        {
+          "botId": "HauDuc:7903-Long",
+          "botName": "Hậu Đức - Long",
+          "abs_profit": 0,
+          "rel_profit": 0,
+          "trade_count": 0
+        },
+        {
+          "botId": "HauDuc:7906-Short",
+          "botName": "Hậu Đức - Short",
+          "abs_profit": 0,
+          "rel_profit": 0,
+          "trade_count": 0
+        },
+        {
+          "botId": "HauDuc:7905-Long",
+          "botName": "Hậu Đức - Long",
+          "abs_profit": 0,
+          "rel_profit": 0,
+          "trade_count": 0
         }
       ]
     },
     {
       "date": "2025-03-31",
-      "abs_profit": -6.435750120000001,
-      "rel_profit": -0.13530712,
-      "starting_balance": 298.3847130244659,
-      "fiat_value": -6.435745293335541,
-      "trade_count": 10,
+      "abs_profit": -9.470945029999998,
+      "rel_profit": -0.12895468000000002,
+      "starting_balance": 10790.212163905184,
+      "fiat_value": -9.467194979452671,
+      "trade_count": 36,
       "bots_detail": [
         {
           "botId": "ThanhHau:71-Long",
@@ -747,19 +2210,96 @@
         {
           "botId": "VuongHuy:82-Short",
           "botName": "Vương Huy - Short",
-          "abs_profit": -0.20197482999999994,
-          "rel_profit": -0.00203333,
-          "trade_count": 5
+          "abs_profit": -0.3844004299999999,
+          "rel_profit": -0.00386985,
+          "trade_count": 9
         },
         {
           "botId": "VuongHuy:83-Long",
           "botName": "Vương Huy - Long",
-          "abs_profit": 0.99375989,
-          "rel_profit": 0.01010683,
-          "trade_count": 3
+          "abs_profit": 1.73811139,
+          "rel_profit": 0.01767711,
+          "trade_count": 4
+        },
+        {
+          "botId": "ThanhHau:70-LongShort",
+          "botName": "Thành Hậu - Long Short",
+          "abs_profit": -3.6465108099999997,
+          "rel_profit": -0.00036485,
+          "trade_count": 10
+        },
+        {
+          "botId": "VuongHuy:85-Short",
+          "botName": "Vương Huy - Short",
+          "abs_profit": 0,
+          "rel_profit": 0,
+          "trade_count": 0
+        },
+        {
+          "botId": "VuongHuy:86-Long",
+          "botName": "Vương Huy - Long",
+          "abs_profit": 0,
+          "rel_profit": 0,
+          "trade_count": 0
+        },
+        {
+          "botId": "VuongChien:31-Short",
+          "botName": "Vương Chiến - Short",
+          "abs_profit": -0.01266594,
+          "rel_profit": -0.00025603,
+          "trade_count": 1
+        },
+        {
+          "botId": "VuongChien:32-Long",
+          "botName": "Vương Chiến - Long",
+          "abs_profit": 0,
+          "rel_profit": 0,
+          "trade_count": 0
+        },
+        {
+          "botId": "VuongDuc:7901-Short",
+          "botName": "Vương Đức - Short",
+          "abs_profit": 0.01943148,
+          "rel_profit": 0.00038822,
+          "trade_count": 1
+        },
+        {
+          "botId": "VuongDuc:7902-Long",
+          "botName": "Vương Đức - Long",
+          "abs_profit": 0.04262445999999999,
+          "rel_profit": 0.00085134,
+          "trade_count": 9
+        },
+        {
+          "botId": "HauDuc:7904-Short",
+          "botName": "Hậu Đức - Short",
+          "abs_profit": 0,
+          "rel_profit": 0,
+          "trade_count": 0
+        },
+        {
+          "botId": "HauDuc:7903-Long",
+          "botName": "Hậu Đức - Long",
+          "abs_profit": 0,
+          "rel_profit": 0,
+          "trade_count": 0
+        },
+        {
+          "botId": "HauDuc:7906-Short",
+          "botName": "Hậu Đức - Short",
+          "abs_profit": 0,
+          "rel_profit": 0,
+          "trade_count": 0
+        },
+        {
+          "botId": "HauDuc:7905-Long",
+          "botName": "Hậu Đức - Long",
+          "abs_profit": 0,
+          "rel_profit": 0,
+          "trade_count": 0
         }
       ]
     }
   ],
-  "botCount": 4
+  "botCount": 15
 }
