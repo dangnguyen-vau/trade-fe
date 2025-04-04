@@ -20,11 +20,11 @@ const BotCard = ({ bot, index, isHighlighted, isSelected, type, onClick, selecte
       </div>
       
       <div className="bot-card-body">
-        <div className="bot-metric">
+        {/* <div className="bot-metric">
           <span className="metric-label">Win Rate:</span>
           <span className="metric-value">{bot.winRate}</span>
         </div>
-        
+         */}
         <div className="bot-metric">
           <span className="metric-label">Net Profit:</span>
           <span className={`metric-value ${bot.net_profit > 0 ? 'positive' : bot.net_profit < 0 ? 'negative' : ''}`}>
