@@ -4,73 +4,73 @@
       "date": "2025-04-04",
       "abs_profit": 0,
       "rel_profit": 0,
-      "starting_balance": 9990.80553951,
+      "starting_balance": 10000,
       "fiat_value": 0,
       "trade_count": 0
     },
     {
       "date": "2025-04-03",
-      "abs_profit": -0.96504022,
-      "rel_profit": -0.00009658,
-      "starting_balance": 9991.77057973,
-      "fiat_value": -0.96462718278584,
-      "trade_count": 1
+      "abs_profit": 0,
+      "rel_profit": 0,
+      "starting_balance": 10000,
+      "fiat_value": 0,
+      "trade_count": 0
     },
     {
       "date": "2025-04-02",
-      "abs_profit": -1.6776733899999998,
-      "rel_profit": -0.00016788,
-      "starting_balance": 9993.448253120001,
-      "fiat_value": -1.6769553457890798,
-      "trade_count": 4
+      "abs_profit": 0,
+      "rel_profit": 0,
+      "starting_balance": 10000,
+      "fiat_value": 0,
+      "trade_count": 0
     },
     {
       "date": "2025-04-01",
-      "abs_profit": 0.08974078000000008,
-      "rel_profit": 0.00000898,
-      "starting_balance": 9993.35851234,
-      "fiat_value": 0.08970237094616007,
-      "trade_count": 2
+      "abs_profit": 0,
+      "rel_profit": 0,
+      "starting_balance": 10000,
+      "fiat_value": 0,
+      "trade_count": 0
     },
     {
       "date": "2025-03-31",
-      "abs_profit": -1.09353798,
-      "rel_profit": -0.00010941,
-      "starting_balance": 9994.45205032,
-      "fiat_value": -1.09306994574456,
-      "trade_count": 3
+      "abs_profit": 0,
+      "rel_profit": 0,
+      "starting_balance": 10000,
+      "fiat_value": 0,
+      "trade_count": 0
     },
     {
       "date": "2025-03-30",
-      "abs_profit": -1.80975383,
-      "rel_profit": -0.00018104,
-      "starting_balance": 9996.26180415,
-      "fiat_value": -1.80897925536076,
-      "trade_count": 5
+      "abs_profit": 0,
+      "rel_profit": 0,
+      "starting_balance": 10000,
+      "fiat_value": 0,
+      "trade_count": 0
     },
     {
       "date": "2025-03-29",
-      "abs_profit": -1.03939601,
-      "rel_profit": -0.00010397,
-      "starting_balance": 9997.30120016,
-      "fiat_value": -1.0389511485077199,
-      "trade_count": 4
+      "abs_profit": 0,
+      "rel_profit": 0,
+      "starting_balance": 10000,
+      "fiat_value": 0,
+      "trade_count": 0
     },
     {
       "date": "2025-03-28",
       "abs_profit": 0,
       "rel_profit": 0,
-      "starting_balance": 9997.30120016,
+      "starting_balance": 10000,
       "fiat_value": 0,
       "trade_count": 0
     },
     {
       "date": "2025-03-27",
-      "abs_profit": -2.69879984,
-      "rel_profit": -0.00026988,
+      "abs_profit": 0,
+      "rel_profit": 0,
       "starting_balance": 10000,
-      "fiat_value": -2.69764475366848,
-      "trade_count": 2
+      "fiat_value": 0,
+      "trade_count": 0
     },
     {
       "date": "2025-03-26",

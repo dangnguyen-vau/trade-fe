@@ -1730,7 +1730,7 @@
       "abs_profit": 1.61955314,
       "rel_profit": 0.01619553,
       "starting_balance": 10798.115242295182,
-      "fiat_value": 1.61888588410632,
+      "fiat_value": 1.6189166556159802,
       "trade_count": 1,
       "bots_detail": [
         {
@@ -1845,7 +1845,7 @@
       "abs_profit": 0.8187888499999999,
       "rel_profit": 0.00807382,
       "starting_balance": 10799.734795435183,
-      "fiat_value": 0.8184518181671699,
+      "fiat_value": 0.81847036383123,
       "trade_count": 13,
       "bots_detail": [
         {
@@ -1960,7 +1960,7 @@
       "abs_profit": -1.0042586,
       "rel_profit": 0.00407515,
       "starting_balance": 10800.553584285182,
-      "fiat_value": -1.0037468769840001,
+      "fiat_value": -1.0037299510782796,
       "trade_count": 19,
       "bots_detail": [
         {
@@ -2072,11 +2072,11 @@
     },
     {
       "date": "2025-03-24",
-      "abs_profit": -9.337161779999999,
-      "rel_profit": -0.04995064,
+      "abs_profit": -3.7892121,
+      "rel_profit": -0.04939585,
       "starting_balance": 10799.549325685184,
-      "fiat_value": -9.33326000529223,
-      "trade_count": 120,
+      "fiat_value": -3.7877968614398303,
+      "trade_count": 109,
       "bots_detail": [
         {
           "botId": "ThanhHau:71-Long",
@@ -2109,9 +2109,9 @@
         {
           "botId": "ThanhHau:70-LongShort",
           "botName": "Thành Hậu - Long Short",
-          "abs_profit": -5.54794968,
-          "rel_profit": -0.00055479,
-          "trade_count": 11
+          "abs_profit": 0,
+          "rel_profit": 0,
+          "trade_count": 0
         },
         {
           "botId": "VuongHuy:85-Short",
@@ -2187,11 +2187,11 @@
     },
     {
       "date": "2025-03-31",
-      "abs_profit": -9.470945029999998,
-      "rel_profit": -0.12895468000000002,
-      "starting_balance": 10790.212163905184,
-      "fiat_value": -9.467194979452671,
-      "trade_count": 36,
+      "abs_profit": -5.82443422,
+      "rel_profit": -0.12858983000000002,
+      "starting_balance": 10795.760113585184,
+      "fiat_value": -5.8223801690672,
+      "trade_count": 26,
       "bots_detail": [
         {
           "botId": "ThanhHau:71-Long",
@@ -2224,9 +2224,9 @@
         {
           "botId": "ThanhHau:70-LongShort",
           "botName": "Thành Hậu - Long Short",
-          "abs_profit": -3.6465108099999997,
-          "rel_profit": -0.00036485,
-          "trade_count": 10
+          "abs_profit": 0,
+          "rel_profit": 0,
+          "trade_count": 0
         },
         {
           "botId": "VuongHuy:85-Short",

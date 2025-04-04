@@ -2,19 +2,19 @@
   "data": [
     {
       "date": "2025-03-31",
-      "abs_profit": -3.6465108099999997,
-      "rel_profit": -0.00036485,
-      "starting_balance": 9994.45205032,
-      "fiat_value": -3.64495010337332,
-      "trade_count": 10
+      "abs_profit": 0,
+      "rel_profit": 0,
+      "starting_balance": 10000,
+      "fiat_value": 0,
+      "trade_count": 0
     },
     {
       "date": "2025-03-24",
-      "abs_profit": -5.54794968,
-      "rel_profit": -0.00055479,
+      "abs_profit": 0,
+      "rel_profit": 0,
       "starting_balance": 10000,
-      "fiat_value": -5.545575157536961,
-      "trade_count": 11
+      "fiat_value": 0,
+      "trade_count": 0
     },
     {
       "date": "2025-03-17",
