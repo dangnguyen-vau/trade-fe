@@ -66,13 +66,30 @@ export const getBotData = async (filename) => {
  */
 export const fetchDailyStats = async (date) => {
   try {
-    let url = `${BASE_URL}/api/stats/daily`;
-    if (date) {
-      // Nếu có tham số date, sử dụng param trong URL
-      url = `${BASE_URL}/api/stats/daily/${date.toISOString().split('T')[0]}`;
-      const response = await axios.get(url);
-      return response.data;
+    if (!date) {
+      console.error('Ngày không hợp lệ trong fetchDailyStats:', date);
+      return null;
     }
+
+    // Đảm bảo date là đối tượng Date hợp lệ
+    if (!(date instanceof Date) || isNaN(date.getTime())) {
+      console.error('Đối tượng Date không hợp lệ trong fetchDailyStats:', date);
+      return null;
+    }
+
+    // Sử dụng luôn API endpoint '/api/stats/daily/:date'
+    const url = `${BASE_URL}/api/stats/daily/${date.toISOString().split('T')[0]}`;
+    const response = await axios.get(url);
+
+    // Thêm trường id = name cho mỗi bot để đảm bảo hiển thị đúng trong BotCard
+    if (response.data && Array.isArray(response.data)) {
+      return response.data.map(bot => ({
+        ...bot,
+        id: bot.name // Thêm trường id giống tên để đảm bảo hiển thị đúng trong BotCard
+      }));
+    }
+    
+    return response.data;
   } catch (error) {
     console.error('Error fetching daily stats:', error);
     return null;

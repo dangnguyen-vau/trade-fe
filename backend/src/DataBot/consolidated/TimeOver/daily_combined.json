@@ -4,7 +4,7 @@
       "date": "2025-03-16",
       "abs_profit": 0.26543838,
       "rel_profit": 0.0025672200000000003,
-      "starting_balance": 10800.288145905182,
+      "starting_balance": 10800.283180350303,
       "fiat_value": 0.26531700832305993,
       "trade_count": 3,
       "bots_detail": [
@@ -119,7 +119,7 @@
       "date": "2025-03-17",
       "abs_profit": -0.2731096700000001,
       "rel_profit": -0.0024744499999999996,
-      "starting_balance": 10800.553584285182,
+      "starting_balance": 10800.548618730303,
       "fiat_value": -0.27297380032753005,
       "trade_count": 2,
       "bots_detail": [
@@ -234,7 +234,7 @@
       "date": "2025-03-18",
       "abs_profit": -1.03848705,
       "rel_profit": -0.010294460000000002,
-      "starting_balance": 10800.280474615183,
+      "starting_balance": 10800.275509060302,
       "fiat_value": -1.0381343120859903,
       "trade_count": 3,
       "bots_detail": [
@@ -349,7 +349,7 @@
       "date": "2025-03-19",
       "abs_profit": -0.22051735000000017,
       "rel_profit": -0.0017406700000000032,
-      "starting_balance": 10799.241987565183,
+      "starting_balance": 10799.237022010302,
       "fiat_value": -0.22037787408689002,
       "trade_count": 4,
       "bots_detail": [
@@ -464,7 +464,7 @@
       "date": "2025-03-20",
       "abs_profit": -0.7969276,
       "rel_profit": -0.00795745,
-      "starting_balance": 10799.021470215182,
+      "starting_balance": 10799.016504660303,
       "fiat_value": -0.7966187727152799,
       "trade_count": 4,
       "bots_detail": [
@@ -579,7 +579,7 @@
       "date": "2025-03-21",
       "abs_profit": -0.45037430999999994,
       "rel_profit": -0.00453406,
-      "starting_balance": 10798.224542615182,
+      "starting_balance": 10798.219577060303,
       "fiat_value": -0.45019731289616993,
       "trade_count": 2,
       "bots_detail": [
@@ -694,8 +694,8 @@
       "date": "2025-03-22",
       "abs_profit": 1.29161874,
       "rel_profit": 0.02605505,
-      "starting_balance": 10797.774168305183,
-      "fiat_value": 1.29117829800966,
+      "starting_balance": 10797.769202750304,
+      "fiat_value": 1.2912893772213,
       "trade_count": 1,
       "bots_detail": [
         {
@@ -809,7 +809,7 @@
       "date": "2025-03-23",
       "abs_profit": 0.48353864,
       "rel_profit": 0.004621129999999999,
-      "starting_balance": 10799.065787045183,
+      "starting_balance": 10799.060821490302,
       "fiat_value": 0.4833938230239201,
       "trade_count": 3,
       "bots_detail": [
@@ -923,8 +923,8 @@
     {
       "date": "2025-03-24",
       "abs_profit": 3.79145547,
-      "rel_profit": 0.08909339,
-      "starting_balance": 10799.549325685182,
+      "rel_profit": 0.08910364999999999,
+      "starting_balance": 10799.544360130303,
       "fiat_value": 3.79014386525245,
       "trade_count": 7,
       "bots_detail": [
@@ -932,7 +932,7 @@
           "botId": "ThanhHau:71-Long",
           "botName": "Thành Hậu - Long",
           "abs_profit": 5.072196969999999,
-          "rel_profit": 0.10238209,
+          "rel_profit": 0.10239235,
           "trade_count": 2
         },
         {
@@ -1039,8 +1039,8 @@
       "date": "2025-03-25",
       "abs_profit": -3.51519988,
       "rel_profit": -0.06555741,
-      "starting_balance": 10803.340781155182,
-      "fiat_value": -3.51398360714556,
+      "starting_balance": 10803.335815600303,
+      "fiat_value": -3.5142533363312403,
       "trade_count": 5,
       "bots_detail": [
         {
@@ -1153,16 +1153,16 @@
     {
       "date": "2025-03-26",
       "abs_profit": -3.8392094499999994,
-      "rel_profit": -0.06984525,
-      "starting_balance": 10799.825581275183,
-      "fiat_value": -3.8378474469283903,
+      "rel_profit": -0.06985197,
+      "starting_balance": 10799.820615720302,
+      "fiat_value": -3.83783521695783,
       "trade_count": 6,
       "bots_detail": [
         {
           "botId": "ThanhHau:71-Long",
           "botName": "Thành Hậu - Long",
           "abs_profit": -4.03984587,
-          "rel_profit": -0.07397084,
+          "rel_profit": -0.07397756,
           "trade_count": 1
         },
         {
@@ -1269,7 +1269,7 @@
       "date": "2025-03-27",
       "abs_profit": 0.15321919000000006,
       "rel_profit": 0.00150436,
-      "starting_balance": 10795.986371825182,
+      "starting_balance": 10795.981406270303,
       "fiat_value": 0.15316387787241006,
       "trade_count": 2,
       "bots_detail": [
@@ -1384,7 +1384,7 @@
       "date": "2025-03-28",
       "abs_profit": -0.7070256700000003,
       "rel_profit": -0.010247579999999997,
-      "starting_balance": 10796.139591015182,
+      "starting_balance": 10796.134625460303,
       "fiat_value": -0.7067939355261902,
       "trade_count": 38,
       "bots_detail": [
@@ -1499,8 +1499,8 @@
       "date": "2025-03-29",
       "abs_profit": 0.44658656999999996,
       "rel_profit": 0.016690680000000003,
-      "starting_balance": 10795.432565345182,
-      "fiat_value": 0.44648143545881025,
+      "starting_balance": 10795.427599790302,
+      "fiat_value": 0.4466777483020903,
       "trade_count": 45,
       "bots_detail": [
         {
@@ -1614,7 +1614,7 @@
       "date": "2025-03-30",
       "abs_profit": -0.11903832999999997,
       "rel_profit": -0.0008671199999999999,
-      "starting_balance": 10795.879151915186,
+      "starting_balance": 10795.874186360305,
       "fiat_value": -0.11901031977121002,
       "trade_count": 6,
       "bots_detail": [
@@ -1728,16 +1728,16 @@
     {
       "date": "2025-03-31",
       "abs_profit": -6.58315403,
-      "rel_profit": -0.13618515000000003,
-      "starting_balance": 10795.760113585184,
-      "fiat_value": -6.580829248307211,
+      "rel_profit": -0.13619368000000004,
+      "starting_balance": 10795.755148030305,
+      "fiat_value": -6.58107311371873,
       "trade_count": 8,
       "bots_detail": [
         {
           "botId": "ThanhHau:71-Long",
           "botName": "Thành Hậu - Long",
           "abs_profit": -4.39189086,
-          "rel_profit": -0.08684056,
+          "rel_profit": -0.08684909,
           "trade_count": 1
         },
         {
@@ -1844,7 +1844,7 @@
       "date": "2025-04-01",
       "abs_profit": 0.49381161,
       "rel_profit": 0.004105610000000001,
-      "starting_balance": 10789.176959555185,
+      "starting_balance": 10789.171994000306,
       "fiat_value": 0.49365207214811,
       "trade_count": 5,
       "bots_detail": [
@@ -1959,7 +1959,7 @@
       "date": "2025-04-02",
       "abs_profit": -0.78157125,
       "rel_profit": -0.00738547,
-      "starting_balance": 10789.670771165183,
+      "starting_balance": 10789.665805610304,
       "fiat_value": -0.78126880046713,
       "trade_count": 9,
       "bots_detail": [
@@ -2074,7 +2074,7 @@
       "date": "2025-04-03",
       "abs_profit": 1.02896824,
       "rel_profit": 0.010551759999999999,
-      "starting_balance": 10788.889199915184,
+      "starting_balance": 10788.884234360305,
       "fiat_value": 1.02856334529112,
       "trade_count": 3,
       "bots_detail": [
@@ -2187,11 +2187,11 @@
     },
     {
       "date": "2025-04-04",
-      "abs_profit": 0.01751121,
-      "rel_profit": 0.00034958,
-      "starting_balance": 10789.918168155184,
-      "fiat_value": 0.017504223027209997,
-      "trade_count": 1,
+      "abs_profit": -0.09998491,
+      "rel_profit": -0.00199601,
+      "starting_balance": 10789.913202600304,
+      "fiat_value": -0.09994501602091,
+      "trade_count": 2,
       "bots_detail": [
         {
           "botId": "ThanhHau:71-Long",
@@ -2266,9 +2266,9 @@
         {
           "botId": "VuongDuc:7902-Long",
           "botName": "Vương Đức - Long",
-          "abs_profit": 0.01751121,
-          "rel_profit": 0.00034958,
-          "trade_count": 1
+          "abs_profit": -0.09998491,
+          "rel_profit": -0.00199601,
+          "trade_count": 2
         },
         {
           "botId": "HauDuc:7904-Short",

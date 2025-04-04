@@ -385,6 +385,15 @@ const MultiStrategyBacktestResults = () => {
   // Lấy thông tin số dư hiện tại
   const currentBalance = balanceData?.total || 0;
 
+  // Tính tỷ lệ thua và quyết định hiển thị gì
+  const losingTrades = aggregatedStats.totalTrades - aggregatedStats.winningTrades || 0;
+  const loseRate = aggregatedStats.totalTrades > 0 
+    ? (losingTrades / aggregatedStats.totalTrades * 100).toFixed(2) 
+    : 0;
+  const showWinRate = parseFloat(aggregatedStats.winRate) >= 50;
+  const rateToShow = showWinRate ? aggregatedStats.winRate : loseRate;
+  const rateLabel = showWinRate ? 'Tỷ lệ thắng' : 'Tỷ lệ thua';
+
   // Cấu hình chart
   const chartOptions = {
     responsive: true,
@@ -646,28 +655,23 @@ const MultiStrategyBacktestResults = () => {
           <p>{aggregatedStats.totalTrades || 0}</p>
         </div>
         <div className="strategy-stat-box">
-          <h3>Giao dịch thắng</h3>
-          <p>{aggregatedStats.winningTrades || 0}</p>
+          <h3>{rateLabel}</h3>
+          <p className={showWinRate ? 'positive' : 'negative'}>{rateToShow || 0}%</p>
         </div>
         <div className="strategy-stat-box">
-          <h3>Tỷ lệ thắng</h3>
-          <p>{aggregatedStats.winRate || 0}%</p>
+          <h3>Lệnh thắng/thua</h3>
+          <p>
+            <span className="positive">{aggregatedStats.winningTrades || 0}</span> / 
+            <span className="negative">{losingTrades || 0}</span>
+          </p>
         </div>
         <div className="strategy-stat-box">
           <h3>Tổng lợi nhuận</h3>
           <p>{aggregatedStats.totalProfit || 0} USDT</p>
         </div>
         <div className="strategy-stat-box">
-          <h3>Lợi nhuận trung bình</h3>
-          <p>{aggregatedStats.averageProfit || 0} USDT</p>
-        </div>
-        <div className="strategy-stat-box">
           <h3>Drawdown tối đa</h3>
           <p>{aggregatedStats.maxDrawdown || 0} USDT</p>
-        </div>
-        <div className="strategy-stat-box">
-          <h3>Số dư hiện tại</h3>
-          <p>{typeof currentBalance === 'number' ? currentBalance.toFixed(2) : '0.00'} USDT</p>
         </div>
       </div>
 

@@ -40,10 +40,21 @@ const AllTradesDetail = ({ trades }) => {
   
   // Tính tổng lợi nhuận và số lệnh thắng/thua
   const totalProfit = filteredTrades.reduce((sum, trade) => sum + trade.profit_abs, 0);
-  const winningTrades = filteredTrades.filter(trade => trade.profit_pct > 0).length;
+  const winningTrades = filteredTrades.filter(trade => trade.profit_pct >= 0).length;
+  const losingTrades = filteredTrades.filter(trade => trade.profit_pct < 0).length;
+  
+  // Tính tỷ lệ thắng và tỷ lệ thua
   const winRate = filteredTrades.length > 0 
     ? (winningTrades / filteredTrades.length * 100).toFixed(2) 
     : 0;
+  const loseRate = filteredTrades.length > 0
+    ? (losingTrades / filteredTrades.length * 100).toFixed(2)
+    : 0;
+  
+  // Quyết định hiển thị tỷ lệ thắng hoặc tỷ lệ thua
+  const showWinRate = parseFloat(winRate) >= 50;
+  const rateToShow = showWinRate ? winRate : loseRate;
+  const rateLabel = showWinRate ? 'Win Rate' : 'Lose Rate';
 
   // Hàm thay đổi sắp xếp
   const handleSortChange = (column) => {
@@ -83,11 +94,19 @@ const AllTradesDetail = ({ trades }) => {
             </span>
           </div>
           <div className="stat-item">
-            <span className="stat-label">Win Rate:</span>
-            <span className="stat-value">{winRate}%</span>
+            <span className="stat-label">{rateLabel}:</span>
+            <span className={`stat-value ${showWinRate ? 'positive' : 'negative'}`}>
+              {rateToShow}%
+            </span>
           </div>
           <div className="stat-item">
-            <span className="stat-label">Số lệnh:</span>
+            <span className="stat-label">Lệnh thắng/thua:</span>
+            <span className="stat-value">
+              <span className="positive">{winningTrades}</span> / <span className="negative">{losingTrades}</span>
+            </span>
+          </div>
+          <div className="stat-item">
+            <span className="stat-label">Tổng lệnh:</span>
             <span className="stat-value">{filteredTrades.length}</span>
           </div>
         </div>

@@ -15,7 +15,7 @@ const calculateAggregatedStats = () => {
 
     const allTrades = trades.trades;
     const totalTrades = allTrades.length;
-    const winningTrades = allTrades.filter(trade => trade.profit_pct > 0).length;
+    const winningTrades = allTrades.filter(trade => trade.profit_pct >= 0).length;
     const winRate = (winningTrades / totalTrades * 100).toFixed(2);
     const totalProfit = allTrades.reduce((sum, trade) => sum + trade.profit_abs, 0);
     const averageProfit = (totalProfit / totalTrades).toFixed(2);
