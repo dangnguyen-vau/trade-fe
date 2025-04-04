@@ -11,6 +11,7 @@ const {
     getMetadata,
     getBotByFilename,
 } = require('./services/botService');
+const { getLocalDailyData } = require('./services/TimeOver/dailyService');
 
 // Endpoint để lấy dữ liệu trades
 router.get('/trades', (req, res) => {
@@ -69,13 +70,39 @@ router.get('/api/stats/daily/:date', (req, res) => {
             return res.status(400).json({ error: 'Thiếu tham số date' });
         }
         
-        const dailyStats = getDailyStats(new Date(date));
-        
-        if (dailyStats && dailyStats.length > 0) {
-            return res.json(dailyStats);
-        } else {
+        // Lấy dữ liệu từ service getLocalDailyData thay vì dùng getDailyStats
+        const dailyData = getLocalDailyData() || { data: [] };
+        if (!dailyData.data || !dailyData.data.length) {
+            console.warn("Không tìm thấy dữ liệu ngày trong daily_combined.json");
             return res.status(404).json({ error: 'Không tìm thấy dữ liệu thống kê cho ngày đã chỉ định' });
         }
+
+        // Đảm bảo date là object Date
+        const dateObj = new Date(date);
+        const dateStr = dateObj.toISOString().split('T')[0];
+
+        // Tìm ngày phù hợp trong dữ liệu
+        const dailyEntry = dailyData.data.find(day => 
+            new Date(day.date).toISOString().split('T')[0] === dateStr
+        );
+
+        if (!dailyEntry) {
+            console.warn(`Không tìm thấy dữ liệu ngày ${dateStr} trong daily_combined.json`);
+            // Trả về mảng rỗng khi không tìm thấy dữ liệu
+            return res.status(404).json({ error: 'Không tìm thấy dữ liệu thống kê cho ngày đã chỉ định' });
+        }
+
+        // Format dữ liệu theo cấu trúc giống với weekly và monthly
+        const formattedStats = dailyEntry.bots_detail.map(bot => ({
+            name: bot.botName,
+            performance: bot.rel_profit * 100, // Chuyển đổi thành phần trăm
+            net_profit: bot.abs_profit || 0,
+            winRate: "N/A", // Không có thông tin win rate trong daily_combined.json
+            trades: bot.trade_count || 0,
+            win_count: 0
+        }));
+        
+        return res.json(formattedStats);
     } catch (error) {
         console.error('Lỗi khi xử lý dữ liệu thống kê theo ngày:', error.message);
         return res.status(500).json({ error: 'Lỗi server' });
